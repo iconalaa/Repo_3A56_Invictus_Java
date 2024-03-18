@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class User {
     protected int user_id;
-    protected int password;
+    protected String password;
     protected String email;
     protected String[] role;
     protected String name;
@@ -28,14 +28,18 @@ public class User {
         this.brochure_filename = brochure_filename;
     }
 
-    public int getPassword() {return password;}
+    public String getPassword() {return password;}
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
     public int getUser_id() {
         return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getEmail() {

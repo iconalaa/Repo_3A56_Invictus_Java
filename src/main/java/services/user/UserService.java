@@ -7,11 +7,10 @@ import entities.User;
 import services.ICrud;
 import utils.MyDataBase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UserService implements ICrud<User> {
     private Connection connection;
@@ -58,6 +57,25 @@ public class UserService implements ICrud<User> {
 
     @Override
     public ArrayList<User> showAll() throws SQLException {
-        return null;
+        ArrayList<User> users = new ArrayList<>();
+        String req = "SELECT * FROM user";
+        Statement st = connection.createStatement();
+        ResultSet rs =  st.executeQuery(req);
+
+        while (rs.next()){
+            User user = new User();
+            user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+            user.setUser_id(rs.getInt("id"));
+            user.setEmail(rs.getString("email"));
+            user.setGender(rs.getString("gender"));
+            user.setBrochure_filename(rs.getString("brochure_filename"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setLastName(rs.getString("lastname"));
+            String[] x = new String[]{rs.getString("roles")};
+            user.setRole(x);
+            users.add(user);
+        }
+        return users;
     }
 }

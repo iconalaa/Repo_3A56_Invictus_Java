@@ -10,7 +10,7 @@ public class Main {
         User u1 = new User("ayoub@esprit.tn", new String[]{"ROLE_USER"}, "ayoub", "dahmen",date, "male", "x");
         UserService service = new UserService();
         try {
-            service.delete(1);
+            System.out.println(service.showAll());
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
