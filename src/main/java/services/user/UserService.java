@@ -49,7 +49,11 @@ public class UserService implements ICrud<User> {
 
     @Override
     public void delete(int id) throws SQLException {
-
+        String req = "DELETE FROM user WHERE id = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, id);
+        ps.executeUpdate();
+        System.out.println("Deleted Successfully");
     }
 
     @Override
