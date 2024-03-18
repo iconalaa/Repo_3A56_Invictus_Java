@@ -1,5 +1,7 @@
 package entities;
 
+import java.time.LocalDate;
+
 public class Doctor extends User{
     private String matricule;
 
@@ -9,7 +11,7 @@ public class Doctor extends User{
         this.matricule = matricule;
     }
 
-    public Doctor(String email, String[] role, String name, String lastName, String birth_date, String gender, String brochure_filename, String matricule) {
+    public Doctor(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String matricule) {
         super(email, role, name, lastName, birth_date, gender, brochure_filename);
         this.matricule = matricule;
     }

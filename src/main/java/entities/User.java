@@ -1,17 +1,24 @@
 package entities;
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class User {
     protected int user_id;
+    protected int password;
     protected String email;
     protected String[] role;
     protected String name;
     protected String lastName;
-    protected String birth_date;
+    protected LocalDate birth_date;
     protected String gender;
     protected String brochure_filename;
 
-    public  User(){}
-    public User(String email, String[] role, String name, String lastName, String birth_date, String gender, String brochure_filename) {
+    public User() {
+    }
+
+
+
+    public User(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename){
         this.email = email;
         this.role = role;
         this.name = name;
@@ -21,7 +28,13 @@ public class User {
         this.brochure_filename = brochure_filename;
     }
 
-    public int getId() {
+    public int getPassword() {return password;}
+
+    public void setPassword(int password) {
+        this.password = password;
+    }
+
+    public int getUser_id() {
         return user_id;
     }
 
@@ -41,7 +54,7 @@ public class User {
         return lastName;
     }
 
-    public String getBirth_date() {
+    public LocalDate getBirth_date() {
         return birth_date;
     }
 
@@ -69,7 +82,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setBirth_date(String birth_date) {
+    public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
 
@@ -79,5 +92,20 @@ public class User {
 
     public void setBrochure_filename(String brochure_filename) {
         this.brochure_filename = brochure_filename;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", password=" + password +
+                ", email='" + email + '\'' +
+                ", role=" + Arrays.toString(role) +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birth_date='" + birth_date + '\'' +
+                ", gender='" + gender + '\'' +
+                ", brochure_filename='" + brochure_filename + '\'' +
+                '}';
     }
 }

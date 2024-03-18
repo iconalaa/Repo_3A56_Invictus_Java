@@ -1,5 +1,7 @@
 package entities;
 
+import java.time.LocalDate;
+
 public class Patient extends User{
     private String cas_med;
     private int n_cnam;
@@ -14,7 +16,7 @@ public class Patient extends User{
         this.assurance = assurance;
     }
 
-    public Patient(String email, String[] role, String name, String lastName, String birth_date, String gender, String brochure_filename, String cas_med, int n_cnam, int num_assurance, String assurance) {
+    public Patient(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String cas_med, int n_cnam, int num_assurance, String assurance) {
         super(email, role, name, lastName, birth_date, gender, brochure_filename);
         this.cas_med = cas_med;
         this.n_cnam = n_cnam;
