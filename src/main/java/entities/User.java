@@ -18,8 +18,9 @@ public class User {
 
 
 
-    public User(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename){
+    public User(String email,String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename){
         this.email = email;
+        this.password = password;
         this.role = role;
         this.name = name;
         this.lastName = lastName;

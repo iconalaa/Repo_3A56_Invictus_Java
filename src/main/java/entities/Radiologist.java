@@ -13,8 +13,8 @@ public class Radiologist extends User{
         this.dispo = dispo;
     }
 
-    public Radiologist(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String mat_nom, boolean dispo) {
-        super(email, role, name, lastName, birth_date, gender, brochure_filename);
+    public Radiologist(String email,String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String mat_nom, boolean dispo) {
+        super(email,password, role, name, lastName, birth_date, gender, brochure_filename);
         this.mat_nom = mat_nom;
         this.dispo = dispo;
     }

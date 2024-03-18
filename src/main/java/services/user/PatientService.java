@@ -14,7 +14,7 @@ public class PatientService implements ICrud<Patient>{
     }
 
     @Override
-    public void update(Patient el) throws SQLException {
+    public void update(Patient el,int id) throws SQLException {
 
     }
 

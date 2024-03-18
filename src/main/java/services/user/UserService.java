@@ -42,8 +42,23 @@ public class UserService implements ICrud<User> {
 
 
     @Override
-    public void update(User el) throws SQLException {
-
+    public void update(User el,int id) throws SQLException {
+        String req = "UPDATE user SET name = ?,  lastname = ? , email = ? , password = ? , brochure_filename = ?,date_birth = ?,gender = ? WHERE id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, el.getName());
+            ps.setString(2, el.getLastName());
+            ps.setString(3, el.getEmail());
+            ps.setString(4, el.getPassword());
+            ps.setString(5, el.getBrochure_filename());
+            ps.setString(6, el.getBirth_date().toString());
+            ps.setString(7, el.getGender());
+            ps.setInt(8, id);
+            System.out.println("Modifié");
+        } catch (SQLException e) {
+            System.err.println("Error modifying user: " + e.getMessage());
+            throw e;
+        }
     }
 
     @Override

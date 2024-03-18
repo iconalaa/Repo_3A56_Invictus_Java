@@ -16,8 +16,8 @@ public class Patient extends User{
         this.assurance = assurance;
     }
 
-    public Patient(String email, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String cas_med, int n_cnam, int num_assurance, String assurance) {
-        super(email, role, name, lastName, birth_date, gender, brochure_filename);
+    public Patient(String email,String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String cas_med, int n_cnam, int num_assurance, String assurance) {
+        super(email,password, role, name, lastName, birth_date, gender, brochure_filename);
         this.cas_med = cas_med;
         this.n_cnam = n_cnam;
         this.num_assurance = num_assurance;

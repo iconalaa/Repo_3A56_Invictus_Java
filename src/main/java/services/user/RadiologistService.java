@@ -13,7 +13,7 @@ public class RadiologistService implements ICrud <Radiologist> {
     }
 
     @Override
-    public void update(Radiologist el) throws SQLException {
+    public void update(Radiologist el,int id) throws SQLException {
 
     }
 
