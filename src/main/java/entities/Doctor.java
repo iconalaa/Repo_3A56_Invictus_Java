@@ -14,6 +14,14 @@ public class Doctor {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getMatricule() {
         return matricule;
     }
@@ -25,8 +33,8 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor{" +
-                "user=" + user.getEmail() +
-                ", matricule='" + matricule + '\'' +
+                "matricule='" + matricule + '\'' +
                 '}';
     }
+
 }
