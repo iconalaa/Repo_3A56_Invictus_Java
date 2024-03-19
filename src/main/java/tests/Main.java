@@ -3,7 +3,7 @@ package tests;
 import entities.Radiologist;
 import entities.User;
 import services.user.RadiologistService;
-import services.user.UserService;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -21,3 +21,4 @@ public class Main {
         }
 
     }
+}
