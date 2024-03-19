@@ -35,14 +35,14 @@ public class DoctorService implements ICrud<Doctor> {
   public void update(Doctor el, int id) throws SQLException {
     String req = "UPDATE doctor SET matricule = ? WHERE id = ?";
     try {
-        PreparedStatement ps = connection.prepareStatement(req);
-        ps.setString(1, el.getMatricule());
-        ps.setInt(2, id);
-        ps.executeUpdate();
-        System.out.println("Modified");
+      PreparedStatement ps = connection.prepareStatement(req);
+      ps.setString(1, el.getMatricule());
+      ps.setInt(2, id);
+      ps.executeUpdate();
+      System.out.println("Modified");
     } catch (SQLException e) {
-        System.err.println("Error modifying user: " + e.getMessage());
-        throw e;
+      System.err.println("Error modifying user: " + e.getMessage());
+      throw e;
     }
   }
 
