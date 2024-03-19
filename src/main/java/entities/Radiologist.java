@@ -37,4 +37,12 @@ public class Radiologist {
     public void setDispo(boolean dispo) {
         this.dispo = dispo;
     }
+
+    @Override
+    public String toString() {
+        return "Radiologist{" +
+                " mat_nom='" + mat_nom + '\'' +
+                ", dispo=" + dispo +
+                '}';
+    }
 }
