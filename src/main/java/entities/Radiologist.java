@@ -1,22 +1,25 @@
 package entities;
 
-import java.time.LocalDate;
 
-public class Radiologist extends User{
+public class Radiologist {
+    private User user;
     private String mat_nom;
     private boolean dispo;
 
     public  Radiologist(){}
 
-    public Radiologist(String mat_nom, boolean dispo) {
+    public Radiologist(User user,String mat_nom, boolean dispo) {
+        this.user = user;
         this.mat_nom = mat_nom;
         this.dispo = dispo;
     }
 
-    public Radiologist(String email,String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String mat_nom, boolean dispo) {
-        super(email,password, role, name, lastName, birth_date, gender, brochure_filename);
-        this.mat_nom = mat_nom;
-        this.dispo = dispo;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMat_nom() {

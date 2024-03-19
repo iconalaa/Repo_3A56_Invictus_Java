@@ -1,16 +1,11 @@
 package services.user;
-
 import com.google.gson.Gson;
-import com.mysql.cj.xdevapi.JsonArray;
-import com.mysql.cj.xdevapi.JsonValue;
 import entities.User;
 import services.ICrud;
 import utils.MyDataBase;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class UserService implements ICrud<User> {
     private Connection connection;
@@ -28,14 +23,13 @@ public class UserService implements ICrud<User> {
         String roles = gson.toJson(el.getRole());
         st.setString(1, el.getEmail());
         st.setString(2, roles);
-        st.setString(3, "0");
+        st.setString(3, el.getPassword());
         st.setString(4, el.getName());
         st.setString(5, el.getBrochure_filename());
         st.setString(6, el.getLastName());
         st.setString(7, el.getBirth_date().toString());
         st.setString(8, el.getGender());
 
-        // Execute the prepared statement
         st.executeUpdate();
         System.out.println("Added Successfully");
     }
@@ -93,4 +87,6 @@ public class UserService implements ICrud<User> {
         }
         return users;
     }
+
+
 }

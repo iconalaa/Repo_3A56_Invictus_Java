@@ -1,5 +1,7 @@
 package tests;
+import entities.Radiologist;
 import entities.User;
+import services.user.RadiologistService;
 import services.user.UserService;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -7,11 +9,12 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         LocalDate date = LocalDate.parse("2018-05-05");
-        User u1 = new User("ayoub@esprit.tn","123", new String[]{"ROLE_USER"}, "ayoub", "dahmen",date, "male", "x");
-        User u2 = new User("mohamed@esprit.tn","123", new String[]{"ROLE_USER"}, "Mohamed", "dahmen",date, "male", "x");
-        UserService service = new UserService();
+        User u1 = new User("warum@es.com","23658",new String[] {"ROLE_USER"},"samir","errouj",date,"male","x");
+        Radiologist r1 = new Radiologist(u1,"22ddd",false);
+        RadiologistService service = new RadiologistService();
+
         try {
-            service.update(u2,2);
+            service.add(r1);
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
