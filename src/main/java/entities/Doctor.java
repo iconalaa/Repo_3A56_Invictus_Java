@@ -1,7 +1,4 @@
 package entities;
-
-import java.time.LocalDate;
-
 public class Doctor {
     private User user;
     private String matricule;

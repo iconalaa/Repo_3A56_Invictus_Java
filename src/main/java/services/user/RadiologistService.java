@@ -1,6 +1,4 @@
 package services.user;
-
-import com.google.gson.Gson;
 import entities.Radiologist;
 import entities.User;
 import services.ICrud;
