@@ -1,0 +1,27 @@
+package entities;
+
+import java.time.LocalDate;
+
+public class Doctor extends User {
+    private String matricule;
+
+    public Doctor() {
+    }
+
+    public Doctor(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public Doctor(String email, String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String matricule) {
+        super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
+        this.matricule = matricule;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+}
