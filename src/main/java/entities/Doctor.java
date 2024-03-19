@@ -2,19 +2,24 @@ package entities;
 
 import java.time.LocalDate;
 
-public class Doctor extends User {
+public class Doctor {
+    private User user;
     private String matricule;
 
     public Doctor() {
     }
 
-    public Doctor(String matricule) {
+    public Doctor(User user,String matricule) {
         this.matricule = matricule;
+        this.user = user;
     }
 
-    public Doctor(String email, String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String matricule) {
-        super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
-        this.matricule = matricule;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMatricule() {
@@ -24,4 +29,12 @@ public class Doctor extends User {
     public void setMatricule(String matricule) {
         this.matricule = matricule;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "matricule='" + matricule + '\'' +
+                '}';
+    }
+
 }
