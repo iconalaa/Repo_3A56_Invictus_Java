@@ -1,5 +1,6 @@
 package entities;
 public class Doctor {
+    private int id;
     private User user;
     private String matricule;
 
@@ -9,6 +10,14 @@ public class Doctor {
     public Doctor(User user,String matricule) {
         this.matricule = matricule;
         this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
