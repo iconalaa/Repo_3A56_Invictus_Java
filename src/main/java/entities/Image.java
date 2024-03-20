@@ -3,7 +3,6 @@ package entities;
 public class Image {
     private int id;
     private String filename;
-    private String description;
     private Patient patient;
     private Radiologist radiologist;
 
@@ -19,6 +18,8 @@ public class Image {
         this.filename = filename;
         this.patient = patient;
     }
+    public Image() {}
+
 
     public int getId() {
         return id;
@@ -36,13 +37,7 @@ public class Image {
         this.filename = filename;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Patient getPatient() {
         return patient;
@@ -52,4 +47,13 @@ public class Image {
         this.patient = patient;
     }
 
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", filename='" + filename + '\'' +
+                ", patient=" + patient +
+                ", radiologist=" + radiologist +
+                '}';
+    }
 }

@@ -39,8 +39,9 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor{" +
-                "matricule='" + matricule + '\'' +
+                "id=" + id +
+                ", user=" + user +
+                ", matricule='" + matricule + '\'' +
                 '}';
     }
-
 }

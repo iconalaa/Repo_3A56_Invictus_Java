@@ -21,6 +21,24 @@ public class Report {
         this.is_edited = is_edited;
     }
 
+    public Report(String interpretation_med, String interpretation_rad, Doctor doctor, Image image, Date date, boolean is_edited) {
+        this.interpretation_med = interpretation_med;
+        this.interpretation_rad = interpretation_rad;
+        this.doctor = doctor;
+        this.image = image;
+        this.date = date;
+        this.is_edited = is_edited;
+    }
+
+    public Report(int id, String interpretation_med, String interpretation_rad, Doctor doctor, Image image, Date date, boolean is_edited) {
+        this.id = id;
+        this.interpretation_med = interpretation_med;
+        this.interpretation_rad = interpretation_rad;
+        this.doctor = doctor;
+        this.image = image;
+        this.date = date;
+        this.is_edited = is_edited;
+    }
 
     public int getId() {
         return id;
@@ -76,5 +94,18 @@ public class Report {
 
     public void setIs_edited(boolean is_edited) {
         this.is_edited = is_edited;
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", interpretation_med='" + interpretation_med + '\'' +
+                ", interpretation_rad='" + interpretation_rad + '\'' +
+                ", doctor=" + doctor +
+                ", image=" + image +
+                ", date=" + date +
+                ", is_edited=" + is_edited +
+                '}';
     }
 }

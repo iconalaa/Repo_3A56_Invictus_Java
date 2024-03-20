@@ -129,5 +129,18 @@ public class DoctorService implements ICrud<Doctor> {
 
     return userId;
   }
+  public int getDoctorIdByMatricule(String matricule) throws SQLException {
+    String sql = "SELECT id FROM doctor WHERE matricule = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setString(1, matricule);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        if (resultSet.next()) {
+          return resultSet.getInt("id");
+        } else {
+          throw new SQLException("Doctor not found for matricule: " + matricule);
+        }
+      }
+    }
+  }
 
 }

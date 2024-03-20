@@ -10,7 +10,7 @@ public interface ReportCrud <T>{
 
     void add(T entity, Doctor doctor, Image image) throws SQLException;
     void delete(int id) throws SQLException;
-    void update(T entity) throws SQLException;
+    void update(T entity,int id) throws SQLException;
     List<T> displayAll() throws SQLException;
 
 
