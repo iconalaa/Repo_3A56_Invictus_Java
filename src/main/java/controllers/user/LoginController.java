@@ -13,14 +13,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
 public class LoginController {
-
     private Stage stage;
-
     private Scene scene;
-
     private Parent root;
-
-
     @FXML
     public void signup(ActionEvent event) throws IOException {
         try {

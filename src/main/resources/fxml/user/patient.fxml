@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="576.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.PatientController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="576.0" prefWidth="512.0" spacing="15.0">
@@ -32,21 +31,22 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="7.0" prefWidth="512.0" spacing="10.0">
                <children>
-                  <TextField maxWidth="250.0" promptText="Name" />
-                  <TextField maxWidth="250.0" promptText="Last Name" />
+                  <TextField fx:id="name" maxWidth="250.0" promptText="Name" />
+                  <TextField fx:id="lastname" maxWidth="250.0" promptText="Last Name" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="1.0" prefWidth="512.0" spacing="10.0">
                <children>
-                  <TextField maxWidth="250.0" promptText="Email" />
-                  <TextField maxWidth="250.0" promptText="Password" />
+                  <TextField fx:id="email" maxWidth="250.0" promptText="Email" />
+                  <TextField fx:id="password" maxWidth="250.0" promptText="Password" />
                </children>
             </HBox>
-            <TextField layoutX="10.0" layoutY="168.0" maxWidth="308.0" prefHeight="25.0" prefWidth="308.0" promptText="Medical Case" />
-            <TextField layoutX="10.0" layoutY="193.0" maxWidth="307.0" prefHeight="25.0" prefWidth="307.0" promptText="CNAM" />
-            <TextField layoutX="10.0" layoutY="218.0" maxWidth="309.0" prefHeight="25.0" prefWidth="309.0" promptText="Assurance Number" />
-            <TextField layoutX="10.0" layoutY="218.0" maxWidth="310.0" prefHeight="25.0" prefWidth="310.0" promptText="Assurance" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="162.0" text="Sign Up">
+            <TextField fx:id="gender" layoutX="112.0" layoutY="233.0" maxWidth="308.0" prefHeight="25.0" prefWidth="308.0" promptText="Gender" />
+            <TextField fx:id="medicalCase" layoutX="10.0" layoutY="168.0" maxWidth="308.0" prefHeight="25.0" prefWidth="308.0" promptText="Medical Case" />
+            <TextField fx:id="cnam" layoutX="10.0" layoutY="193.0" maxWidth="307.0" prefHeight="25.0" prefWidth="307.0" promptText="CNAM" />
+            <TextField fx:id="assuranceNum" layoutX="10.0" layoutY="218.0" maxWidth="309.0" prefHeight="25.0" prefWidth="309.0" promptText="Assurance Number" />
+            <TextField fx:id="assurance" layoutX="10.0" layoutY="218.0" maxWidth="310.0" prefHeight="25.0" prefWidth="310.0" promptText="Assurance" />
+            <Button fx:id="signup" mnemonicParsing="false" onAction="#addPatient" prefHeight="44.0" prefWidth="162.0" text="Sign Up">
                <font>
                   <Font size="20.0" />
                </font>

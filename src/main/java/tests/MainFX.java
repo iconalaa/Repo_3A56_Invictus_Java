@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/patient.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/favicon.png")));
