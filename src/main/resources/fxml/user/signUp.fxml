@@ -29,7 +29,7 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" styleClass="card" stylesheets="@../../style/signUp.css">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+                        <VBox fx:id="patient" alignment="TOP_CENTER" onMouseClicked="#handlePatientClick" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="34.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -65,7 +65,7 @@
                   </Pane>
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="192.0" prefWidth="200.0" styleClass="card" stylesheets="@../../style/signUp.css">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+                        <VBox fx:id="doctor" alignment="TOP_CENTER" onMouseClicked="#handleDoctorClick" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="34.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -105,7 +105,7 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" styleClass="card" stylesheets="@../../style/signUp.css">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+                        <VBox fx:id="radiologist" alignment="TOP_CENTER" onMouseClicked="#handleRadiologistClick" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="34.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

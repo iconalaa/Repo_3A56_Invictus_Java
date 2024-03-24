@@ -8,10 +8,10 @@ public class Radiologist {
 
     public  Radiologist(){}
 
-    public Radiologist(User user,String mat_nom, boolean dispo) {
+    public Radiologist(User user,String mat_nom) {
         this.user = user;
         this.mat_nom = mat_nom;
-        this.dispo = dispo;
+        this.dispo = false;
     }
 
     public User getUser() {
