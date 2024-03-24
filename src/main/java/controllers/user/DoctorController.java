@@ -33,7 +33,8 @@ public class DoctorController {
     @FXML
     public void addDoctor(ActionEvent event) throws IOException {
         LocalDate date = datePicker.getValue();
-        User U = new User(email.getText(), password.getText(), new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
+        String hashedPassword = HashPassword.hashPassword(password.getText());
+        User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
         Doctor P = new Doctor(U, matricule.getText());
         DoctorService service = new DoctorService();
         try {

@@ -31,7 +31,8 @@ public class RadiologistController {
     @FXML
     public void addRadiologist(ActionEvent event) throws IOException {
         LocalDate date = datePicker.getValue();
-        User U = new User(email.getText(), password.getText(), new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
+        String hashedPassword = HashPassword.hashPassword(password.getText());
+        User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
         Radiologist R = new Radiologist(U,mat_cnom.getText());
         RadiologistService service = new RadiologistService();
         try {

@@ -37,7 +37,8 @@ public class PatientController {
         LocalDate date = datePicker.getValue();
         int cnam = Integer.parseInt(n_cnam.getText());
         int assuranceNum = Integer.parseInt(num_assurance.getText());
-        User U = new User(email.getText(), password.getText(), new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
+        String hashedPassword = HashPassword.hashPassword(password.getText());
+        User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
         Patient P = new Patient(U, medicalCase.getText(), cnam, assuranceNum, assurance.getText());
         PatientService service = new PatientService();
         try {
