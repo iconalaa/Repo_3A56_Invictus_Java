@@ -95,7 +95,7 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
                 Date date = resultSet.getDate("date");
                 String signatureFilename = resultSet.getString("signature_filename");
 
-                // Assuming you have a constructor in Prescription class that accepts these parameters
+
                 Prescription prescription = new Prescription( contenu, signatureFilename);
                 prescription.setId(id);
 
