@@ -9,10 +9,8 @@ public class Prescription {
     private Date date;
     private String signature_filename;
 
-    public Prescription(Report report, String contenu, Date date, String signature_filename) {
-        this.report = report;
+    public Prescription( String contenu, String signature_filename) {
         this.contenu = contenu;
-        this.date = date;
         this.signature_filename = signature_filename;
     }
 
@@ -54,5 +52,16 @@ public class Prescription {
 
     public void setSignature_filename(String signature_filename) {
         this.signature_filename = signature_filename;
+    }
+
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "report=" + report +
+                ", id=" + id +
+                ", contenu='" + contenu + '\'' +
+                ", date=" + date +
+                ", signature_filename='" + signature_filename + '\'' +
+                '}';
     }
 }

@@ -3,6 +3,7 @@ package tests;
 
 import entities.*;
 import services.diagnostic.ImageService;
+import services.diagnostic.PrescriptionService;
 import services.diagnostic.ReportService;
 import services.user.DoctorService;
 
@@ -24,13 +25,18 @@ public class Main {
         Doctor doctor = new Doctor(userDoctor, "222");
         Image image = new Image("hhFFff", patient);
         Report report1 = new Report("g", "ggggggggg", doctor, image,new Date() ,false);
+        Prescription prescription = new Prescription("asba","gg.png");
+        Prescription prescription1 = new Prescription("test","test");
 
 
         ReportService reportService = new ReportService();
+        PrescriptionService prescriptionService = new PrescriptionService();
 
         try {
 
-            reportService.update(report1,16);
+
+            System.out.println(prescriptionService.displayAll());
+
 
 
 
