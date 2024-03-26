@@ -2,6 +2,16 @@ package entities;
 
 public class Patient {
 
+  private int id;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
   private User user;
   private String cas_med;
   private int n_cnam;
