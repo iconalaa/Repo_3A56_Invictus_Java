@@ -1,5 +1,22 @@
+* {
+  -fx-primary-color: #1280d5;
+  -fx-secondary-color: rgb(62, 93, 151);
+  -fx-grey-color: #b9b9b9;
+  -fx-focus-color: -fx-secondary-color;
+}
+
+.btn {
+  -fx-background-radius: 9px;
+  -fx-background-color: -fx-primary-color;
+  -fx-text-fill: #fff;
+}
+.btn:hover{
+    -fx-background-color:-fx-secondary-color;
+}
+
 .card {
   -fx-background-color: #d9d9d9;
+  -fx-background-radius: 8px;
 }
 
 .card:hover {

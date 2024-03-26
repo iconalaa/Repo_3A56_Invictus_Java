@@ -16,7 +16,7 @@ public class MainFX extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/favicon.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
         primaryStage.setTitle("RadioHub");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

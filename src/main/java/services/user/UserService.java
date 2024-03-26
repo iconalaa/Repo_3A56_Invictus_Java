@@ -12,7 +12,6 @@ public class UserService implements ICrud<User> {
 
     public UserService() {
         connection = MyDataBase.getInstance().getConnection();
-
     }
 
     @Override

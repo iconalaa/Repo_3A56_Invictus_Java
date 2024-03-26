@@ -15,40 +15,47 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="576.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.PatientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.PatientController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="576.0" prefWidth="512.0" spacing="15.0">
+      <ImageView fitHeight="77.0" fitWidth="70.0" layoutX="711.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@../../img/logo/logo%202.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="30.0" onMouseClicked="#returnSignUp" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="50.0">
+         <image>
+            <Image url="@../../img/icon/Line%201.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="600.0" prefWidth="900.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="60.0">
          <children>
             <ImageView fitHeight="63.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/icon/addUser.png" />
+                  <Image url="@../../img/icon/patientIcon.png" />
                </image>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up as a Patient" textAlignment="CENTER" wrappingWidth="204.13671875">
-               <font>
-                  <Font name="HelveticaNowText-Light" size="20.0" />
-               </font>
-            </Text>
             <HBox alignment="CENTER" prefHeight="7.0" prefWidth="512.0" spacing="10.0">
                <children>
-                  <TextField fx:id="name" maxWidth="250.0" promptText="Name" />
-                  <TextField fx:id="lastname" maxWidth="250.0" promptText="Last Name" />
+                  <TextField fx:id="name" maxWidth="250.0" promptText="Name" styleClass="input" stylesheets="@../../style/doctor.css" />
+                  <TextField fx:id="lastname" maxWidth="250.0" promptText="Last Name" styleClass="input" stylesheets="@../../style/doctor.css" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="1.0" prefWidth="512.0" spacing="10.0">
                <children>
-                  <TextField fx:id="email" maxWidth="250.0" promptText="Email" />
-                  <PasswordField fx:id="password" promptText="Password" />
+                  <TextField fx:id="email" maxWidth="250.0" promptText="Email" styleClass="input" stylesheets="@../../style/doctor.css" />
+                  <PasswordField fx:id="password" promptText="Password" styleClass="input" stylesheets="@../../style/doctor.css" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="193.0" prefHeight="1.0" prefWidth="512.0" spacing="10.0">
                <children>
-                  <ComboBox fx:id="gender" prefWidth="150.0" promptText="Select Gender">
+                  <ComboBox fx:id="gender" prefWidth="150.0" promptText="Select Gender" stylesheets="@../../style/doctor.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -59,14 +66,14 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="144.0" />
+                  <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="144.0" promptText="Your Birth Day" stylesheets="@../../style/doctor.css" />
                </children>
             </HBox>
-            <TextField fx:id="medicalCase" layoutX="10.0" layoutY="168.0" maxWidth="308.0" prefHeight="25.0" prefWidth="308.0" promptText="Medical Case" />
-            <TextField fx:id="n_cnam" layoutX="10.0" layoutY="193.0" maxWidth="307.0" prefHeight="25.0" prefWidth="307.0" promptText="CNAM" />
-            <TextField fx:id="num_assurance" layoutX="10.0" layoutY="218.0" maxWidth="309.0" prefHeight="25.0" prefWidth="309.0" promptText="Assurance Number" />
-            <TextField fx:id="assurance" layoutX="10.0" layoutY="218.0" maxWidth="310.0" prefHeight="25.0" prefWidth="310.0" promptText="Assurance" />
-            <Button fx:id="signup" mnemonicParsing="false" onAction="#addPatient" prefHeight="44.0" prefWidth="162.0" text="Sign Up">
+            <TextField fx:id="medicalCase" layoutX="10.0" layoutY="168.0" maxWidth="308.0" prefHeight="25.0" prefWidth="308.0" promptText="Medical Case" styleClass="input" stylesheets="@../../style/doctor.css" />
+            <TextField fx:id="n_cnam" layoutX="10.0" layoutY="193.0" maxWidth="307.0" prefHeight="25.0" prefWidth="307.0" promptText="CNAM" styleClass="input" stylesheets="@../../style/doctor.css" />
+            <TextField fx:id="num_assurance" layoutX="10.0" layoutY="218.0" maxWidth="309.0" prefHeight="25.0" prefWidth="309.0" promptText="Assurance Number" styleClass="input" stylesheets="@../../style/doctor.css" />
+            <TextField fx:id="assurance" layoutX="10.0" layoutY="218.0" maxWidth="310.0" prefHeight="25.0" prefWidth="310.0" promptText="Assurance" styleClass="input" stylesheets="@../../style/doctor.css" />
+            <Button fx:id="signup" mnemonicParsing="false" onAction="#addPatient" prefHeight="44.0" prefWidth="162.0" styleClass="btn" stylesheets="@../../style/doctor.css" text="Sign Up">
                <font>
                   <Font size="20.0" />
                </font>
