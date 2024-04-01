@@ -32,6 +32,16 @@
             <Image url="@../../img/logo/logo%202.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="752.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="57.0">
+         <image>
+            <Image url="@../../img/plantShadow.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="403.0" fitWidth="171.0" layoutX="14.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
+         <image>
+            <Image url="@../../img/Character.png" />
+         </image>
+      </ImageView>
         <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="600.0" prefWidth="900.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="60.0">
             <children>
                 <ImageView fitHeight="77.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">

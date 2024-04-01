@@ -22,17 +22,25 @@
             <Image url="@../../img/LogInPic.png" />
          </image>
       </ImageView>
-      <VBox prefHeight="600.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="TOP_CENTER" layoutX="419.0" prefHeight="600.0" prefWidth="481.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="47.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../img/logo/logo-row.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="60.0" top="100.0" />
-               </VBox.margin>
-            </ImageView>
+            <VBox alignment="TOP_CENTER" prefHeight="149.0" prefWidth="450.0">
+               <children>
+                  <ImageView fitHeight="140.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/gradiand-bg-login.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="47.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/logo/logo-row.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="-30.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
             <VBox>
                <children>
                   <TextField fx:id="emailField" maxWidth="345.0" prefWidth="345.0" promptText="Email" styleClass="input" stylesheets="@../../style/login.css">
