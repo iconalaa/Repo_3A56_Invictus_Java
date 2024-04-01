@@ -17,19 +17,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.SignUpController">
    <children>
+      <ImageView fitHeight="150.0" fitWidth="900.0" layoutX="243.0" layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../img/Gradiant-bg.png" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="77.0" fitWidth="70.0" layoutX="714.0" layoutY="1.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <image>
             <Image url="@../../img/logo/logo%202.png" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_CENTER" spacing="60.0">
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="900.0" spacing="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fill="#5a5a5a" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up as">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up as">
                <font>
                   <Font name="HelveticaNowDisplay-Regular" size="60.5" />
                </font>
                <VBox.margin>
-                  <Insets top="31.0" />
+                  <Insets bottom="5.0" top="25.0" />
                </VBox.margin>
             </Text>
             <HBox alignment="CENTER" prefHeight="240.0" prefWidth="880.0" spacing="30.0">
