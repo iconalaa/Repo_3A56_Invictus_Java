@@ -32,6 +32,16 @@
             <Image url="@../../img/logo/logo%202.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="120.0" fitWidth="924.0" layoutX="30.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
+         <image>
+            <Image url="@../../img/plantShadow.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="425.0" fitWidth="162.0" layoutX="742.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
+         <image>
+            <Image url="@../../img/Character.png" />
+         </image>
+      </ImageView>
         <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="81.0" prefHeight="541.0" prefWidth="560.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="60.0">
             <children>
                 <ImageView fitHeight="77.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
@@ -142,15 +152,5 @@
                 </Button>
             </children>
         </VBox>
-      <ImageView fitHeight="120.0" fitWidth="924.0" layoutX="30.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
-         <image>
-            <Image url="@../../img/plantShadow.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="425.0" fitWidth="162.0" layoutX="742.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
-         <image>
-            <Image url="@../../img/Character.png" />
-         </image>
-      </ImageView>
     </children>
 </AnchorPane>
