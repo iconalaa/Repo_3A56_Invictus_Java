@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.LoginController">
+   <children>
+      <ImageView fitWidth="450.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../img/LogInPic.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="600.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0" />
+      <VBox alignment="TOP_CENTER" layoutX="419.0" prefHeight="600.0" prefWidth="481.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="47.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/logo/logo-row.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="60.0" top="100.0" />
+               </VBox.margin>
+            </ImageView>
+            <VBox>
+               <children>
+                  <TextField fx:id="emailField" maxWidth="345.0" prefWidth="345.0" promptText="Email" styleClass="input" stylesheets="@../../style/login.css">
+                     <font>
+                        <Font name="HelveticaNowDisplay-Regular" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <Label fx:id="emailError" textFill="#ff6060" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <PasswordField fx:id="passwordField" maxWidth="345.0" prefHeight="35.0" prefWidth="473.0" promptText="Password" styleClass="input" stylesheets="@../../style/login.css">
+                     <font>
+                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                     </font>
+                  </PasswordField>
+                  <Label fx:id="passwordError" textFill="#ff6060" />
+               </children>
+            </VBox>
+            <Hyperlink prefHeight="25.0" prefWidth="117.0" text="Forget Password ?" textFill="#000000cb" underline="true">
+               <VBox.margin>
+                  <Insets left="-250.0" top="-25.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="HelveticaNowDisplay-Regular" size="12.0" />
+               </font>
+            </Hyperlink>
+            <Button mnemonicParsing="false" onAction="#login" styleClass="btn" stylesheets="@../../style/login.css" text="Log In">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="HelveticaNowMicro-Regular" size="13.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="152.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account,">
+                     <font>
+                        <Font name="HelveticaNowDisplay-Light" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="-25.0" />
+                     </HBox.margin></Text>
+                  <Hyperlink onAction="#signup" prefHeight="33.0" prefWidth="66.0" text="Sign Up">
+                     <font>
+                        <Font name="HelveticaNowDisplay-Regular" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="-25.0" />
+                     </HBox.margin></Hyperlink>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="40.0" right="40.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
