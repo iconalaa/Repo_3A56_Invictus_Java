@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class MyDataBase {
     private final String URL = "jdbc:mysql://localhost:3306/radiohubdb";
     private final String USER = "root";
-    private final String PASSWORD = "";
+    private final String PASSWORD = "c45hp9PY";
     private Connection connection;
     private static MyDataBase instance;
 
