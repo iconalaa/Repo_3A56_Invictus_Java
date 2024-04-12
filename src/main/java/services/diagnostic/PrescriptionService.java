@@ -47,6 +47,35 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
     }
 
     @Override
+    public void add2(Prescription entity,int reportId) throws SQLException {
+        String sql = "INSERT INTO prescription (report_id,contenu, date, signature_filename) " +
+                "VALUES (?, ?, ?, ?)";
+
+
+        LocalDate currentDate = LocalDate.now();
+        Date sqlDate = Date.valueOf(currentDate);
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, reportId);
+            statement.setString(2, entity.getContenu());
+            statement.setDate(3,sqlDate);
+            statement.setString(4, entity.getSignature_filename());
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Prescription added successfully.");
+            } else {
+                System.out.println("Failed to add prescription.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to add prescription: " + e.getMessage());
+            throw e;
+        }
+
+
+    }
+
+    @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM prescription WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
