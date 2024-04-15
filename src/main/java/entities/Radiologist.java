@@ -1,48 +1,43 @@
 package entities;
 
 
-public class Radiologist {
-    private User user;
-    private String mat_nom;
-    private boolean dispo;
+import java.time.LocalDate;
+import java.util.Arrays;
 
+public class Radiologist extends User {
+    private String matricule;
     public  Radiologist(){}
 
-    public Radiologist(User user,String mat_nom) {
-        this.user = user;
-        this.mat_nom = mat_nom;
-        this.dispo = false;
+    public Radiologist(String mat_nom) {
+        this.matricule = mat_nom;
     }
 
-    public User getUser() {
-        return user;
+    public Radiologist(String email, String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String mat_nom) {
+        super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
+        this.matricule = mat_nom;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public String getMatricule() {
+        return matricule;
     }
 
-    public String getMat_nom() {
-        return mat_nom;
-    }
-
-    public boolean isDispo() {
-        return dispo;
-    }
-
-    public void setMat_nom(String mat_nom) {
-        this.mat_nom = mat_nom;
-    }
-
-    public void setDispo(boolean dispo) {
-        this.dispo = dispo;
+    public void setMatricule(String mat_nom) {
+        this.matricule = mat_nom;
     }
 
     @Override
     public String toString() {
         return "Radiologist{" +
-                " mat_nom='" + mat_nom + '\'' +
-                ", dispo=" + dispo +
+                "matricule='" + matricule + '\'' +
+                ", user_id=" + user_id +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + Arrays.toString(role) +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birth_date=" + birth_date +
+                ", gender='" + gender + '\'' +
+                ", brochure_filename='" + brochure_filename + '\'' +
                 '}';
     }
 }

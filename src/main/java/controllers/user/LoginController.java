@@ -1,6 +1,7 @@
 package controllers.user;
 
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 import javafx.event.ActionEvent;
@@ -45,33 +47,35 @@ public class LoginController {
         if (validateFields()) {
             connection = MyDataBase.getInstance().getConnection();
 
-            String req = "SELECT * FROM user WHERE email = ? AND password = ?";
-            String hashedPassword = HashPassword.hashPassword(passwordField.getText());
-            System.out.println(hashedPassword);
+            String req = "SELECT * FROM user WHERE email = ?";
+
+
             try {
                 PreparedStatement ps = connection.prepareStatement(req);
                 ps.setString(1, emailField.getText());
-                ps.setString(2, hashedPassword);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setResizable(false);
-                    stage.setScene(scene);
-                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-                    stage.setTitle("RadioHub");
-                    stage.show();
-                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                    stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-                    stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    currentStage.close();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Invalid Cordentials !");
-                    alert.show();
+                    BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
+                    if (result.verified) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setResizable(false);
+                        stage.setScene(scene);
+                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+                        stage.setTitle("RadioHub");
+                        stage.show();
+                        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        currentStage.close();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Invalid Cordentials !");
+                        alert.show();
+                    }
                 }
 
             } catch (SQLException ex) {

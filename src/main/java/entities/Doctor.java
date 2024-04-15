@@ -1,31 +1,32 @@
 package entities;
-public class Doctor {
-    private int id;
-    private User user;
-    private String matricule;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+
+public class Doctor extends User {
+    private String matricule;
     public Doctor() {
     }
 
-    public Doctor(User user,String matricule) {
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "matricule='" + matricule + '\'' +
+                ", user_id=" + user_id +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + Arrays.toString(role) +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birth_date=" + birth_date +
+                ", gender='" + gender + '\'' +
+                ", brochure_filename='" + brochure_filename + '\'' +
+                '}';
+    }
+
+    public Doctor(String email, String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String matricule) {
+        super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
         this.matricule = matricule;
-        this.user = user;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getMatricule() {
@@ -34,14 +35,5 @@ public class Doctor {
 
     public void setMatricule(String matricule) {
         this.matricule = matricule;
-    }
-
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", user=" + user +
-                ", matricule='" + matricule + '\'' +
-                '}';
     }
 }

@@ -1,5 +1,6 @@
 package controllers.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Doctor;
 
 import entities.User;
@@ -19,6 +20,7 @@ import services.user.DoctorService;
 
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -56,9 +58,14 @@ public class DoctorController {
     public void addDoctor(ActionEvent event) throws IOException {
         if (validateFields()) {
             LocalDate date = datePicker.getValue();
-            String hashedPassword = HashPassword.hashPassword(password.getText());
-            User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
-            Doctor P = new Doctor(U, matricule.getText());
+//            ******** cryPtage *********
+            char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
+            StringBuilder sb = new StringBuilder();
+            for (char c : bcryptChars) {
+                sb.append(c);
+            }
+            String hashedPassword = sb.toString();
+            Doctor P = new Doctor(email.getText(),hashedPassword,new String[]{"ROLE_PATIENT"},name.getText(),lastname.getText(),date,gender.getValue(),"x",matricule.getText());
             DoctorService service = new DoctorService();
             try {
                 service.add(P);
