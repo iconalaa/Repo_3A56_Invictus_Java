@@ -13,10 +13,9 @@ import javafx.scene.image.Image;
 public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescription.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        primaryStage.setFullScreen(true);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
         primaryStage.setTitle("RadioHub");
         primaryStage.setResizable(false);

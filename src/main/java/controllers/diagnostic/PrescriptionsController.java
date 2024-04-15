@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class PrescriptionController {
+public class PrescriptionsController {
     @FXML
     private TextArea prescriptionContent;
     @FXML
