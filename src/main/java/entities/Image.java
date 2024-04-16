@@ -56,4 +56,5 @@ public class Image {
                 ", radiologist=" + radiologist +
                 '}';
     }
+
 }

@@ -108,4 +108,8 @@ public class Report {
                 ", is_edited=" + is_edited +
                 '}';
     }
+    public String getImageFilename() {
+        return (image != null) ? image.getFilename() : null;
+    }
+
 }
