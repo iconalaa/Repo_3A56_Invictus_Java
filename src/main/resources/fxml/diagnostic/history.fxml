@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Button?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.HistoryController">
     <left>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="181.0" spacing="5.0" stylesheets="@../../style/doctor-space.css" BorderPane.alignment="CENTER">
@@ -159,9 +160,14 @@
                             </children>
                         </VBox>
                   <ScrollPane prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
-                     <content>
-                        <ListView fx:id="HistoryView"  prefHeight="248.0" prefWidth="652.0" />
-                     </content>
+                      <content>
+                          <VBox spacing="10">
+                              <ListView fx:id="HistoryView" prefHeight="248.0" prefWidth="652.0" />
+                              <!-- Add the button to open the prescription form -->
+                              <Button text="Create Prescription" onAction="#openPrescription" />
+                          </VBox>
+                      </content>
+
                   </ScrollPane>
                     </children>
                     <padding>

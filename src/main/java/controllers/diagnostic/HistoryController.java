@@ -3,9 +3,11 @@ package controllers.diagnostic;
 import entities.Report;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -78,5 +80,25 @@ public class HistoryController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void openPrescription(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescription.fxml"));
+            Parent prescriptionRoot = loader.load();
+
+            PrescriptionsController prescriptionsController = loader.getController();
+            Report selectedReport = HistoryView.getSelectionModel().getSelectedItem();
+            if (selectedReport != null) {
+                prescriptionsController.setSelectedReportId(selectedReport.getId());
+            }
+
+            // Get the current scene and replace its root with the prescription form
+            Scene scene = HistoryView.getScene();
+            scene.setRoot(prescriptionRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

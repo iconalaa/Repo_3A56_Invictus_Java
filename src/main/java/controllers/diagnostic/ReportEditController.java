@@ -16,6 +16,8 @@ import services.diagnostic.ReportService;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class ReportEditController {
     @FXML
@@ -28,18 +30,23 @@ public class ReportEditController {
     @FXML
     private ImageView backButton;
 
-    private ReportService reportService; // Initialize the ReportService
+    private ReportService reportService;
     private Report selectedReport;
 
-    // Initialize the reportService directly in the controller
     public ReportEditController() {
         reportService = new ReportService();
     }
+
     @FXML
     private void initialize() {
-
+        interpretationMedTextField.setText(""); // Use an empty string instead of null
+        dateTextField.valueProperty().addListener((observable, oldValue, newValue) -> {
+            errorMessageLabel.setText(""); // Clear error message when date changes
+        });
+        interpretationMedTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            errorMessageLabel.setText(""); // Clear error message when interpretation changes
+        });
         backButton.setOnMouseClicked(event -> backToDash(event));
-
     }
 
     private void backToDash(javafx.scene.input.MouseEvent event) {
@@ -56,53 +63,46 @@ public class ReportEditController {
     public void setSelectedReport(Report selectedReport) {
         this.selectedReport = selectedReport;
 
+        if (selectedReport != null) {
+            if (selectedReport.getDate() != null) {
+                java.util.Date utilDate = new java.util.Date(selectedReport.getDate().getTime());
+                LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                dateTextField.setValue(localDate);
+            }
+            interpretationMedTextField.setText(selectedReport.getInterpretation_med());
+        }
     }
 
     @FXML
     public void handleUpdate() {
-        // Check if either of the fields is empty
-        if (dateTextField.getValue() == null && interpretationMedTextField.getText().isEmpty()) {
-            // Both fields are empty
-            errorMessageLabel.setText("Please provide date & interpretation.");
-        } else if (dateTextField.getValue() == null) {
-            // Date field is empty
-            errorMessageLabel.setText("Please select a date.");
-        } else if (interpretationMedTextField.getText().isEmpty()) {
-            // Interpretation field is empty
-            errorMessageLabel.setText("Please provide interpretation.");
-        } else {
-            // All fields are filled, clear any previous error message
-            errorMessageLabel.setText("");
-
-            // Proceed with the update logic since all fields are filled
-            if (selectedReport != null) {
-                try {
-                    // Update the fields of the selected report
-                    selectedReport.setDate(Date.valueOf(dateTextField.getValue()));
-                    selectedReport.setInterpretation_med(interpretationMedTextField.getText());
-                    selectedReport.setIs_edited(true);
-
-                    // Update the report in the database
-                    reportService.update(selectedReport, selectedReport.getId());
-
-                    // Close the current stage
-                    Stage stage = (Stage) dateTextField.getScene().getWindow();
-                    stage.close();
-
-                    // Load the reports.fxml page
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
-                    Stage reportsStage = new Stage();
-                    reportsStage.setScene(new Scene(loader.load()));
-                    reportsStage.show();
-                } catch (SQLException | IOException e) {
-                    e.printStackTrace(); // Handle the exception properly
-                }
-            }
+        if (dateTextField.getValue() == null || interpretationMedTextField.getText().isEmpty()) {
+            errorMessageLabel.setText("Please provide both date and interpretation.");
+            return;
         }
 
+        errorMessageLabel.setText("");
 
-}
+        if (selectedReport != null) {
+            try {
+                selectedReport.setDate(Date.valueOf(dateTextField.getValue()));
+                selectedReport.setInterpretation_med(interpretationMedTextField.getText());
+                selectedReport.setIs_edited(true);
 
+                reportService.update(selectedReport, selectedReport.getId());
+
+                Stage stage = (Stage) dateTextField.getScene().getWindow();
+                stage.close();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
+                Stage reportsStage = new Stage();
+                reportsStage.setScene(new Scene(loader.load()));
+                reportsStage.show();
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+                errorMessageLabel.setText("Error updating report. Please try again.");
+            }
+        }
+    }
 
     public void returnBack(MouseEvent mouseEvent) {
     }

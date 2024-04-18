@@ -1,65 +1,101 @@
 package controllers.diagnostic;
 
-import entities.Report;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import services.diagnostic.ReportService;
+import entities.Report;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class ReportsController {
     @FXML
     private Label doctorSpaceLabel;
     @FXML
     private Label historyLabel;
-
-
     @FXML
-    private ListView<Report> reportsListView;
+    private GridPane gridPane;
+    @FXML
+    private ScrollPane scrollPane;
 
     private ReportService reportService;
 
     public ReportsController() {
-
         reportService = new ReportService(); // Initialize the reportService
     }
-
     public void initialize() {
+        doctorSpaceLabel.setOnMouseClicked(this::openDashboard);
+        historyLabel.setOnMouseClicked(this::openHistory);
+
         try {
-            // Fetch reports from the database
-            List<Report> reports = reportService.displayAll();
+            List<Report> allReports = reportService.displayAll();
+            List<Report> filteredReports = new ArrayList<>();
 
-            // Filter reports with is_edited = true
-            List<Report> filteredReports = reports.stream()
-                    .filter(report -> !report.isIs_edited())
-                    .collect(Collectors.toList());
+            // Filter reports where edited is false
+            for (Report report : allReports) {
+                if (!report.isIs_edited()) { // Assuming isEdited() returns true if the report is edited
+                    filteredReports.add(report);
+                }
+            }
 
-            // Convert list to ObservableList
-            ObservableList<Report> observableReports = FXCollections.observableArrayList(filteredReports);
+            int column = 0;
+            int row = 0;
 
-            // Set the items in the ListView
-            reportsListView.setItems(observableReports);
+            for (Report report : filteredReports) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/report-item.fxml"));
+                try {
+                    Node reportItem = loader.load();
+                    gridPane.add(reportItem, column, row);
+
+                    // Get the controller associated with the loaded report item
+                    ReportsItemController reportItemController = loader.getController();
+
+                    // Set the report object to the report item controller
+                    reportItemController.setReport(report);
+
+                    // Add event handler for report selection
+                    reportItem.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                        reportItemController.handleReportSelection(event);
+                    });
+
+                    // Increment column and row values
+                    column++;
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
+
+                    // Adjust grid width and height
+                    gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    gridPane.setMaxWidth(Region.USE_PREF_SIZE);
+
+                    gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    gridPane.setMaxHeight(Region.USE_PREF_SIZE);
+
+                    GridPane.setMargin(reportItem, new Insets(10));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the SQLException properly, such as showing an error message to the user
+            e.printStackTrace(); // Handle SQL exceptions properly
         }
-
-        // Handle click event on the doctorSpaceLabel
-        doctorSpaceLabel.setOnMouseClicked(event -> openDashboard(event));
-        historyLabel.setOnMouseClicked(event -> openHistory(event));
-
-
-
     }
+
 
     private void openDashboard(javafx.scene.input.MouseEvent event) {
         try {
@@ -71,6 +107,7 @@ public class ReportsController {
             e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
         }
     }
+
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
@@ -82,22 +119,10 @@ public class ReportsController {
         }
     }
 
-    @FXML
-    public void handleReportSelection() {
-        Report selectedReport = reportsListView.getSelectionModel().getSelectedItem();
-        if (selectedReport != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/edit_report.fxml"));
-                Scene scene = reportsListView.getScene();
-                scene.setRoot(loader.load());
 
-                // Get the controller and pass the selected report to it
-                ReportEditController controller = loader.getController();
-                controller.setSelectedReport(selectedReport);
-            } catch (IOException e) {
-                e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
-            }
-        }
+
+
+    public void test(MouseEvent mouseEvent) {
+        System.out.println("prees works");
     }
-
 }

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportEditController">
     <ImageView fx:id="backButton" fitWidth="30.0" layoutX="25.0" layoutY="38.0" onMouseClicked="#returnBack" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="38.0">
@@ -51,14 +52,32 @@
          </VBox>
       </left>
       <right>
-         <ImageView fitHeight="331.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <VBox spacing="30.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-               <Insets right="20.0" />
+               <Insets right="20.0" top="40.0" />
             </BorderPane.margin>
-            <image>
-               <Image url="@../../img/patient.png" />
-            </image>
-         </ImageView>
+            <children>
+               <ImageView fitHeight="331.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../img/dicom.png" />
+                  </image>
+               </ImageView>
+               <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="328.0">
+                  <children>
+                     <Label prefHeight="20.0" prefWidth="175.0" text="Radiologist interpretation">
+                        <font>
+                           <Font name="System Bold Italic" size="14.0" />
+                        </font>
+                     </Label>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="283.4261974096298">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </VBox>
+            </children>
+         </VBox>
       </right>
    </BorderPane>
 </AnchorPane>

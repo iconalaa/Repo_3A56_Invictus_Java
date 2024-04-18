@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMouseClicked="#handleReportSelection" prefHeight="100.0" prefWidth="87.0" stylesheets="@../../style/item.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportsItemController">
+    <styleClass>
+        <String fx:value="fruit-item" />
+        <String fx:value="shadow" />
+    </styleClass>
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="80.0" spacing="100.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/user.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets right="2.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="120.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="80.0" spacing="10.0">
+         <children>
+            <Label fx:id="dateLabel1" prefHeight="30.0" prefWidth="94.0" text="        Name">
+               <font>
+                  <Font name="Cambria Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="101.0" text="         lastname" textAlignment="CENTER">
+               <font>
+                  <Font name="Cambria Bold" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

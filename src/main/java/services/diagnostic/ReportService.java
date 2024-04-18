@@ -120,8 +120,6 @@ public class ReportService implements ReportCrud<Report> {
         return reports;
     }
 
-
-
 /////////////////////////////second-use-methods/////////////////////////
     public int getImageIdByFilename(String filename) throws SQLException {
         String sql = "SELECT id FROM image WHERE filename = ?";

@@ -3,6 +3,9 @@ package controllers.diagnostic;
 import entities.Prescription;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.DatePicker;
@@ -12,6 +15,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.stage.Stage;
 import services.diagnostic.PrescriptionService;
 
 import javax.imageio.ImageIO;
@@ -31,6 +35,7 @@ public class PrescriptionsController {
     @FXML
     private Canvas signatureCanvas;
     private GraphicsContext gc;
+    private int selectedReportId;
 
     private PrescriptionService prescriptionService;
 
@@ -121,6 +126,10 @@ public class PrescriptionsController {
 
 
 
+    public void setSelectedReportId(int selectedReportId) {
+        this.selectedReportId = selectedReportId;
+    }
+
     @FXML
     protected void handleSubmit(ActionEvent actionEvent) {
         if (validateInput()) {
@@ -130,7 +139,7 @@ public class PrescriptionsController {
                 Prescription newPrescription = new Prescription(prescriptionContent.getText(), signatureFilename);
 
                 // Use a static report_id for testing purposes
-                int reportId = 16; // Replace with the actual report_id from your database
+                int reportId = selectedReportId; // Replace with the actual report_id from your database
 
                 // Call the add method from the PrescriptionService
                 try {
@@ -147,8 +156,15 @@ public class PrescriptionsController {
     }
 
 
-    @FXML
-    public void returnDoctorSpace() {
-        // Implement navigation back to the doctor's main space
+
+    public void returnDoctorSpace(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
