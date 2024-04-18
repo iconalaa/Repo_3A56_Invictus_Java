@@ -10,8 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.diagnostic.ReportService;
 
@@ -30,7 +31,8 @@ public class HistoryController {
 
     @FXML
     private ListView<Report> HistoryView;
-    public HistoryController(){
+
+    public HistoryController() {
         reportService = new ReportService();
     }
 
@@ -42,11 +44,40 @@ public class HistoryController {
 
             // Filter reports with is_edited = true
             List<Report> filteredReports = reports.stream()
-                    .filter(report -> report.isIs_edited())
+                    .filter(Report::isIs_edited)
                     .collect(Collectors.toList());
 
             // Convert list to ObservableList
             ObservableList<Report> observableReports = FXCollections.observableArrayList(filteredReports);
+
+            // Set the custom cell factory for the ListView
+            HistoryView.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(Report item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        // Create labels for each piece of information
+                        Label doctorLabel = new Label("Doctor: " + item.getDoctor().getMatricule() + " " + item.getDoctor().getMatricule());
+                        Label dateLabel = new Label("Date: " + item.getDate());
+                        Label medInterpretationLabel = new Label("Interpretation (Medical): " + item.getInterpretation_med());
+                        Label radInterpretationLabel = new Label("Interpretation (Radiology): " + item.getInterpretation_rad());
+
+                        // Customize label styles if needed
+                        doctorLabel.setStyle("-fx-font-weight: bold;");
+                        dateLabel.setStyle("-fx-font-weight: bold;");
+
+                        // Create a VBox to hold the labels
+                        VBox vbox = new VBox(doctorLabel, dateLabel, medInterpretationLabel, radInterpretationLabel);
+                        vbox.setSpacing(5); // Adjust spacing between labels if needed
+
+                        // Set the VBox as the graphic of the ListCell
+                        setGraphic(vbox);
+                    }
+                }
+            });
 
             // Set the items in the ListView
             HistoryView.setItems(observableReports);
@@ -56,7 +87,6 @@ public class HistoryController {
 
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
-
     }
 
     private void openSpace(javafx.scene.input.MouseEvent event) {
@@ -80,6 +110,7 @@ public class HistoryController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void openPrescription(ActionEvent event) {
         try {
@@ -99,6 +130,4 @@ public class HistoryController {
             e.printStackTrace();
         }
     }
-
-
 }

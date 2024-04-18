@@ -3,8 +3,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Button?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.HistoryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.PrescriptionsController">
     <left>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="181.0" spacing="5.0" stylesheets="@../../style/doctor-space.css" BorderPane.alignment="CENTER">
             <children>
@@ -29,7 +26,7 @@
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Label fx:id="doctorsapcelabel" prefHeight="26.0" prefWidth="161.0" text="Doctor's Space">
+                        <Label prefHeight="26.0" prefWidth="161.0" text="Doctor's Space">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -61,7 +58,7 @@
                 </HBox>
                 <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../img/done.png" />
                             </image>
@@ -69,9 +66,9 @@
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="26.0" prefWidth="161.0" text="Reports History">
+                        <Label fx:id="historylabel" prefHeight="26.0" prefWidth="161.0" text="Reports History">
                             <font>
-                                <Font name="System Bold" size="16.0" />
+                                <Font size="15.0" />
                             </font>
                             <padding>
                                 <Insets left="10.0" right="10.0" />
@@ -81,7 +78,7 @@
                 </HBox>
                 <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../img/prescription.png" />
                             </image>
@@ -91,7 +88,7 @@
                         </ImageView>
                         <Label prefHeight="26.0" prefWidth="161.0" text="Prescriptions">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="System Bold" size="15.0" />
                             </font>
                             <padding>
                                 <Insets left="10.0" right="10.0" />
@@ -152,22 +149,14 @@
                     <children>
                         <VBox>
                             <children>
-                                <Label text="History">
+                                <Label prefHeight="26.0" prefWidth="130.0" text="Prescriptions">
                                     <font>
-                                        <Font size="16.0" />
+                                        <Font name="System Bold" size="16.0" />
                                     </font>
                                 </Label>
+                                <HBox prefHeight="120.0" prefWidth="200.0" />
                             </children>
                         </VBox>
-                        <ScrollPane prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
-                            <content>
-                                <VBox spacing="10">
-                                    <ListView fx:id="HistoryView" prefHeight="248.0" prefWidth="652.0" />
-                                    <!-- Add the button to open the prescription form -->
-                                    <Button text="Create Prescription" onAction="#openPrescription" />
-                                </VBox>
-                            </content>
-                        </ScrollPane>
                     </children>
                     <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

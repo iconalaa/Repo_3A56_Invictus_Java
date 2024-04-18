@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.diagnostic.ReportService;
 
@@ -20,15 +21,17 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class ReportEditController {
+
     @FXML
     private DatePicker dateTextField;
-
     @FXML
     private TextArea interpretationMedTextField;
     @FXML
     private Label errorMessageLabel;
     @FXML
     private ImageView backButton;
+    @FXML
+    private Text textradio;
 
     private ReportService reportService;
     private Report selectedReport;
@@ -70,6 +73,8 @@ public class ReportEditController {
                 dateTextField.setValue(localDate);
             }
             interpretationMedTextField.setText(selectedReport.getInterpretation_med());
+            textradio.setText(selectedReport.getInterpretation_rad());
+
         }
     }
 

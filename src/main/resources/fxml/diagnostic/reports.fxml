@@ -82,13 +82,13 @@
                     <children>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../img/patient.png" />
+                                <Image url="@../../img/prescription.png" />
                             </image>
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="26.0" prefWidth="161.0" text="Reports">
+                        <Label prefHeight="26.0" prefWidth="161.0" text="Prescriptions">
                             <font>
                                 <Font size="15.0" />
                             </font>

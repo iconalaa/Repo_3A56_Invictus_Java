@@ -144,7 +144,7 @@ public class PrescriptionsController {
                 // Call the add method from the PrescriptionService
                 try {
                     prescriptionService.add2(newPrescription, reportId);
-                    errorLabel.setText("Prescription submitted successfully.");
+
                 } catch (SQLException e) {
                     errorLabel.setText("Failed to add prescription to the database.");
                     e.printStackTrace();

@@ -62,14 +62,14 @@
                      <Image url="@../../img/dicom.png" />
                   </image>
                </ImageView>
-               <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="328.0">
+               <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="328.0" spacing="10.0">
                   <children>
                      <Label prefHeight="20.0" prefWidth="175.0" text="Radiologist interpretation">
                         <font>
                            <Font name="System Bold Italic" size="14.0" />
                         </font>
                      </Label>
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="283.4261974096298">
+                     <Text fx:id="textradio" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="283.4261974096298">
                         <font>
                            <Font size="14.0" />
                         </font>
