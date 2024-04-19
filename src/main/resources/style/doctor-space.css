@@ -1,22 +1,92 @@
-.white-background{
-    -fx-background-color: '#fff';
+/* doctor-space.css */
+
+/* Apply white background to the entire view */
+.white-background {
+    -fx-background-color: #ffffff;
 }
-.right-side-border{
-    -fx-border-color: '#6F6F6F';
+
+/* Apply a border to the right side of the left VBox */
+.right-side-border {
+    -fx-border-color: #6F6F6F;
     -fx-border-width: 0 1 0 0;
 }
-.search-container{
-    -fx-border-color: '#6F6F6F';
+
+/* Style the search container */
+.search-container {
+    -fx-background-color: #ffffff; /* Change background color */
+    -fx-border-color: #6F6F6F; /* Change border color */
+    -fx-border-radius: 30; /* Adjust border radius */
+    -fx-padding: 0 5; /* Adjust padding */
+}
+
+/* Make text fields transparent */
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+/* Apply a primary color to the center VBox */
+.primary-color {
+    -fx-background-color: #EFF2F6;
+}
+
+/* Customize list cell */
+.list-cell {
+    -fx-padding: 10px;
     -fx-border-radius: 30;
 }
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+
+/* Hover effect on list cells */
+.list-cell:hover {
+    -fx-background-color: #F0F0F0; /* Change background color on hover */
 }
-.rounded-image-container {
-    -fx-border-radius: 50%;
-    -fx-background-radius: 50%;
-    overflow: hidden;
+
+/* Selected item style */
+.list-view .cell:selected {
+    -fx-background-color: #94b2f5; /* Change background color of selected item */
 }
+
+/* Remove default focus highlight */
+.list-view .virtual-flow .clipped-container .focus-indicator {
+    -fx-background-color: transparent;
+}
+
+/* Customize scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: #F0F0F0; /* Change scrollbar background color */
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #D3D3D3; /* Change scrollbar buttons background color */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #B0B0B0; /* Change scrollbar thumb color */
+}
+.list-cell {
+    -fx-padding: 10px; /* Add padding to each list cell */
+    -fx-border-color: #CCCCCC; /* Add border color between list cells */
+    -fx-border-width: 0 0 1 0; /* Specify border width only on the bottom */
+}
+
+/* Add hover effect on list cells */
+.list-cell:hover {
+    -fx-background-color: #F0F0F0; /* Change background color on hover */
+}
+
+/* Apply a primary color to the center VBox */
 .primary-color {
- -fx-background-color: #EFF2F6;
+    -fx-background-color: #EFF2F6;
+}
+/* Customize scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: #ffffff; /* Change scrollbar background color to blue */
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: #ffffff; /* Change scrollbar buttons background color to blue */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #1D5A81; /* Change scrollbar thumb color to a darker shade of blue */
 }

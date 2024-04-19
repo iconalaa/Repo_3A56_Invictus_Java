@@ -116,7 +116,7 @@ public class PrescriptionsController {
         File file = new File(directory, filename);
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-            return file.getAbsolutePath(); // Return the absolute path if save is successful
+            return filename; // Return just the filename
         } catch (IOException e) {
             errorLabel.setText("Failed to save signature.");
             e.printStackTrace();
@@ -125,11 +125,9 @@ public class PrescriptionsController {
     }
 
 
-
     public void setSelectedReportId(int selectedReportId) {
         this.selectedReportId = selectedReportId;
     }
-
     @FXML
     protected void handleSubmit(ActionEvent actionEvent) {
         if (validateInput()) {
@@ -154,8 +152,6 @@ public class PrescriptionsController {
             }
         }
     }
-
-
 
     public void returnDoctorSpace(javafx.scene.input.MouseEvent event) {
         try {
