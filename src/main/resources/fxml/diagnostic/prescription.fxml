@@ -44,7 +44,7 @@
         </StackPane>
       <VBox alignment="CENTER" prefHeight="141.0" prefWidth="900.0">
          <children>
-              <Label fx:id="errorLabel" alignment="CENTER" prefHeight="68.0" prefWidth="249.0" text="errur" textAlignment="CENTER" textFill="red" VBox.vgrow="ALWAYS">
+              <Label fx:id="errorLabel" alignment="CENTER" prefHeight="68.0" prefWidth="249.0" textAlignment="CENTER" textFill="red" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

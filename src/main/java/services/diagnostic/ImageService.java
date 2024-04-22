@@ -57,6 +57,19 @@ public class ImageService {
         }
         return patientId;
     }
+    public String getFilenameByImageId(int imageId) throws SQLException {
+        String filename = null;
+        String sql = "SELECT filename FROM image WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, imageId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    filename = resultSet.getString("filename");
+                }
+            }
+        }
+        return filename;
+    }
 
 
 

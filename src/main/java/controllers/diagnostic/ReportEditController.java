@@ -8,12 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import services.diagnostic.ImageService;
 import services.diagnostic.ReportService;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -32,11 +35,15 @@ public class ReportEditController {
     private ImageView backButton;
     @FXML
     private Text textradio;
+    @FXML
+    private ImageView reportimage;
 
     private ReportService reportService;
+    private ImageService imageService;
     private Report selectedReport;
 
     public ReportEditController() {
+        imageService = new ImageService();
         reportService = new ReportService();
     }
 
@@ -76,6 +83,7 @@ public class ReportEditController {
             textradio.setText(selectedReport.getInterpretation_rad());
 
         }
+        setImageData();
     }
 
     @FXML
@@ -110,5 +118,24 @@ public class ReportEditController {
     }
 
     public void returnBack(MouseEvent mouseEvent) {
+    }
+
+    private void setImageData() {
+        if (selectedReport != null && selectedReport.getImage() != null) {
+            try {
+                String filename = imageService.getFilenameByImageId(selectedReport.getImage().getId());
+                if (filename != null) {
+                    File imageFile = new File("src/main/resources/img/testimage/" + filename + ".png");
+                    System.out.println("Image file exists: " + imageFile.exists());
+                    Image image = new Image(imageFile.toURI().toString());
+                    reportimage.setImage(image);
+                } else {
+                    System.out.println("Image filename not found.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                errorMessageLabel.setText("Error retrieving image filename.");
+            }
+        }
     }
 }

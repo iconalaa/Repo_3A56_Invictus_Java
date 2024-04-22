@@ -57,10 +57,7 @@
                <Insets right="20.0" top="40.0" />
             </BorderPane.margin>
             <children>
-               <ImageView fitHeight="331.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../img/dicom.png" />
-                  </image>
+               <ImageView fx:id="reportimage" fitHeight="331.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
                </ImageView>
                <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="328.0" spacing="10.0">
                   <children>
