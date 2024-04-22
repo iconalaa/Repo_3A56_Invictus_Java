@@ -1,0 +1,15 @@
+.btn {
+  -fx-color: #1a76d1c9;
+  -fx-padding: 8px 40px;
+  -fx-font-size: 20px;
+  -fx-transition: 0.3s;
+  -fx-background-radius: 9px;
+}
+.btn:hover {
+  -fx-color: rgb(62, 93, 151);
+}
+.input {
+  -fx-background-color: transparent;
+  -fx-border-color: #ccc;
+  -fx-border-width: 0 0 1px 0;
+}

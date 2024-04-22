@@ -1,0 +1,46 @@
+.root {
+    -fx-background-color: white;
+}
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0276a1; /* Dark marine blue for contrast */
+}
+
+.text-area {
+    -fx-prompt-text-fill: #5b9fd1; /* Medium marine blue for the prompt text */
+    -fx-border-color: #a1c4fd; /* Light marine blue for border */
+}
+
+.date-picker {
+    -fx-background-color: #e7f5fe; /* Very light marine blue for the date picker background */
+}
+
+.button {
+    -fx-background-color: #0276a1; /* Dark marine blue for buttons */
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #035d75; /* Even darker marine blue for button hover */
+}
+
+.error-label {
+    -fx-font-size: 14px;
+}
+.info-label {
+    -fx-font-size: 12px; /* Smaller font size */
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333; /* Dark grey for readability */
+    -fx-background-color: #e7f5fe; /* Light marine blue background for the card */
+    -fx-padding: 5px;
+    -fx-border-color: #a1c4fd; /* Light marine blue for border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-label-padding: 5px;
+}
+
