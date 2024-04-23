@@ -8,6 +8,16 @@
 
     -fx-background-color: black;
 }
+
+.green-background
+{
+
+    -fx-background-color: gray;
+}
+
+.margin {
+    -fx-margin: 10px;
+}
 .right-side-border
 {
 
@@ -28,4 +38,28 @@
 .primary-color
 {
     -fx-background-color: #EFF2F6;
+}
+
+.border-radius {
+    -fx-border-radius: 50px;
+}
+.box-shadow {
+    -fx-effect: dropshadow(gaussian, gray, 10, 0, 0, 0);
+}
+
+.hover-red:hover {
+    -fx-background-color: red;
+}
+
+.hover-grow {
+
+    -fx-background-color: rgba(0, 0, 255, 0.15);
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: white;
+    -fx-cursor: hand;
+}
+
+.hover-grow:hover {
+
 }

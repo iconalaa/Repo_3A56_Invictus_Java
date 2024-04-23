@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import org.dcm4che3.imageio.plugins.dcm.DicomImageReader;
 
 import javax.imageio.ImageIO;
@@ -26,18 +29,57 @@ public class cardImageController {
     private Image imageData;
     @FXML
     private AnchorPane cardPane;
+    @FXML
+    private Label pateintlabel;
     private   boolean nb=false;
     private ImageDashboard dashboardController;
     @FXML
     private ImageView imageView;
     @FXML
     private ImageView check;
+    @FXML
+    private VBox con;
+    @FXML
+    private Text bodypart;
     private javafx.scene.image.Image originalImage;
     @FXML
     void initialize() {
         check.setVisible(false);
 
+        cardPane.getStyleClass().add("hover-grow");
+        ImageView previewImage = (ImageView) cardPane.lookup("#imageView");
+
+// Apply styles to the image node
+        con.setStyle("-fx-background-radius: 20px 20px 0 0; -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0px;");
+
+        cardPane.setOnMouseEntered(event -> {
+ pateintlabel.setStyle("-fx-text-fill: green;");
+
+            cardPane.setStyle("-fx-background-color: black; -fx-border-color: black;");
+            cardPane.getChildren().forEach(node -> {
+                if (node instanceof Text) {
+                    ((Text) node).setFill(Color.GREEN);
+                }
+            });
+        });
+
+        cardPane.setOnMouseExited(event -> {
+            cardPane.setStyle("-fx-background-color: white; -fx-border-color: white;");
+            pateintlabel.setStyle("-fx-text-fill: black;");
+            bodypart.setStyle("-fx-text-fill: black;");
+
+            cardPane.getChildren().forEach(node -> {
+                if (node instanceof Text ) {
+                    ((Text) node).setFill(Color.BLACK);
+
+                }
+            });
+        });
+
     }
+
+
+
     public void setImageData(Image image) throws IOException {
         // Update the UI elements with the image data
         titleLabel.setText(image.getBodyPart());
@@ -89,8 +131,8 @@ imageView.setImage(originalImage);
         System.out.println(imageData.getId());
         ImageDashboard.selectedImage=imageData;
         ImageDashboard.ol();
-        check.setVisible(true);
 
-        //cardPane.setStyle("-fx-background-color: black");
+
+        check.setVisible(true);
     }
 }
