@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="320.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dons.UpdateGratification">
+   <children>
+      <VBox layoutX="41.0" layoutY="100.0" prefHeight="290.0" prefWidth="238.0" styleClass="vbox-card" stylesheets="@../style/card.css">
+         <children>
+            <TextField fx:id="updtitle" promptText="Title">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="updtype" layoutX="21.0" layoutY="41.0" promptText="Type">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="upddesc" layoutX="21.0" layoutY="67.0" promptText="Description">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="updmont" layoutX="21.0" layoutY="92.0" promptText="Montant">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <ImageView fitHeight="88.0" fitWidth="320.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Gradiant-bg.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="152.0" layoutX="84.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo/logo-row.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="77.0" layoutY="412.0" mnemonicParsing="false" onAction="#updategrat" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../style/login.css" text="Update" />
+   </children>
+</AnchorPane>

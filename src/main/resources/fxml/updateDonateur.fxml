@@ -20,7 +20,7 @@
             <Image url="@../img/logo/logo-row.png" />
          </image>
       </ImageView>
-      <Button layoutX="99.0" layoutY="405.0" mnemonicParsing="false" onAction="#updateDonor" prefHeight="41.0" prefWidth="134.0" styleClass="btn" stylesheets="@../style/login.css" text="M.A.J" />
+      <Button layoutX="76.0" layoutY="407.0" mnemonicParsing="false" onAction="#updateDonor" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../style/login.css" text="Update" />
       <VBox layoutX="47.0" layoutY="76.0" prefHeight="314.0" prefWidth="237.0" styleClass="vbox-card" stylesheets="@../style/card.css">
          <children>
             <TextField fx:id="updnom" promptText="Nom">

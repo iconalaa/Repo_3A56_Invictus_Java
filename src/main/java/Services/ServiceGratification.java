@@ -85,7 +85,7 @@ public class ServiceGratification implements IServices<gratification> {
         ResultSet rs = statement.executeQuery(req);
         while (rs.next()) {
             gratification grat = new gratification();
-            //grat.setId(rs.getInt("id"));
+            grat.setId(rs.getInt("id"));
             //grat.setId_donateur_id(rs.getInt("Id_donateur_id"));
             grat.setDate_grat(rs.getDate("date_grat"));
             grat.setTitre_grat(rs.getString("titre_grat"));

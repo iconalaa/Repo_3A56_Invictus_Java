@@ -7,7 +7,7 @@
 }
 .search-container{
     -fx-border-color: '#6F6F6F';
-    -fx-border-radius: 15;
+    -fx-border-radius: 10;
 }
 .transparent{
     -fx-background-color: rgba(0,0,0,0);

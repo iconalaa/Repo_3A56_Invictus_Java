@@ -143,6 +143,7 @@ public class GratificationController implements Initializable {
         }
     }
 
+    /*
     @FXML
     private void modifyGratification(ActionEvent event) {
         gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
@@ -169,6 +170,28 @@ public class GratificationController implements Initializable {
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Warning", "Please select a gratification to modify");
+        }
+    }*/
+
+    @FXML
+    private void modifygrat(ActionEvent event) throws IOException {
+        gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
+        if (selectedGratification != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateGratification.fxml"));
+            Parent root = loader.load();
+
+            UpdateGratification updategrat = loader.getController();
+            updategrat.setSelectedDonor(selectedGratification);
+
+            // Show the update form
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            // After updating, reload the donor data
+            loadGratificationData();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Please select a donateur to modify");
         }
     }
 
@@ -232,7 +255,8 @@ public class GratificationController implements Initializable {
 
 
     private void initializeTable() {
-        //idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setVisible(false);
         //donorIDColumn.setCellValueFactory(new PropertyValueFactory<>("id_donateur_id"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date_grat"));
         titreColumn.setCellValueFactory(new PropertyValueFactory<>("titre_grat"));
@@ -248,7 +272,7 @@ public class GratificationController implements Initializable {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchGratification();
         });
-        tableGrats.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        /*tableGrats.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
 
                 updtitle.setText(newValue.getTitre_grat());
@@ -256,7 +280,7 @@ public class GratificationController implements Initializable {
                 upddesc.setText(newValue.getDesc_grat());
                 updmont.setText(String.valueOf(newValue.getMontant()));
             }
-        });
+        });*/
         pgdonations.setOnAction(this::navigateToDonations);
         pggratifications.setOnAction(this::navigateToGratifications);
     }
