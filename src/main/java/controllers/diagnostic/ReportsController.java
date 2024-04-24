@@ -55,6 +55,7 @@ public class ReportsController {
 
             for (Report report : filteredReports) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/report-item.fxml"));
+
                 try {
                     Node reportItem = loader.load();
                     gridPane.add(reportItem, column, row);
@@ -64,6 +65,8 @@ public class ReportsController {
 
                     // Set the report object to the report item controller
                     reportItemController.setReport(report);
+                    reportItemController.updateReportItem(report);
+
 
                     // Add event handler for report selection
                     reportItem.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {

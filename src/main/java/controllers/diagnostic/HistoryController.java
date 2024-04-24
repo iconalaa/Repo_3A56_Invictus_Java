@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.diagnostic.ReportService;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 
 public class HistoryController {
 
+    public TextField searchprompt;
     @FXML
     private Label reportsListLabel;
     @FXML
@@ -42,13 +44,8 @@ public class HistoryController {
             // Fetch reports from the database
             List<Report> reports = reportService.displayAll();
 
-            // Filter reports with is_edited = true
-            List<Report> filteredReports = reports.stream()
-                    .filter(Report::isIs_edited)
-                    .collect(Collectors.toList());
-
             // Convert list to ObservableList
-            ObservableList<Report> observableReports = FXCollections.observableArrayList(filteredReports);
+            ObservableList<Report> observableReports = FXCollections.observableArrayList(reports);
 
             // Set the custom cell factory for the ListView
             HistoryView.setCellFactory(param -> new ListCell<>() {
@@ -60,7 +57,7 @@ public class HistoryController {
                         setText(null);
                     } else {
                         // Create labels for each piece of information
-                        Label doctorLabel = new Label("Doctor: " + item.getDoctor().getMatricule() + " " + item.getDoctor().getMatricule());
+                        Label doctorLabel = new Label("Doctor: " + item.getImage().getPatient().getName() + " " + item.getImage().getPatient().getLastName());
                         Label dateLabel = new Label("Date: " + item.getDate());
                         Label medInterpretationLabel = new Label("Interpretation (Medical): " + item.getInterpretation_med());
                         Label radInterpretationLabel = new Label("Interpretation (Radiology): " + item.getInterpretation_rad());
@@ -81,6 +78,17 @@ public class HistoryController {
 
             // Set the items in the ListView
             HistoryView.setItems(observableReports);
+
+            // Add listener to search text field
+            searchprompt.textProperty().addListener((observable, oldValue, newValue) -> {
+                // Filter reports based on the doctor's matricule
+                ObservableList<Report> filteredReports = observableReports.filtered(report ->
+                        report.getDoctor().getName().toLowerCase().contains(newValue.toLowerCase())
+                );
+
+                // Update the ListView with the filtered reports
+                HistoryView.setItems(filteredReports);
+            });
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the SQLException properly, such as showing an error message to the user
         }
@@ -88,6 +96,7 @@ public class HistoryController {
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
     }
+
 
     private void openSpace(javafx.scene.input.MouseEvent event) {
         try {

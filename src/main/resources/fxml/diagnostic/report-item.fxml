@@ -20,7 +20,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="itemview" fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/user.png" />
                      </image>
@@ -35,14 +35,14 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="80.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="106.0" spacing="10.0">
          <children>
-            <Label fx:id="dateLabel1" prefHeight="30.0" prefWidth="94.0" text="        Name">
+            <Label fx:id="username" prefHeight="30.0" prefWidth="63.0" text="        Name">
                <font>
                   <Font name="Cambria Bold" size="10.0" />
                </font>
             </Label>
-            <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="101.0" text="         lastname" textAlignment="CENTER">
+            <Label fx:id="lastname" prefHeight="26.0" prefWidth="63.0" text="      lastname" textAlignment="CENTER">
                <font>
                   <Font name="Cambria Bold" size="10.0" />
                </font>

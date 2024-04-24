@@ -7,21 +7,34 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import entities.Report;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ReportsItemController {
     @FXML
-    private Label dateLabel;
+    private Label username;
+
+    @FXML
+    private Label lastname;
+    @FXML
+    private ImageView itemview;
 
     private Report report;
 
     public void updateReportItem(Report report) {
-        dateLabel.setText(report.getInterpretation_rad());
         this.report = report;
+        if (report != null) {
+            username.setText(report.getImage().getPatient().getName());
+            lastname.setText(report.getImage().getPatient().getLastName());
+        }
+        setImageData();
     }
+
 
     public void setReport(Report report) {
         this.report = report;
@@ -34,6 +47,7 @@ public class ReportsItemController {
                 // Load the edit report FXML
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/edit_report.fxml"));
                 Parent root = loader.load();
+
 
                 // Get the controller for the edit report
                 ReportEditController controller = loader.getController();
@@ -58,6 +72,19 @@ public class ReportsItemController {
         }
     }
 
+    private void setImageData() {
+        if (report != null && report.getImage() != null) {
+            String filename = report.getImage().getFilename();
+            if (filename != null) {
+                File imageFile = new File("src/main/resources/img/testimage/" + filename + ".png");
+                System.out.println("Image file exists: " + imageFile.exists());
+                Image image = new Image(imageFile.toURI().toString());
+                itemview.setImage(image);
+            } else {
+                System.out.println("Image filename not found.");
+            }
+        }
+    }
 
 
 

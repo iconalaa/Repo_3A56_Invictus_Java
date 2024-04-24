@@ -122,19 +122,15 @@ public class ReportEditController {
 
     private void setImageData() {
         if (selectedReport != null && selectedReport.getImage() != null) {
-            try {
-                String filename = imageService.getFilenameByImageId(selectedReport.getImage().getId());
-                if (filename != null) {
-                    File imageFile = new File("src/main/resources/img/testimage/" + filename + ".png");
-                    System.out.println("Image file exists: " + imageFile.exists());
-                    Image image = new Image(imageFile.toURI().toString());
-                    reportimage.setImage(image);
-                } else {
-                    System.out.println("Image filename not found.");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                errorMessageLabel.setText("Error retrieving image filename.");
+            String filename = selectedReport.getImage().getFilename();
+            System.out.println(selectedReport.getDoctor().getName());
+            if (filename != null) {
+                File imageFile = new File("src/main/resources/img/testimage/" + filename + ".png");
+                System.out.println("Image file exists: " + imageFile.exists());
+                Image image = new Image(imageFile.toURI().toString());
+                reportimage.setImage(image);
+            } else {
+                System.out.println("Image filename not found.");
             }
         }
     }
