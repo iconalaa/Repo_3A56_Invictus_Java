@@ -64,6 +64,8 @@ public class ServiceDonateur implements IServices<donateur>  {
             preparedStatement.setInt(5, donateur.getTelephone());
             preparedStatement.setInt(6, donateur.getId()); // Set the id
             preparedStatement.executeUpdate();
+        }catch (Exception e){
+            System.out.println("Erreur de mise à jour:" + e.getMessage());
         }
     }
 
@@ -91,7 +93,7 @@ public class ServiceDonateur implements IServices<donateur>  {
         ResultSet rs = statement.executeQuery(req);
         while (rs.next()) {
             donateur personne = new Entities.donateur();
-            //personne.setId(rs.getInt("id"));
+            personne.setId(rs.getInt("id"));
             personne.setNom_donateur(rs.getString("nom_donateur"));
             personne.setPrenom_donateur(rs.getString("prenom_donateur"));
             personne.setType_donateur(rs.getString("type_donateur"));

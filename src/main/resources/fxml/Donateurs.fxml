@@ -35,7 +35,7 @@
       </MenuButton>
        <TableView fx:id="tableDonors" layoutX="232.0" layoutY="166.0" prefHeight="430.0" prefWidth="713.0" stylesheets="@../style/table.css">
            <columns>
-               <!--TableColumn fx:id="idColumn" text="ID" /-->
+               <TableColumn fx:id="idColumn" text="ID"/>
                <TableColumn fx:id="nomColumn" text="Nom" />
                <TableColumn fx:id="prenomColumn" text="Prénom" />
                <TableColumn fx:id="emailColumn" text="Email" />
@@ -52,7 +52,7 @@
             <Button fx:id="delButton" layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteDonor" styleClass="vbox-button" stylesheets="@../style/card.css" text="Delete" />
         </buttons>
       </ButtonBar>
-      <VBox layoutX="11.0" layoutY="174.0" prefHeight="389.0" prefWidth="213.0" styleClass="vbox-card" stylesheets="@../style/card.css">
+      <!--VBox layoutX="11.0" layoutY="174.0" prefHeight="389.0" prefWidth="213.0" styleClass="vbox-card" stylesheets="@../style/card.css">
          <children>
             <TextField fx:id="updnom" promptText="Nom">
                <VBox.margin>
@@ -80,7 +80,7 @@
                </VBox.margin>
             </TextField>
          </children>
-      </VBox>
+      </VBox-->
       <TextField fx:id="searchField" layoutX="739.0" layoutY="128.0" onAction="#searchDonateur" prefHeight="26.0" prefWidth="200.0" promptText="Search..." styleClass="search-container" stylesheets="@../style/doctor-space.css" />
       <Text layoutX="273.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Our Donors">
          <font>

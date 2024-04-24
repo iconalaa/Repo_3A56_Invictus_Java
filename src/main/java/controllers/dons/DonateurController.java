@@ -10,15 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import Entities.donateur;
 import Services.ServiceDonateur;
 import javafx.scene.control.Label;
@@ -83,21 +80,6 @@ public class DonateurController implements Initializable {
 
     @FXML
     private TextField searchField;
-
-    @FXML
-    private TextField updnom;
-
-    @FXML
-    private TextField updprenom;
-
-    @FXML
-    private TextField updemail;
-
-    @FXML
-    private TextField updtel;
-
-    @FXML
-    private TextField updtype;
 
     @FXML
     private MenuButton menu;
@@ -165,6 +147,30 @@ public class DonateurController implements Initializable {
         }
     }
 
+
+    @FXML
+    private void modifyDonor(ActionEvent event) throws IOException {
+        donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
+        if (selectedDonateur != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateDonateur.fxml"));
+            Parent root = loader.load();
+
+            UpdateDonateur updateDonateurController = loader.getController();
+            updateDonateurController.setSelectedDonor(selectedDonateur);
+
+            // Show the update form
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            // After updating, reload the donor data
+            loadDonateurData();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Please select a donateur to modify");
+        }
+    }
+
+    /*
     @FXML
     private void modifyDonor(ActionEvent event) {
         donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
@@ -195,7 +201,7 @@ public class DonateurController implements Initializable {
         } else {
             showAlert(Alert.AlertType.WARNING, "Warning", "Please select a donateur to modify");
         }
-    }
+    } */
 
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -251,7 +257,7 @@ public class DonateurController implements Initializable {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchDonateur();
         });
-        tableDonors.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        /*tableDonors.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 updnom.setText(newValue.getNom_donateur());
                 updprenom.setText(newValue.getPrenom_donateur());
@@ -259,7 +265,7 @@ public class DonateurController implements Initializable {
                 updtel.setText(String.valueOf(newValue.getTelephone()));
                 updtype.setText(newValue.getType_donateur());
             }
-        });
+        });*/
         pgdonations.setOnAction(this::navigateToDonations);
         pggratifications.setOnAction(this::navigateToGratifications);
 
@@ -267,7 +273,8 @@ public class DonateurController implements Initializable {
     }
 
     private void initializeTable() {
-        //idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setVisible(false);
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom_donateur"));
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom_donateur"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
