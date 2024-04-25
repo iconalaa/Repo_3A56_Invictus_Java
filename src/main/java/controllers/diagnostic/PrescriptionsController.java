@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class PrescriptionsController {
+
     @FXML
     private TextArea prescriptionContent;
     @FXML
@@ -34,11 +35,10 @@ public class PrescriptionsController {
     private Label errorLabel;
     @FXML
     private Canvas signatureCanvas;
+
     private GraphicsContext gc;
     private int selectedReportId;
-
     private PrescriptionService prescriptionService;
-
     @FXML
     public void initialize() {
 
@@ -57,7 +57,36 @@ public class PrescriptionsController {
             gc.stroke();
         });
     }
+    @FXML
+    protected void handleSubmit(ActionEvent actionEvent) {
+        if (validateInput()) {
+            String signatureFilename = saveSignature();
+            if (signatureFilename != null) {
+                // Create a new Prescription object with the form data
+                Prescription newPrescription = new Prescription(prescriptionContent.getText(), signatureFilename);
 
+                // Use a static report_id for testing purposes
+                int reportId = selectedReportId; // Replace with the actual report_id from your database
+
+                // Call the add method from the PrescriptionService
+                try {
+                    prescriptionService.add2(newPrescription, reportId);
+
+                    // Load history.fxml directly
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
+                    Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    window.setScene(new Scene(loader.load()));
+                    window.show();
+
+                } catch (SQLException | IOException e) {
+                    errorLabel.setText("Failed to add prescription to the database.");
+                    e.printStackTrace();
+                }
+            } else {
+                errorLabel.setText("Failed to save signature.");
+            }
+        }
+    }
     private void initDraw(GraphicsContext gc) {
         double canvasWidth = gc.getCanvas().getWidth();
         double canvasHeight = gc.getCanvas().getHeight();
@@ -68,7 +97,6 @@ public class PrescriptionsController {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
     }
-
     private boolean validateInput() {
         String errorMessage = "";
         if (prescriptionContent.getText().trim().isEmpty()) {
@@ -83,7 +111,6 @@ public class PrescriptionsController {
         errorLabel.setText(errorMessage);
         return errorMessage.isEmpty(); // Return true if all checks pass
     }
-
     private boolean isCanvasEmpty() {
         WritableImage snapshot = signatureCanvas.snapshot(null, null);
         PixelReader pixelReader = snapshot.getPixelReader();
@@ -99,8 +126,6 @@ public class PrescriptionsController {
         }
         return true; // The canvas is empty
     }
-
-
     private String saveSignature() {
         WritableImage image = signatureCanvas.snapshot(null, null);
         String filename = "signature_" + UUID.randomUUID() + ".png";
@@ -123,36 +148,9 @@ public class PrescriptionsController {
             return null; // Return null if save is unsuccessful
         }
     }
-
-
     public void setSelectedReportId(int selectedReportId) {
         this.selectedReportId = selectedReportId;
     }
-    @FXML
-    protected void handleSubmit(ActionEvent actionEvent) {
-        if (validateInput()) {
-            String signatureFilename = saveSignature();
-            if (signatureFilename != null) {
-                // Create a new Prescription object with the form data
-                Prescription newPrescription = new Prescription(prescriptionContent.getText(), signatureFilename);
-
-                // Use a static report_id for testing purposes
-                int reportId = selectedReportId; // Replace with the actual report_id from your database
-
-                // Call the add method from the PrescriptionService
-                try {
-                    prescriptionService.add2(newPrescription, reportId);
-
-                } catch (SQLException e) {
-                    errorLabel.setText("Failed to add prescription to the database.");
-                    e.printStackTrace();
-                }
-            } else {
-                errorLabel.setText("Failed to save signature.");
-            }
-        }
-    }
-
     public void returnDoctorSpace(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));

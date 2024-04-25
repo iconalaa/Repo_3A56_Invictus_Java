@@ -58,34 +58,6 @@ public class ReportEditController {
         });
         backButton.setOnMouseClicked(event -> backToDash(event));
     }
-
-    private void backToDash(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(loader.load()));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setSelectedReport(Report selectedReport) {
-        this.selectedReport = selectedReport;
-
-        if (selectedReport != null) {
-            if (selectedReport.getDate() != null) {
-                java.util.Date utilDate = new java.util.Date(selectedReport.getDate().getTime());
-                LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                dateTextField.setValue(localDate);
-            }
-            interpretationMedTextField.setText(selectedReport.getInterpretation_med());
-            textradio.setText(selectedReport.getInterpretation_rad());
-
-        }
-        setImageData();
-    }
-
     @FXML
     public void handleUpdate() {
         if (dateTextField.getValue() == null || interpretationMedTextField.getText().isEmpty()) {
@@ -117,9 +89,34 @@ public class ReportEditController {
         }
     }
 
+
+    private void backToDash(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setSelectedReport(Report selectedReport) {
+        this.selectedReport = selectedReport;
+
+        if (selectedReport != null) {
+            if (selectedReport.getDate() != null) {
+                java.util.Date utilDate = new java.util.Date(selectedReport.getDate().getTime());
+                LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                dateTextField.setValue(localDate);
+            }
+            interpretationMedTextField.setText(selectedReport.getInterpretation_med());
+            textradio.setText(selectedReport.getInterpretation_rad());
+
+        }
+        setImageData();
+    }
     public void returnBack(MouseEvent mouseEvent) {
     }
-
     private void setImageData() {
         if (selectedReport != null && selectedReport.getImage() != null) {
             String filename = selectedReport.getImage().getFilename();

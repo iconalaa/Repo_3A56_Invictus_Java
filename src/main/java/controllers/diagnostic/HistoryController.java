@@ -11,8 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -26,17 +24,20 @@ import services.diagnostic.ReportService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class HistoryController {
 
-    public TextField searchprompt;
+
+
     @FXML
     private Label reportsListLabel;
     @FXML
     private Label doctorsapcelabel;
     @FXML
     private ListView<Report> HistoryView;
+    @FXML
+    public TextField searchprompt;
 
 
     private ReportService reportService;
@@ -67,7 +68,7 @@ public class HistoryController {
                         setGraphic(null); // Clear graphic if the cell is empty
                     } else {
                         // Create labels for each piece of information
-                        Label doctorLabel = new Label("Patient: " + item.getDoctor().getName() + " " + item.getDoctor().getLastName());
+                        Label doctorLabel = new Label("Patient: " + item.getImage().getPatient().getName() + " " + item.getImage().getPatient().getLastName());
                         Label dateLabel = new Label("Date: " + item.getDate());
                         Label medInterpretationLabel = new Label("Interpretation (Medical): " + item.getInterpretation_med());
                         Label radInterpretationLabel = new Label("Interpretation (Radiology): " + item.getInterpretation_rad());
@@ -75,6 +76,8 @@ public class HistoryController {
                         // Customize label styles if needed
                         doctorLabel.setStyle("-fx-font-weight: bold;");
                         dateLabel.setStyle("-fx-font-weight: bold;");
+                        medInterpretationLabel.setStyle("-fx-font-weight: bold;");
+                        radInterpretationLabel.setStyle("-fx-font-weight: bold;");
 
                         // Create a VBox to hold the labels
                         VBox vbox = new VBox(doctorLabel, dateLabel, medInterpretationLabel, radInterpretationLabel);
@@ -118,27 +121,6 @@ public class HistoryController {
 
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
-    }
-
-    private void openSpace(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(loader.load()));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private void openReports(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(loader.load()));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     @FXML
     private void openPrescription(ActionEvent event) {
@@ -189,5 +171,27 @@ public class HistoryController {
             alert.showAndWait();
         }
     }
+
+    private void openSpace(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void openReports(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

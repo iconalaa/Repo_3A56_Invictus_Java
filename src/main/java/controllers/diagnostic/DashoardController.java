@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 
 public class DashoardController {
+
     @FXML
     private Label reportsListLabel; // Add fx:id attribute here
     @FXML
@@ -36,6 +37,7 @@ public class DashoardController {
         historylabel.setOnMouseClicked(event -> openHistory(event));
 
     }
+
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
@@ -56,7 +58,6 @@ public class DashoardController {
             e.printStackTrace();
         }
     }
-
     private void fetchAndDisplayCounts() {
         PrescriptionService prescriptionService = new PrescriptionService();
         ReportService reportService = new ReportService();
