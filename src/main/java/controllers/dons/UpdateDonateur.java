@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -30,6 +31,21 @@ public class UpdateDonateur implements Initializable {
     @FXML
     private TextField updtype;
 
+    @FXML
+    private Label ernom;
+
+    @FXML
+    private Label erprenom;
+
+    @FXML
+    private Label ermail;
+
+    @FXML
+    private Label erteleph;
+
+    @FXML
+    private Label ertype;
+
 
     private donateur selectedDonateur;
 
@@ -48,7 +64,7 @@ public class UpdateDonateur implements Initializable {
 
     @FXML
     private void updateDonor() {
-        if (selectedDonateur != null) {
+        if (selectedDonateur != null && validateFields()) {
             // Get the modified values from the text fields
             String modifiedNom = updnom.getText();
             String modifiedPrenom = updprenom.getText();
@@ -80,7 +96,7 @@ public class UpdateDonateur implements Initializable {
             }
         } else {
             // Show warning if no donor is selected
-            showAlert(Alert.AlertType.WARNING, "Warning", "Please select a donateur to modify");
+            showAlert(Alert.AlertType.WARNING, "Error", "One of the values you entered does not match the correct form");
         }
     }
 
@@ -128,5 +144,39 @@ public class UpdateDonateur implements Initializable {
             }
         });
 
+    }
+
+    public boolean validateFields() {
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        String namePattern = "^[A-Za-z]{3,}(?:['-][A-Za-z]+)*$";
+        String numberPattern = "\\b\\d{8}\\b";
+        boolean test = true;
+        if (!updnom.getText().matches(namePattern)) {
+            ernom.setText("Invalid Name !");
+            test = false;
+        }
+
+        if (!updprenom.getText().matches(namePattern)) {
+            erprenom.setText("Invalid FirstName !");
+            test = false;
+        }
+
+        if (!updemail.getText().matches(emailPattern)) {
+            ermail.setText("Invalid Email !");
+            test = false;
+        }
+
+        if (!updtype.getText().matches(namePattern)) {
+            ertype.setText("Invalid Type !");
+            test = false;
+        }
+
+        if (!updtel.getText().matches(numberPattern)) {
+            erteleph.setText("Invalid Phone Number !");
+            test = false;
+        }
+
+
+        return test;
     }
 }
