@@ -67,6 +67,7 @@ public class Share {
         }
         droitServices.addRoleToImage(selectedImage.getId(), selectedRadiologistIds);
         refreshCheckBoxes();
+
     }
 
     private void refreshCheckBoxes() throws SQLException {

@@ -97,7 +97,16 @@ public class AddImage {
             String bodyPartValue = bodyPart.getText();
             LocalDate acquisitionDate = aqDate.getValue();
             System.out.println(acquisitionDate);
+            if(bodyPartValue.length() < 3)
+            {
 
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please insert at least 3 caracter in bodypart field");
+                alert.showAndWait();
+                return ;
+            }
             if (imageName.isEmpty() || bodyPartValue.isEmpty() || acquisitionDate == null) {
 
 

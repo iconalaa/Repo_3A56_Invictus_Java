@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -55,6 +56,7 @@ static  FlowPane x;
     @FXML
     void initialize() {
         try {
+            selectedImage=null;
             edit.setVisible(true);
             revoke.setVisible(true);
             share.setVisible(true);
@@ -97,6 +99,19 @@ static  FlowPane x;
     @FXML
     void deleteRecord(MouseEvent event) throws SQLException, IOException {
         Image selectedImage = this.selectedImage;
+        if(selectedImage==null)
+        {
+
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("please select an image");
+                alert.showAndWait();
+                return ;
+
+
+        }
         if (selectedImage != null) {
             try {
                 System.out.println("selected image is "+selectedImage);
@@ -125,6 +140,7 @@ static  FlowPane x;
 
                     // Add the pane to the flow pane
                     flowpaneimages.getChildren().addAll(pane);
+                    ImageDashboard.selectedImage=null;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,6 +152,19 @@ static  FlowPane x;
     @FXML
     void EditRecord(MouseEvent event) {
         Image selectedImage = this.selectedImage;
+        if(selectedImage==null)
+        {
+
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("please select an image");
+            alert.showAndWait();
+            return ;
+
+
+        }
         System.out.println("from image dashboard"+selectedImage.getPatient().getName());
         if (selectedImage != null) {
             try {
@@ -210,6 +239,19 @@ if(selectedImage != null)
     @FXML
     void share(ActionEvent event) {
         try {
+            if(selectedImage==null)
+            {
+
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("please select an image");
+                alert.showAndWait();
+                return ;
+
+
+            }
             // Load the share.fxml file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/image/share.fxml"));
             Parent root = fxmlLoader.load();
@@ -240,6 +282,19 @@ if(selectedImage != null)
     void revokeAcess(ActionEvent event) throws SQLException {
 
         try {
+            if(selectedImage==null)
+            {
+
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("please select an image");
+                alert.showAndWait();
+                return ;
+
+
+            }
             // Load the share.fxml file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/image/revoke.fxml"));
             Parent root = fxmlLoader.load();
@@ -255,6 +310,7 @@ if(selectedImage != null)
             stage.setTitle("Share");
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -265,6 +321,19 @@ if(selectedImage != null)
     @FXML
     void consult(ActionEvent event) {
         try {
+            if(selectedImage==null)
+            {
+
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("please select an image");
+                alert.showAndWait();
+                return ;
+
+
+            }
             // Load the consult.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/container.fxml"));
 
@@ -282,7 +351,6 @@ if(selectedImage != null)
             // Add the loaded root node to the container's children
             dash.getChildren().clear(); // Clear existing content
             dash.getChildren().add(root);
-
 
         } catch (IOException e) {
             e.printStackTrace();

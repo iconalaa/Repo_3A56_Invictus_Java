@@ -108,7 +108,16 @@ public class EditImage {
 
         System.out.println("edit function " + fileName.getText() + " \n  bodypart"+bodypart.getText()+"\n select"+selectedPatient);
 
+        if(bodypart.getText().length() < 3)
+        {
 
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please insert at least 3 caracter in bodypart field");
+            alert.showAndWait();
+            return ;
+        }
 
         if (fileName.getText().isEmpty() || bodypart.getText().isEmpty()|| selectedPatient == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -120,7 +129,9 @@ public class EditImage {
         }
 
         imageService.editImage(editedImage);
+
         Stage stage = (Stage) fileName.getScene().getWindow();
+        ImageDashboard.selectedImage=null;
         stage.close();
 
         stage.close();
