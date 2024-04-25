@@ -20,12 +20,12 @@
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0">
                <children>
-                  <ImageView fx:id="itemview" fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="itemview" fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" styleClass="fruit-item">
                      <image>
                         <Image url="@../../img/user.png" />
                      </image>
                      <VBox.margin>
-                        <Insets right="2.0" />
+                        <Insets right="10.0" />
                      </VBox.margin>
                   </ImageView>
                </children>
@@ -35,16 +35,16 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="106.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="106.0" spacing="3.0">
          <children>
-            <Label fx:id="username" prefHeight="30.0" prefWidth="63.0" text="        Name">
+            <Label fx:id="username" alignment="CENTER" prefHeight="30.0" prefWidth="63.0" text="        Name">
                <font>
-                  <Font name="Cambria Bold" size="10.0" />
+                  <Font name="Cambria Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lastname" prefHeight="26.0" prefWidth="63.0" text="      lastname" textAlignment="CENTER">
+            <Label fx:id="lastname" alignment="CENTER" prefHeight="26.0" prefWidth="91.0" text="      lastname" textAlignment="CENTER">
                <font>
-                  <Font name="Cambria Bold" size="10.0" />
+                  <Font name="Cambria Bold" size="14.0" />
                </font>
             </Label>
          </children>

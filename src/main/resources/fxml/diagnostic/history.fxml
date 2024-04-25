@@ -170,8 +170,16 @@
                                  <String fx:value="transparent" />
                                  <String fx:value="primary-color" />
                               </styleClass></ListView>
-                                    <!-- Add the button to open the prescription form -->
-                                    <Button onAction="#openPrescription" stylesheets="@../../style/prescription.css" text="Create Prescription" />
+                           <HBox alignment="CENTER" spacing="20.0">
+                              <children>
+                                          <!-- Add the button to open the prescription form -->
+                                          <Button onAction="#openPrescription" stylesheets="@../../style/prescription.css" text="Create Prescription" />
+                                 <Button onAction="#openPdfReport" stylesheets="@../../style/prescription.css" text="Generate PDF Report" />
+                              </children>
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                           </HBox>
                                 </VBox>
                             </content>
                         </ScrollPane>

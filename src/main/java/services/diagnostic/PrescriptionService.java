@@ -45,7 +45,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
         }
 
     }
-
     @Override
     public void add2(Prescription entity,int reportId) throws SQLException {
         String sql = "INSERT INTO prescription (report_id,contenu, date, signature_filename) " +
@@ -74,7 +73,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
 
 
     }
-
     @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM prescription WHERE id = ?";
@@ -91,7 +89,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
             throw e;
         }
     }
-
     @Override
     public void update(Prescription entity, int id) throws SQLException {
         String sql = "UPDATE prescription SET contenu = ?, signature_filename = ? WHERE id = ?";
@@ -110,7 +107,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
             throw e;
         }
     }
-
     @Override
     public List<Prescription> displayAll() throws SQLException {
         List<Prescription> prescriptions = new ArrayList<>();
@@ -138,7 +134,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
     }
 
 
-
     public int getReportIdByInterpretation(String interpretation) throws SQLException {
         String sql = "SELECT id FROM report WHERE interpretation_med = ?";
 
@@ -154,5 +149,30 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
             }
         }
     }
+    public boolean hasPrescription(int reportId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM prescription WHERE report_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, reportId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    return count > 0;
+                }
+            }
+        }
+        return false;
+    }
+    public int getAllPrescriptionsCount() throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM prescription";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("count");
+                }
+            }
+        }
+        return 0;
+    }
+
 
 }

@@ -6,15 +6,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import services.diagnostic.PdfReportGenerator;
+import services.diagnostic.PrescriptionService;
 import services.diagnostic.ReportService;
 
 import java.io.IOException;
@@ -29,20 +35,23 @@ public class HistoryController {
     private Label reportsListLabel;
     @FXML
     private Label doctorsapcelabel;
-    private ReportService reportService;
-
     @FXML
     private ListView<Report> HistoryView;
 
+
+    private ReportService reportService;
+    private PrescriptionService prescriptionService;
+
+
     public HistoryController() {
         reportService = new ReportService();
+        prescriptionService = new PrescriptionService();
     }
-
     @FXML
     private void initialize() {
         try {
             // Fetch reports from the database
-            List<Report> reports = reportService.displayAll();
+            List<Report> reports = reportService.displayEditedReports();
 
             // Convert list to ObservableList
             ObservableList<Report> observableReports = FXCollections.observableArrayList(reports);
@@ -55,9 +64,10 @@ public class HistoryController {
 
                     if (empty || item == null) {
                         setText(null);
+                        setGraphic(null); // Clear graphic if the cell is empty
                     } else {
                         // Create labels for each piece of information
-                        Label doctorLabel = new Label("Doctor: " + item.getImage().getPatient().getName() + " " + item.getImage().getPatient().getLastName());
+                        Label doctorLabel = new Label("Patient: " + item.getDoctor().getName() + " " + item.getDoctor().getLastName());
                         Label dateLabel = new Label("Date: " + item.getDate());
                         Label medInterpretationLabel = new Label("Interpretation (Medical): " + item.getInterpretation_med());
                         Label radInterpretationLabel = new Label("Interpretation (Radiology): " + item.getInterpretation_rad());
@@ -68,10 +78,32 @@ public class HistoryController {
 
                         // Create a VBox to hold the labels
                         VBox vbox = new VBox(doctorLabel, dateLabel, medInterpretationLabel, radInterpretationLabel);
-                        vbox.setSpacing(5); // Adjust spacing between labels if needed
+                        vbox.setSpacing(10); // Adjust spacing between labels if needed
 
-                        // Set the VBox as the graphic of the ListCell
-                        setGraphic(vbox);
+                        // Check if the report has a prescription
+                        try {
+                            boolean hasPrescription = prescriptionService.hasPrescription(item.getId());
+                            if (hasPrescription) {
+                                Label prescriptionLabel = new Label("Prescribed");
+                                prescriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
+                                prescriptionLabel.setTextFill(Color.WHITE);
+                                prescriptionLabel.setTextAlignment(TextAlignment.CENTER);
+                                prescriptionLabel.setBackground(new Background(new BackgroundFill(Color.web("#3F88C5"), new CornerRadii(15), null)));
+
+                                // Create a StackPane to contain the prescription label
+                                StackPane stackPane = new StackPane();
+                                stackPane.getChildren().addAll(vbox, prescriptionLabel);
+                                StackPane.setAlignment(prescriptionLabel, Pos.CENTER_RIGHT);
+
+                                // Set the StackPane as the graphic of the ListCell
+                                setGraphic(stackPane);
+                            } else {
+                                // Set the VBox as the graphic of the ListCell
+                                setGraphic(vbox);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -79,16 +111,7 @@ public class HistoryController {
             // Set the items in the ListView
             HistoryView.setItems(observableReports);
 
-            // Add listener to search text field
-            searchprompt.textProperty().addListener((observable, oldValue, newValue) -> {
-                // Filter reports based on the doctor's matricule
-                ObservableList<Report> filteredReports = observableReports.filtered(report ->
-                        report.getDoctor().getName().toLowerCase().contains(newValue.toLowerCase())
-                );
 
-                // Update the ListView with the filtered reports
-                HistoryView.setItems(filteredReports);
-            });
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the SQLException properly, such as showing an error message to the user
         }
@@ -96,7 +119,6 @@ public class HistoryController {
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
     }
-
 
     private void openSpace(javafx.scene.input.MouseEvent event) {
         try {
@@ -108,7 +130,6 @@ public class HistoryController {
             e.printStackTrace();
         }
     }
-
     private void openReports(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
@@ -119,24 +140,54 @@ public class HistoryController {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void openPrescription(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescription.fxml"));
-            Parent prescriptionRoot = loader.load();
+        Report selectedReport = HistoryView.getSelectionModel().getSelectedItem();
+        if (selectedReport != null) {
+            try {
+                PrescriptionService prescriptionService = new PrescriptionService();
+                boolean hasPrescription = prescriptionService.hasPrescription(selectedReport.getId());
 
-            PrescriptionsController prescriptionsController = loader.getController();
-            Report selectedReport = HistoryView.getSelectionModel().getSelectedItem();
-            if (selectedReport != null) {
-                prescriptionsController.setSelectedReportId(selectedReport.getId());
+                if (!hasPrescription) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescription.fxml"));
+                    Parent prescriptionRoot = loader.load();
+
+                    PrescriptionsController prescriptionsController = loader.getController();
+                    prescriptionsController.setSelectedReportId(selectedReport.getId());
+
+                    // Get the current scene and replace its root with the prescription form
+                    Scene scene = HistoryView.getScene();
+                    scene.setRoot(prescriptionRoot);
+                } else {
+                    // Show an alert indicating that a prescription already exists for this report
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText(null);
+                    alert.setContentText("A prescription has already been created for this report.");
+                    alert.showAndWait();
+                }
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
             }
-
-            // Get the current scene and replace its root with the prescription form
-            Scene scene = HistoryView.getScene();
-            scene.setRoot(prescriptionRoot);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
+    @FXML
+    private void openPdfReport(ActionEvent actionEvent) {
+        Report selectedReport = HistoryView.getSelectionModel().getSelectedItem();
+        if (selectedReport != null) {
+            // Create an instance of PdfReportGenerator
+            PdfReportGenerator pdfReportGenerator = new PdfReportGenerator();
+
+            // Call the generatePdfReport method on the instance
+            pdfReportGenerator.generatePdfReport(selectedReport);
+
+            // Show a pop-up alert after generating the PDF
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(null);
+            alert.setContentText("PDF Report has been generated and saved to your desktop.");
+            alert.showAndWait();
+        }
+    }
+
 }
