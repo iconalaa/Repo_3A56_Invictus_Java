@@ -16,9 +16,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class ReportsItemController {
+
     @FXML
     private Label username;
-
     @FXML
     private Label lastname;
     @FXML
@@ -34,8 +34,6 @@ public class ReportsItemController {
         }
         setImageData();
     }
-
-
     public void setReport(Report report) {
         this.report = report;
     }

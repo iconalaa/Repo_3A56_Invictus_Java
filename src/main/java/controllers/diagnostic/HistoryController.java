@@ -11,32 +11,42 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import services.diagnostic.PdfReportGenerator;
 import services.diagnostic.PrescriptionService;
 import services.diagnostic.ReportService;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class HistoryController {
 
-    public TextField searchprompt;
+
+
     @FXML
     private Label reportsListLabel;
     @FXML
     private Label doctorsapcelabel;
     @FXML
     private ListView<Report> HistoryView;
+    @FXML
+    public TextField searchprompt;
+    @FXML
+    private Label coranaLabel;
 
 
     private ReportService reportService;
@@ -46,13 +56,14 @@ public class HistoryController {
     public HistoryController() {
         reportService = new ReportService();
         prescriptionService = new PrescriptionService();
+
     }
     @FXML
     private void initialize() {
         try {
+
             // Fetch reports from the database
             List<Report> reports = reportService.displayEditedReports();
-
             // Convert list to ObservableList
             ObservableList<Report> observableReports = FXCollections.observableArrayList(reports);
 
@@ -67,7 +78,7 @@ public class HistoryController {
                         setGraphic(null); // Clear graphic if the cell is empty
                     } else {
                         // Create labels for each piece of information
-                        Label doctorLabel = new Label("Patient: " + item.getDoctor().getName() + " " + item.getDoctor().getLastName());
+                        Label doctorLabel = new Label("Patient: " + item.getImage().getPatient().getName() + " " + item.getImage().getPatient().getLastName());
                         Label dateLabel = new Label("Date: " + item.getDate());
                         Label medInterpretationLabel = new Label("Interpretation (Medical): " + item.getInterpretation_med());
                         Label radInterpretationLabel = new Label("Interpretation (Radiology): " + item.getInterpretation_rad());
@@ -75,6 +86,8 @@ public class HistoryController {
                         // Customize label styles if needed
                         doctorLabel.setStyle("-fx-font-weight: bold;");
                         dateLabel.setStyle("-fx-font-weight: bold;");
+                        medInterpretationLabel.setStyle("-fx-font-weight: bold;");
+                        radInterpretationLabel.setStyle("-fx-font-weight: bold;");
 
                         // Create a VBox to hold the labels
                         VBox vbox = new VBox(doctorLabel, dateLabel, medInterpretationLabel, radInterpretationLabel);
@@ -120,26 +133,10 @@ public class HistoryController {
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
     }
 
-    private void openSpace(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(loader.load()));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private void openReports(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(new Scene(loader.load()));
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
+
     @FXML
     private void openPrescription(ActionEvent event) {
         Report selectedReport = HistoryView.getSelectionModel().getSelectedItem();
@@ -189,5 +186,27 @@ public class HistoryController {
             alert.showAndWait();
         }
     }
+
+    private void openSpace(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void openReports(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

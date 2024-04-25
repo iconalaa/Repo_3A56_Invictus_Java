@@ -152,11 +152,20 @@
                     <children>
                         <VBox>
                             <children>
-                                <Label text="History">
-                                    <font>
-                                        <Font name="System Bold" size="16.0" />
-                                    </font>
-                                </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/arrow.png" />
+                                 </image>
+                              </ImageView>
+                                      <Label styleClass="title-label" stylesheets="@../../style/prescription.css" text="History">
+                                          <font>
+                                              <Font name="System Bold" size="16.0" />
+                                          </font>
+                                      </Label>
+                           </children>
+                        </HBox>
                             </children>
                         </VBox>
                         <ScrollPane prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">

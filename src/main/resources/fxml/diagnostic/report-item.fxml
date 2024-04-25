@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseClicked="#handleReportSelection" prefHeight="100.0" prefWidth="87.0" stylesheets="@../../style/item.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportsItemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleReportSelection" prefHeight="100.0" prefWidth="160.0" stylesheets="@../../style/item.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportsItemController">
     <styleClass>
         <String fx:value="fruit-item" />
         <String fx:value="shadow" />
@@ -25,27 +25,33 @@
                         <Image url="@../../img/user.png" />
                      </image>
                      <VBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </VBox.margin>
                   </ImageView>
                </children>
                <HBox.margin>
-                  <Insets left="120.0" />
+                  <Insets left="90.0" />
                </HBox.margin>
             </VBox>
          </children>
       </HBox>
       <VBox alignment="CENTER" prefHeight="90.0" prefWidth="106.0" spacing="3.0">
          <children>
-            <Label fx:id="username" alignment="CENTER" prefHeight="30.0" prefWidth="63.0" text="        Name">
+            <Label fx:id="username" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="90.0" text=" Name">
                <font>
                   <Font name="Cambria Bold Italic" size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets right="40.0" />
+               </VBox.margin>
             </Label>
-            <Label fx:id="lastname" alignment="CENTER" prefHeight="26.0" prefWidth="91.0" text="      lastname" textAlignment="CENTER">
+            <Label fx:id="lastname" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="90.0" text="  lastname" textAlignment="CENTER">
                <font>
                   <Font name="Cambria Bold" size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets right="40.0" />
+               </VBox.margin>
             </Label>
          </children>
       </VBox>

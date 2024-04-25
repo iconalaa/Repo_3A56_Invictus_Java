@@ -158,20 +158,20 @@
                                     <Image url="@../../img/arrow.png" />
                                  </image>
                               </ImageView>
-                                      <Label text="Awaiting Reports">
+                                      <Label styleClass="title-label" stylesheets="@../../style/prescription.css" text="Awaiting Reports">
                                           <font>
-                                              <Font size="16.0" />
+                                              <Font name="System Bold" size="16.0" />
                                           </font>
                                       </Label>
                            </children>
                         </HBox>
                             </children>
                         </VBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="false" prefHeight="453.0" prefWidth="700.0" styleClass="transparent" stylesheets="@../../style/item.css">
+                                <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="434.0" prefWidth="602.0" styleClass="transparent" stylesheets="@../../style/item.css">
                                     <content>
-                                        <GridPane fx:id="gridPane" alignment="TOP_CENTER" hgap="5.0"  prefHeight="253.0" prefWidth="20.0" vgap="5.0">
+                                        <GridPane fx:id="gridPane" alignment="TOP_CENTER" hgap="5.0" prefHeight="74.0" prefWidth="20.0" vgap="5.0">
                                             <!-- Add each report item here -->
                                         </GridPane>
                                     </content>

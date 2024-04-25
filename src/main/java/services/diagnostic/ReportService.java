@@ -58,7 +58,7 @@ public class ReportService implements ReportCrud<Report> {
                 "INNER JOIN user u ON r.doctor_id = u.id " +
                 "INNER JOIN image i ON r.image_id = i.id " +
                 "LEFT JOIN user p ON i.patient_id = p.id " +
-                "LEFT JOIN user rad ON i.radiologist_id = rad.id";
+                "LEFT JOIN user rad ON i.radiologist_id = rad.id " ;
 
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {

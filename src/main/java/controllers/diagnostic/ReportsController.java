@@ -6,14 +6,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import services.diagnostic.ReportService;
 import entities.Report;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,19 +20,18 @@ import java.util.List;
 
 
 public class ReportsController {
+
     @FXML
     private Label doctorSpaceLabel;
     @FXML
     private Label historyLabel;
     @FXML
     private GridPane gridPane;
-    @FXML
-    private ScrollPane scrollPane;
 
     private ReportService reportService;
 
     public ReportsController() {
-        reportService = new ReportService(); // Initialize the reportService
+        reportService = new ReportService();
     }
     public void initialize() {
         doctorSpaceLabel.setOnMouseClicked(this::openDashboard);
@@ -45,7 +43,7 @@ public class ReportsController {
 
             // Filter reports where edited is false
             for (Report report : allReports) {
-                if (!report.isIs_edited()) { // Assuming isEdited() returns true if the report is edited
+                if (!report.isIs_edited()) {
                     filteredReports.add(report);
                 }
             }
@@ -98,23 +96,22 @@ public class ReportsController {
             e.printStackTrace(); // Handle SQL exceptions properly
         }
     }
-
-
     private void openDashboard(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
             window.setScene(new Scene(loader.load()));
             window.show();
         } catch (IOException e) {
             e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
         }
     }
-
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
             window.setScene(new Scene(loader.load()));
             window.show();
         } catch (IOException e) {
@@ -122,10 +119,4 @@ public class ReportsController {
         }
     }
 
-
-
-
-    public void test(MouseEvent mouseEvent) {
-        System.out.println("prees works");
-    }
 }
