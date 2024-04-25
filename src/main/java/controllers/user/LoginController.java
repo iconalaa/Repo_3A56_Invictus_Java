@@ -15,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 import javafx.event.ActionEvent;
@@ -46,9 +45,7 @@ public class LoginController {
     public void login(ActionEvent event) throws IOException {
         if (validateFields()) {
             connection = MyDataBase.getInstance().getConnection();
-
             String req = "SELECT * FROM user WHERE email = ?";
-
 
             try {
                 PreparedStatement ps = connection.prepareStatement(req);
@@ -57,25 +54,17 @@ public class LoginController {
                 if (rs.next()) {
                     BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                     if (result.verified) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.setResizable(false);
-                        stage.setScene(scene);
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-                        stage.setTitle("RadioHub");
-                        stage.show();
-                        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-                        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-                        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        currentStage.close();
+//                        rs.getString()
+                        showScene(event, "home.fxml");
+//                        showScene(event, "admin/dashboard.fxml");
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Invalid Cordentials !");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERROR");
+                        alert.setHeaderText("Password Doesn't Match !");
                         alert.show();
                     }
+                } else {
+                    emailError.setText("Email doesn't Exist in DB !");
                 }
 
             } catch (SQLException ex) {
@@ -86,15 +75,42 @@ public class LoginController {
 
     }
 
+    public void showScene(ActionEvent event, String x) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            stage.setTitle("RadioHub");
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public boolean validateFields() {
         String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         boolean test = true;
-        if (!emailField.getText().matches(emailPattern)) {
+        if (emailField.getText().length() == 0) {
+            emailError.setText("Email can't be empty !");
+            test = false;
+        } else if (!emailField.getText().matches(emailPattern)) {
             emailError.setText("Invalid Email !");
             test = false;
         }
-        if (!passwordField.getText().matches(passwordPattern)) {
+        if (passwordField.getText().length() == 0) {
+            passwordError.setText("Write your password !");
+            test = false;
+        } else if (!passwordField.getText().matches(passwordPattern)) {
             passwordError.setText("Invalid Password Minimum 6 Characters !");
             test = false;
         }

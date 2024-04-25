@@ -41,6 +41,7 @@ public class UserService implements ICrud<User> {
             PreparedStatement ps = connection.prepareStatement(req);
             Gson gson = new Gson();
             String roles = gson.toJson(el.getRole());
+            System.out.println(roles);
             ps.setString(1, el.getName());
             ps.setString(2, el.getLastName());
             ps.setString(3, el.getEmail());
