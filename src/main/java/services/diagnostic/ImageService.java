@@ -5,6 +5,7 @@ import entities.Image;
 
 import entities.User;
 import services.Image.DroitServices;
+import services.interpretation.InterpreationServices;
 import utils.MyDataBase;
 
 import java.sql.Connection;
@@ -91,6 +92,8 @@ public class ImageService {
 
         DroitServices droitServices = new DroitServices();
         droitServices.delete(imageId);
+        InterpreationServices interpreationServices = new InterpreationServices();
+        interpreationServices.deleteInterpretation(imageId);
 
         String query = "DELETE FROM image WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {

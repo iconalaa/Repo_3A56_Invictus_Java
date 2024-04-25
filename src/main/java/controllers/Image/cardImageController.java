@@ -49,11 +49,11 @@ public class cardImageController {
         cardPane.getStyleClass().add("hover-grow");
         ImageView previewImage = (ImageView) cardPane.lookup("#imageView");
 
-// Apply styles to the image node
+        // Apply styles to the image node
         con.setStyle("-fx-background-radius: 20px 20px 0 0; -fx-background-insets: 0; -fx-border-color: black; -fx-border-width: 0px;");
 
         cardPane.setOnMouseEntered(event -> {
- pateintlabel.setStyle("-fx-text-fill: green;");
+         pateintlabel.setStyle("-fx-text-fill: green;");
 
             cardPane.setStyle("-fx-background-color: black; -fx-border-color: black;");
             cardPane.getChildren().forEach(node -> {
@@ -95,8 +95,8 @@ public class cardImageController {
 
         originalImage = SwingFXUtils.toFXImage(bufferedImage, null);
 
-        imageView.setPreserveRatio(true);
-imageView.setImage(originalImage);
+            imageView.setPreserveRatio(true);
+            imageView.setImage(originalImage);
 
         dicomStream.close();
     }

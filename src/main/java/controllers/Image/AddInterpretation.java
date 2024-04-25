@@ -21,9 +21,10 @@ public class AddInterpretation {
     @FXML
     private TextField interpretationt;
 
-    private consult consultController = new consult();
 
-    public void setConsultController(consult consultController) {
+
+    private ContainerController consultController = new ContainerController();
+    public void setConsultController(ContainerController consultController) {
         this.consultController = consultController;
     }
     @FXML

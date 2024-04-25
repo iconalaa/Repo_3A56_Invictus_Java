@@ -63,3 +63,185 @@
 .hover-grow:hover {
 
 }
+
+.zone {
+    -fx-overflow: hidden;
+}
+.anchor-pane-element {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-padding: 10px; /* Padding around the content */
+    -fx-margin: 50px; /* Margin around the entire AnchorPane */
+
+
+}
+.delete-button {
+    -fx-background-color: #ff6347; /* Red color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.delete-button:hover {
+    -fx-background-color: #d9534f; /* Darker red color on hover */
+}
+
+.delete-button:pressed {
+    -fx-background-color: #c9302c; /* Even darker red color on click */
+}
+.add-button {
+    -fx-background-color: rgba(0, 0, 255, 0.47); /* Green color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.add-button:hover {
+    -fx-background-color: rgba(0, 0, 255, 0.31); /* Darker green color on hover */
+}
+
+.add-button:pressed {
+    -fx-background-color: rgba(70, 70, 236, 0.82); /* Original green color on click */
+}
+
+
+
+
+
+
+
+
+
+
+
+.edit-button {
+    -fx-background-color: rgba(70, 70, 236, 0.82); /* Green color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.edit-button:hover {
+    -fx-background-color: rgba(166, 186, 245, 0.73); /* Darker green color on hover */
+}
+
+.edit-button:pressed {
+    -fx-background-color: rgba(166, 186, 245, 0.85); /* Original green color on click */
+}
+
+
+
+
+.view-button {
+    -fx-background-color: rgba(29, 29, 51, 0.82); /* Green color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.view-button:hover {
+    -fx-background-color: rgba(29, 29, 51, 0.57); /* Green color */
+}
+
+.view-button:pressed {
+    -fx-background-color: rgba(29, 29, 51, 0.85); /* Green color */
+}
+
+
+
+
+
+.Share-button {
+    -fx-background-color: rgba(108, 61, 255, 0.85); /* Green color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.Share-button:hover {
+    -fx-background-color: rgba(108, 61, 255, 0.55); /* Green color */
+}
+
+.Share-button:pressed {
+    -fx-background-color: rgba(108, 61, 255, 0.45); /* Green color */
+}
+
+
+
+
+
+.Revoke-button {
+    -fx-background-color: rgba(253, 91, 91, 0.85); /* Green color */
+    -fx-text-fill: white; /* Text color */
+    -fx-border-color: transparent; /* Remove border */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px 16px; /* Add padding */
+    -fx-cursor: hand; /* Show pointer cursor on hover */
+}
+
+/* Define additional styles for hover and active states if needed */
+.Revoke-button:hover {
+    -fx-background-color: rgba(253, 91, 91, 0.7); /* Green color */
+}
+
+.Revoke-button:pressed {
+    -fx-background-color: rgba(253, 91, 91, 0.44); /* Green color */
+}
+
+
+
+
+
+.text-area {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-text-fill: #333333; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+    -fx-border-color: #cccccc; /* Border color */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px; /* Add padding */
+    -fx-pref-height: 20px; /* Preferred height */
+}
+
+
+.des {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-text-fill: #333333; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+    -fx-border-color: #cccccc; /* Border color */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px; /* Add padding */
+    -fx-pref-height: 100px; /* Preferred height */
+}
+
+
+
+
+.combo-box {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-text-fill: #333333; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+    -fx-border-color: #cccccc; /* Border color */
+    -fx-border-radius: 4px; /* Add border radius for rounded corners */
+    -fx-padding: 8px; /* Add padding */
+    -fx-pref-width: 200px; /* Preferred width */
+}
+
+

@@ -65,13 +65,10 @@ static  FlowPane x;
                 for (Image image : images) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/cardImage.fxml"));
                     AnchorPane pane = loader.load();
-
                     // Get the controller of the cardImage.fxml file
                     cardImageController controller = loader.getController();
-
                     // Pass the image data to the controller
                     controller.setImageData(image);
-
                     // Add the pane to the flow pane
                     flowpaneimages.getChildren().addAll(pane);
                     x=flowpaneimages;
@@ -269,18 +266,23 @@ if(selectedImage != null)
     void consult(ActionEvent event) {
         try {
             // Load the consult.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/consult.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/container.fxml"));
+
+            // Create a new instance of the ContainerController
+            ContainerController controller = new ContainerController();
+
+            // Set the controller for the FXMLLoader
+            loader.setController(controller);
+
+            // Load the FXML file
             Parent root = loader.load();
 
-            // Get the controller of the consult.fxml file
-            consult consultController = loader.getController();
-
             // Pass the selected image to the consult controller
-            Image selectedImage = ImageDashboard.selectedImage; // Assuming listview is your ListView of images
 
             // Add the loaded root node to the container's children
             dash.getChildren().clear(); // Clear existing content
             dash.getChildren().add(root);
+
 
         } catch (IOException e) {
             e.printStackTrace();

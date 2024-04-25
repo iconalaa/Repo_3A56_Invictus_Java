@@ -35,10 +35,10 @@ public class InterpreationServices  {
         }
     }
 
-    public void deleteInterpretation(Interpretation interpretation) throws SQLException {
-        String query = "DELETE FROM interpretation WHERE id = ?";
+    public void deleteInterpretation(int id) throws SQLException {
+        String query = "DELETE FROM interpretation WHERE image_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, interpretation.getId());
+            statement.setInt(1,id);
             statement.executeUpdate();
         }
     }

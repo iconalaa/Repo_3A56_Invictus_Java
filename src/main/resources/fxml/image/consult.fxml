@@ -11,13 +11,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.consult">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0">
          <left>
-            <VBox alignment="CENTER" prefHeight="607.0" prefWidth="198.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
+            <VBox fx:id="sidebar" alignment="CENTER" prefHeight="607.0" prefWidth="198.0" style="-fx-background-position: absolute;" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin>
@@ -44,6 +45,7 @@
                      </children>
                   </HBox>
                   <Pane prefHeight="147.0" prefWidth="158.0" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
                   <ListView fx:id="container" prefHeight="753.0" prefWidth="157.0" />
                </children>
             </VBox>
@@ -57,7 +59,7 @@
                            <children>
                               <ButtonBar layoutX="-3.0" layoutY="-6.0" prefHeight="40.0" prefWidth="556.0">
                                 <buttons>
-                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" onAction="#zoom" text="Button" />
                                     <Button mnemonicParsing="false" text="Button" />
                                     <Button mnemonicParsing="false" text="Button" />
                                     <Button mnemonicParsing="false" text="Button" />
@@ -71,21 +73,7 @@
                         <HBox alignment="CENTER" prefHeight="55.0" prefWidth="0.0" />
                      </children>
                   </HBox>
-                  <VBox fx:id="zone" onMouseClicked="#returnToIm" prefHeight="624.0" prefWidth="589.0" styleClass="black-background" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="750.0">
-                           <children>
-                              <Pane prefHeight="47.0" prefWidth="409.0" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
-                     </VBox.margin>
-                  </VBox>
+                  <AnchorPane fx:id="zone" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
          </center>

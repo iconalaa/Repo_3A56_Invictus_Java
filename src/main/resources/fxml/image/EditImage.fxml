@@ -3,23 +3,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.EditImage">
+<AnchorPane prefHeight="400.0" prefWidth="355.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.EditImage">
    <children>
-      <TextField fx:id="fileName" layoutX="104.0" layoutY="72.0" />
-      <TextField fx:id="bodypart" layoutX="104.0" layoutY="121.0" />
+      <TextField fx:id="fileName" layoutX="91.0" layoutY="84.0" styleClass="text-area" stylesheets="@css/style.css" />
+      <TextField fx:id="bodypart" layoutX="91.0" layoutY="128.0" styleClass="text-area" stylesheets="@css/style.css" />
       <Text layoutX="104.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Image">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Text>
-      <Button fx:id="uploadImageButton" layoutX="136.0" layoutY="223.0" onMouseClicked="#uploadImage" text="upload image" />
+      <Button fx:id="uploadImageButton" layoutX="125.0" layoutY="239.0" onMouseClicked="#uploadImage" styleClass="view-button" stylesheets="@css/style.css" text="upload image" />
 
-      <Button fx:id="submitButton" layoutX="152.0" layoutY="291.0" mnemonicParsing="false" onMouseClicked="#handleEditButtonClick" text="Edit" />
-      <ComboBox fx:id="patientCol" layoutX="104.0" layoutY="167.0" prefWidth="150.0" />
+      <Button fx:id="submitButton" layoutX="152.0" layoutY="291.0" mnemonicParsing="false" onMouseClicked="#handleEditButtonClick" styleClass="add-button" stylesheets="@css/style.css" text="Edit" />
+      <ComboBox fx:id="patientCol" layoutX="79.0" layoutY="178.0" prefWidth="150.0" stylesheets="@css/style.css" />
+      <ImageView fitHeight="69.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images%20(1).png" />
+         </image>
+      </ImageView>
 
    </children>
 </AnchorPane>

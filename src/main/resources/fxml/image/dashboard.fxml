@@ -177,35 +177,28 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="750.0">
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="693.0">
                      <children>
-                        <Button fx:id="delete" mnemonicParsing="false" onMouseClicked="#deleteRecord" text="Delete">
+                        <Button fx:id="delete" mnemonicParsing="false" onMouseClicked="#deleteRecord" styleClass="delete-button" stylesheets="@css/style.css" text="Delete">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="addImageButton" mnemonicParsing="false" onAction="#handleAddButtonClick" text="Add">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="edit" mnemonicParsing="false" onMouseClicked="#EditRecord" text="Edit">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Pane prefHeight="47.0" prefWidth="409.0">
+                        <Pane prefHeight="47.0" prefWidth="376.0">
                            <children>
-                              <Button layoutX="179.0" layoutY="11.0" mnemonicParsing="false" onAction="#consult" text="Consult" />
+                              <Button layoutX="181.0" layoutY="6.0" mnemonicParsing="false" onAction="#consult" styleClass="view-button" stylesheets="@css/style.css" text="Consult" />
+                              <Button fx:id="edit" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#EditRecord" prefHeight="35.0" prefWidth="61.0" styleClass="edit-button" stylesheets="@css/style.css" text="Edit" />
+                              <Button fx:id="addImageButton" layoutX="66.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleAddButtonClick" prefHeight="31.0" prefWidth="61.0" styleClass="add-button" stylesheets="@css/style.css" text="Add" />
                            </children></Pane>
-                        <Button fx:id="share" mnemonicParsing="false" onAction="#share" text="share" />
-                        <Button fx:id="revoke" mnemonicParsing="false" onAction="#revokeAcess" text="Revoke" />
+                        <Button fx:id="share" mnemonicParsing="false" onAction="#share" styleClass="Share-button" stylesheets="@css/style.css" text="share" />
+                        <Pane prefHeight="12.0" prefWidth="34.0" />
+                        <Button fx:id="revoke" mnemonicParsing="false" onAction="#revokeAcess" prefHeight="35.0" prefWidth="78.0" styleClass="Revoke-button" stylesheets="@css/style.css" text="Revoke" />
                      </children>
                   </HBox>
                   <ListView fx:id="listview" prefHeight="0.0" prefWidth="702.0" />
                   <ScrollPane>
                      <content>
-                        <FlowPane fx:id="flowpaneimages" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="497.0" prefWidth="702.0" vgap="10.0">
+                        <FlowPane fx:id="flowpaneimages" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="497.0" prefWidth="702.0" style="-fx-background-color: #065fd41f;" vgap="10.0">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding></FlowPane>
