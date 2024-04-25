@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.net.URL;
@@ -28,6 +29,18 @@ public class UpdateGratification implements Initializable {
     @FXML
     private TextField updmont;
 
+    @FXML
+    private Label ermont;
+
+    @FXML
+    private Label ertitre;
+
+    @FXML
+    private Label erdesc;
+
+    @FXML
+    private Label ertype;
+
     private gratification selectedGrtification;
 
 
@@ -44,7 +57,7 @@ public class UpdateGratification implements Initializable {
 
     @FXML
     private void updategrat() {
-        if (selectedGrtification != null) {
+        if (selectedGrtification != null &&validateFields())  {
             // Get the modified values from the text fields
             String modifiedTitle = updtitle.getText();
             String modifiedType = updtype.getText();
@@ -74,7 +87,7 @@ public class UpdateGratification implements Initializable {
             }
         } else {
             // Show warning if no donor is selected
-            showAlert(Alert.AlertType.WARNING, "Warning", "Please select a Gratification to modify");
+            showAlert(Alert.AlertType.WARNING, "Error", "One of the values you entered does not match the correct form");
         }
     }
 
@@ -116,5 +129,34 @@ public class UpdateGratification implements Initializable {
                 }
             }
         });
+    }
+
+    public boolean validateFields() {
+        String textPattern = "^[A-Za-z ]+$";
+        String numberPattern = "\\d+";
+        boolean test = true;
+        if (!updtitle.getText().matches(textPattern)) {
+            ertitre.setText("Invalid title !");
+            test = false;
+        }
+
+        if (!upddesc.getText().matches(textPattern)) {
+            erdesc.setText("Description must be text !");
+            test = false;
+        }
+
+        if (!updmont.getText().matches(numberPattern)) {
+            ermont.setText("The amount must be numeric !");
+            test = false;
+        }
+
+        if (!updtype.getText().matches(textPattern)) {
+            ertype.setText("Invalid Type !");
+            test = false;
+        }
+
+
+
+        return test;
     }
 }
