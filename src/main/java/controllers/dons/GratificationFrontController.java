@@ -83,10 +83,8 @@ public class GratificationFrontController {
                 service.ajouter(g);
                 int payable = Integer.parseInt(String.valueOf(mont));
 
-                // Set your Stripe API key
                 Stripe.apiKey = "sk_test_51OoAAEIWVdhcEaWiVsWuSH8Vvjp2uNLt6clHC56qJNPBSB9QhA4YLRaDFhvAhkzmuvj1vsTFD27b2Rr5Sho916F200mSsFg3iP";
 
-                // Create a payment session with the specified amount
                 SessionCreateParams params = SessionCreateParams.builder()
                         .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                         .setMode(SessionCreateParams.Mode.PAYMENT)
@@ -98,7 +96,7 @@ public class GratificationFrontController {
                                         .setPriceData(
                                                 SessionCreateParams.LineItem.PriceData.builder()
                                                         .setCurrency("usd")
-                                                        .setUnitAmount((long) (payable * 100)) // Amount in cents
+                                                        .setUnitAmount((long) (payable * 100))
                                                         .setProductData(
                                                                 SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                                                         .setName("Gratification")
@@ -111,7 +109,6 @@ public class GratificationFrontController {
                         .build();
                 Session session = Session.create(params);
 
-                // Redirect the user to the Stripe checkout page
                 String checkoutUrl = session.getUrl();
                 System.out.println("Checkout URL: " + checkoutUrl);
 
