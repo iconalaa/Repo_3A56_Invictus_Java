@@ -198,7 +198,8 @@ public class ListArticleController {
     public void navigateToBlog(MouseEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/Blog.fxml"));
         try {
-            Parent root = loader.load();
+            Parent root;
+            root = loader.load();
             Stage stage = (Stage) btnBlog.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
