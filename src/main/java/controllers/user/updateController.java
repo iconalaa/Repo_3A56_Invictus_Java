@@ -86,6 +86,7 @@ public class updateController {
 
     @FXML
     void addAction(ActionEvent event) {
+        
         String name = addName.getText();
         String lastname = addLastName.getText();
         String email = addEmail.getText();
