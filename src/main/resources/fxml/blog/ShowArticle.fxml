@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowArticleController" style="-fx-background-color: #f5f5f5;">
+
+    <Label layoutX="21.0" layoutY="21.0" text="Article Details" style="-fx-font-size: 20px; -fx-font-weight: bold;">
+        <font>
+            <Font name="Arial" size="20.0" />
+        </font></Label>
+    <Label layoutX="33.0" layoutY="308.0" text="Title:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+    <Label fx:id="titleLabel" layoutX="187.0" layoutY="300.0" prefHeight="34.0" prefWidth="136.0" text="title">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
+    <Label layoutX="23.0" layoutY="341.0" text="Content:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+    <Label fx:id="contentLabel" layoutX="87.0" layoutY="334.0" prefHeight="200.0" prefWidth="388.0" text="content" />
+    <Label layoutX="27.0" layoutY="275.0" text="Image:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+    <ImageView fx:id="imageView" fitHeight="234.0" fitWidth="443.0" layoutX="87.0" layoutY="43.0" preserveRatio="true" />
+    <Label fx:id="createdAtLabel" layoutX="87.0" layoutY="545.0" prefHeight="17.0" prefWidth="443.0" text="created_at" >
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+
+
+</AnchorPane>
