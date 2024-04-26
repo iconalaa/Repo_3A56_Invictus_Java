@@ -108,7 +108,7 @@ public class DoctorController {
             genderError.setText("Chose a gender !");
             test = false;
         }
-        if (datePicker.getValue() == null) {
+        if (datePicker.getValue() == null || datePicker.getValue().isAfter(LocalDate.of(2021, 12, 31))) {
             dateError.setText("Chose Date of birth please !");
             test = false;
         }

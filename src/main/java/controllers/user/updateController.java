@@ -80,13 +80,12 @@ public class updateController {
         fxLastName.setText(user.getLastName());
         fxEmail.setText(user.getEmail());
         fxPassword.setText(user.getPassword());
-
     }
 
 
     @FXML
     void addAction(ActionEvent event) {
-        
+
         String name = addName.getText();
         String lastname = addLastName.getText();
         String email = addEmail.getText();
