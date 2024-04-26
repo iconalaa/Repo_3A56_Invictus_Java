@@ -28,7 +28,6 @@ public class UserService implements ICrud<User> {
         st.setString(6, el.getLastName());
         st.setString(7, el.getBirth_date().toString());
         st.setString(8, el.getGender());
-
         st.executeUpdate();
         System.out.println("Added Successfully");
     }
@@ -41,7 +40,6 @@ public class UserService implements ICrud<User> {
             PreparedStatement ps = connection.prepareStatement(req);
             Gson gson = new Gson();
             String roles = gson.toJson(el.getRole());
-            System.out.println(roles);
             ps.setString(1, el.getName());
             ps.setString(2, el.getLastName());
             ps.setString(3, el.getEmail());
@@ -92,6 +90,29 @@ public class UserService implements ICrud<User> {
         return users;
     }
 
+    public User getUserById(int id){
+        String sql = "SELECT * FROM USER WHERE id = ?";
+        try{
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1,id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                User user = new User();
+                user.setUser_id(rs.getInt("id"));
+                user.setRole(rs.getString("roles").split(","));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setLastName(rs.getString("lastname"));
+                user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+                user.setBrochure_filename(rs.getString("brochure_filename"));
+                return user;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,46 +16,102 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.updateController">
-   <children>
-      <VBox layoutX="176.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+    <children>
+        <VBox layoutX="176.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Update USER">
+                            <font>
+                                <Font size="29.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </HBox>
+            <VBox spacing="5.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Update USER">
-                     <font>
-                        <Font size="29.0" />
-                     </font>
-                  </Text>
+                      <ComboBox fx:id="updateRoles" prefHeight="25.0" prefWidth="559.0" promptText="Select Role">
+                          <cursor>
+                              <Cursor fx:constant="HAND" />
+                          </cursor>
+                          <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Doctor" />
+                                  <String fx:value="Patient" />
+                                  <String fx:value="Radiologist" />
+                              </FXCollections>
+                          </items>
+                      </ComboBox>
+                  <Label fx:id="roleError" textFill="RED" />
                </children>
-            </HBox>
-            <TextField fx:id="fxName" promptText="Name" styleClass="input" stylesheets="@../../../style/doctor.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fxLastName" promptText="Last Name" styleClass="input" stylesheets="@../../../style/doctor.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fxEmail" layoutX="10.0" layoutY="35.0" promptText="Email" styleClass="input" stylesheets="@../../../style/doctor.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fxPassword" layoutX="10.0" layoutY="60.0" promptText="Password" styleClass="input" stylesheets="@../../../style/doctor.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fxMatricule" layoutX="10.0" layoutY="85.0" promptText="Matricule" styleClass="input" stylesheets="@../../../style/doctor.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="540.0" spacing="50.0">
+            </VBox>
+                <HBox alignment="CENTER" prefHeight="0.0" prefWidth="540.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#updateUser" styleClass="btn" stylesheets="@../../../style/signUp.css" text="Update">
+                   <ComboBox fx:id="updateGender" prefHeight="25.0" prefWidth="302.0" promptText="Select Gender">
+                       <cursor>
+                           <Cursor fx:constant="HAND" />
+                       </cursor>
+                       <items>
+                           <FXCollections fx:factory="observableArrayList">
+                               <String fx:value="Male" />
+                               <String fx:value="Female" />
+                           </FXCollections>
+                       </items>
+                   </ComboBox>
+                  <DatePicker fx:id="updateDate" prefHeight="25.0" prefWidth="313.0" />
+               </children>
+                </HBox>
+                <HBox spacing="10.0">
+                    <children>
+                  <VBox spacing="5.0">
+                     <children>
+                              <TextField fx:id="fxName" prefHeight="35.0" prefWidth="365.0" promptText="Name" styleClass="input" stylesheets="@../../../style/doctor.css">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                              </TextField>
+                        <Label fx:id="nameError" textFill="RED" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                              <TextField fx:id="fxLastName" prefHeight="35.0" prefWidth="402.0" promptText="Last Name" styleClass="input" stylesheets="@../../../style/doctor.css">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                              </TextField>
+                        <Label fx:id="lastNameError" textFill="RED" />
+                     </children>
+                  </VBox>
+                    </children>
+                </HBox>
+                <HBox spacing="10.0">
+                    <children>
+                  <VBox spacing="5.0">
+                     <children>
+                              <TextField fx:id="fxEmail" prefHeight="35.0" prefWidth="341.0" promptText="Email" styleClass="input" stylesheets="@../../../style/doctor.css">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                              </TextField>
+                        <Label fx:id="emailError" textFill="RED" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                              <TextField fx:id="fxPassword" prefHeight="35.0" prefWidth="364.0" promptText="Password" styleClass="input" stylesheets="@../../../style/doctor.css">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                              </TextField>
+                        <Label fx:id="passwordError" textFill="RED" />
+                     </children>
+                  </VBox>
+                    </children>
+                </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="327.0" prefHeight="0.0" prefWidth="540.0" spacing="50.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#updateAction" styleClass="btn" stylesheets="@../../../style/signUp.css" text="Update">
                      <padding>
                         <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
                      </padding>
@@ -68,7 +129,7 @@
                   </Button>
                </children>
             </HBox>
-         </children>
-      </VBox>
-   </children>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -20,6 +20,7 @@ import java.sql.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import services.user.UserService;
 import utils.MyDataBase;
 
 public class LoginController {
@@ -39,7 +40,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     private Connection connection;
-
+    private final UserService service = new UserService();
 
     @FXML
     public void login(ActionEvent event) throws IOException {
@@ -54,9 +55,16 @@ public class LoginController {
                 if (rs.next()) {
                     BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                     if (result.verified) {
-//                        rs.getString()
+
+
+                        String[] userRoles = rs.getString("roles").split(",");
+                        for (String role : userRoles) {
+                            if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
+                                showScene(event, "dashboard.fxml");
+                                return;
+                            }
+                        }
                         showScene(event, "home.fxml");
-//                        showScene(event, "admin/dashboard.fxml");
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("ERROR");
