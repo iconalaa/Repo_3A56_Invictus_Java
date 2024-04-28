@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.lang.System.err;
 
@@ -112,40 +110,54 @@ public class ListArticleController {
                             // Définissez le conteneur global comme contenu graphique de la cellule
                             setGraphic(cellContainer);
 
+//                            editButton.setOnAction(event -> {
+//                                try {
+//                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/UpdateArticle.fxml"));
+//
+//                                    Parent root = loader.load();
+//                                    UpdateArticleController updateArticleController = loader.getController();
+//                                    updateArticleController.setArticle(article);
+//                                    updateArticleController.setListArticleController(ListArticleController.this); // Passer une référence à ListArticleController
+//                                    Stage stage = new Stage();
+//                                    stage.setScene(new Scene(root));
+//                                    stage.showAndWait();
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            });
                             editButton.setOnAction(event -> {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/UpdateArticle.fxml"));
                                 try {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/UpdateArticle.fxml"));
                                     Parent root = loader.load();
                                     UpdateArticleController updateArticleController = loader.getController();
                                     updateArticleController.setArticle(article);
-                                    updateArticleController.setListArticleController(ListArticleController.this); // Passer une référence à ListArticleController
+                                    updateArticleController.setListArticleController(ListArticleController.this);
                                     Stage stage = new Stage();
                                     stage.setScene(new Scene(root));
-                                    stage.showAndWait();
+                                    // Utilisez Modality.NONE si vous ne voulez pas bloquer l'interaction avec les autres fenêtres
+                                    stage.initModality(Modality.WINDOW_MODAL);
+                                    stage.show();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             });
 
                             deleteButton.setOnAction(event -> {
-                                try {
-                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/DeleteArticle.fxml"));
-                                    Parent root = loader.load();
-                                    DeleteArticleController deleteArticleController = loader.getController();
-                                    deleteArticleController.setArticleId(article.getId());
-                                    Stage stage = new Stage();
-                                    stage.initModality(Modality.APPLICATION_MODAL);
-                                    stage.setScene(new Scene(root));
-                                    stage.showAndWait();
-                                    if (deleteArticleController.isConfirmed()) {
-                                        int articleIdToDelete = deleteArticleController.getArticleId();
-                                        articleService.deleteArticle(articleIdToDelete);
-                                        refreshArticleList();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                // Show confirmation dialog
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmation");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Are you sure you want to delete this article?");
+
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.isPresent() && result.get() == ButtonType.OK) {
+                                    // User confirmed deletion
+                                    int articleIdToDelete = article.getId();
+                                    articleService.deleteArticle(articleIdToDelete);
+                                    refreshArticleList();
                                 }
                             });
+
 
                             // Ajoutez les boutons au conteneur HBox
 
@@ -156,12 +168,7 @@ public class ListArticleController {
         });
 
         // Gestion de la sélection d'articles
-        articleListView.setOnMouseClicked(event -> {
-            Article selectedArticle = articleListView.getSelectionModel().getSelectedItem();
-            if (selectedArticle != null) {
-                showArticle(selectedArticle);
-            }
-        });
+        articleListView.setOnMouseClicked(this::handle);
     }
 
     void refreshArticleList() {
@@ -171,8 +178,9 @@ public class ListArticleController {
     }
 
     private void showArticle(Article article) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
         try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
+
             Parent root = loader.load();
             ShowArticleController showArticleController = loader.getController();
             showArticleController.initArticleDetails(article);
@@ -206,5 +214,10 @@ public class ListArticleController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handle(MouseEvent event) {
+        Article selectedArticle = articleListView.getSelectionModel().getSelectedItem();
+        if (selectedArticle != null) showArticle(selectedArticle);
     }
 }

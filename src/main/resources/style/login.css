@@ -5,6 +5,13 @@
   -fx-transition: 0.3s;
   -fx-background-radius: 9px;
 }
+.btnAjout{
+  -fx-color:#1e90ff;
+  -fx-padding: 8px 40px;
+  -fx-font-size: 20px;
+  -fx-transition: 0.3s;
+  -fx-background-radius: 9px;
+}
 .btn:hover {
   -fx-color: rgb(62, 93, 151);
 }

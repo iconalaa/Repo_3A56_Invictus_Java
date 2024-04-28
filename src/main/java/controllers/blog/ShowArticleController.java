@@ -16,15 +16,16 @@ import static java.lang.System.err;
 
 public class ShowArticleController implements Initializable {
 
+    public ImageView imageView;
     @FXML
     private Label titleLabel;
 
     @FXML
     private Label contentLabel;
 
-    @FXML
-    private ImageView imageView;
 
+    @FXML
+    public ImageView selectedImageview;
     @FXML
     private Label createdAtLabel; // Ajout de l'annotation @FXML
 
@@ -43,17 +44,12 @@ public class ShowArticleController implements Initializable {
         createdAtLabel.setText(article.getCreated_at().format(formatter)); // Ici, l'erreur se produit
 
         // Charger l'image de l'article
-        String imagePath = article.getImage();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            File imageFile = new File(imagePath);
+        if (article.getImage() != null && !article.getImage().isEmpty()) {
+            File imageFile = new File(article.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toString());
                 imageView.setImage(image);
-            } else {
-                err.println("L'image n'existe pas : " + imagePath);
             }
-        } else {
-            err.println("Chemin d'image invalide ou non spécifié pour l'article.");
         }
     }
 }
