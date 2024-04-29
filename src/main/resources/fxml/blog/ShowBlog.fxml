@@ -4,27 +4,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowBlogController">
-    <Label fx:id="titleLabel" layoutX="103.0" layoutY="255.0" prefHeight="34.0" prefWidth="136.0" text="title">
-        <font>
-            <Font name="System Bold" size="14.0" />
-        </font></Label>
-    <Label fx:id="contentLabel" layoutX="23.0" layoutY="300.0" prefHeight="200.0" prefWidth="278.0" text="content" />
-    <ImageView fx:id="imageView" fitHeight="215.0" fitWidth="398.0" layoutX="76.0" layoutY="21.0" preserveRatio="true" />
-    <Label fx:id="createdAtLabel" layoutX="29.0" layoutY="519.0" prefHeight="26.0" prefWidth="192.0" text="created_at">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowBlogController">
+
+    <ImageView fitHeight="268.0" fitWidth="834.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../img/Gradiant-bg.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="53.0" fitWidth="317.0" layoutX="478.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../img/logo/logo-row.png" />            </image>
+    </ImageView>
+    <Line endX="424.1999816894531" endY="245.0" layoutX="51.0" layoutY="475.0" startX="424.1999816894531" startY="-317.3999938964844" stroke="#5f7fd7" />
+    <ImageView fx:id="imageView" fitHeight="215.0" fitWidth="398.0" layoutX="34.0" layoutY="147.0" preserveRatio="true" />
+    <Label fx:id="createdAtLabel" layoutX="14.0" layoutY="705.0" prefHeight="26.0" prefWidth="192.0" text="created_at">
         <font>
             <Font name="System Bold" size="12.0" />
         </font></Label>
-    <TextArea fx:id="commentTextArea" layoutX="357.0" layoutY="272.0" prefHeight="26.0" prefWidth="216.0" promptText="Ajouter un commentaire..." />
-    <Button layoutX="517.0" layoutY="315.0" onAction="#addCommentButtonClicked" text="Ajouter" />
-    <ListView fx:id="commentsListView" layoutX="357.0" layoutY="350.0" prefHeight="206.0" prefWidth="216.0" />
-    <HBox fx:id="likesContainer" layoutX="486.0" layoutY="242.0" spacing="10.0">
-        <Label fx:id="likesLabel" text="Likes: 0" />
-        <Button onAction="#likeButtonClicked" text="Like" />
-    </HBox>
+    <TextArea fx:id="commentTextArea" layoutX="545.0" layoutY="381.0" prefHeight="26.0" prefWidth="216.0" promptText="Ajouter un commentaire..." />
+    <Button layoutX="733.0" layoutY="426.0" onAction="#addCommentButtonClicked" text="Ajouter" />
+    <ListView fx:id="commentsListView" layoutX="520.0" layoutY="452.0" prefHeight="266.0" prefWidth="279.0" />
+    <HBox fx:id="likesContainer" layoutX="486.0" layoutY="242.0" spacing="10.0" />
+     <Button layoutX="387.0" layoutY="704.0" onAction="#likeButtonClicked" prefHeight="18.0" prefWidth="38.0" text="Like" />
+     <Label fx:id="likesLabel" layoutX="337.0" layoutY="709.0" text="Likes: 0" />
+   <TextArea fx:id="textAreaContent" layoutX="34.0" layoutY="438.0" prefHeight="266.0" prefWidth="410.0" text="content&#10;" />
+   <TextArea fx:id="textAreaTitle" layoutX="34.0" layoutY="380.0" prefHeight="39.0" prefWidth="354.0" text="titre" />
 </AnchorPane>

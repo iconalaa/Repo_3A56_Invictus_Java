@@ -9,6 +9,19 @@ public class Article {
     private LocalDateTime created_at;
     private int totalReactions;
     private int nbComments;
+    private int nbShares;
+
+    public int getNbShares() {
+        return nbShares;
+    }
+
+    public void setNbShares(int nbShares) {
+        this.nbShares = nbShares;
+    }
+
+    public Article() {
+
+    }
 
     public int getTotalReactions() {
         return totalReactions;
@@ -80,6 +93,7 @@ public class Article {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
+
 
     @Override
     public String toString() {

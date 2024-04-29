@@ -29,6 +29,8 @@ public class ShowBlogController implements Initializable {
     public ListView<Comment> commentsListView;
     public HBox likesContainer;
     public Label likesLabel;
+    public TextArea textAreaContent;
+    public TextArea textAreaTitle;
 
     @FXML
     private Label titleLabel;
@@ -64,40 +66,81 @@ public class ShowBlogController implements Initializable {
     }
 
     @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//        commentService = new CommentService();
+//        // Créer une cell factory pour personnaliser l'affichage des commentaires dans la ListView
+//        commentsListView.setCellFactory(ShowBlogController::call);
+//    }
+//
+//    public void initArticleDetails(Article article) {
+//        this.article = article;
+//        // Afficher les détails de l'article
+//        textAreaTitle.setText(article.getTitle());
+//        textAreaContent.setText(article.getContent());
+//
+//        // Convertir la date en chaîne formatée
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        String formattedDate = article.getCreated_at().format(formatter);
+//        createdAtLabel.setText(formattedDate);
+//
+//        // Charger l'image de l'article
+//        String imagePath = article.getImage();
+//        if (imagePath != null && !imagePath.isEmpty()) {
+//            File imageFile = new File(imagePath);
+//            if (imageFile.exists()) {
+//                Image image = new Image(imageFile.toURI().toString());
+//                imageView.setImage(image);
+//            } else {
+//                err.println("L'image n'existe pas : " + imagePath);
+//            }
+//        } else {
+//            err.println("Chemin d'image invalide ou non spécifié pour l'article.");
+//        }
+//        List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
+//        commentsListView.getItems().setAll(comments);
+//    }
     public void initialize(URL url, ResourceBundle rb) {
         commentService = new CommentService();
         // Créer une cell factory pour personnaliser l'affichage des commentaires dans la ListView
-        commentsListView.setCellFactory(ShowBlogController::call);
+        commentsListView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Comment comment, boolean empty) {
+                super.updateItem(comment, empty);
+                if (comment != null) {
+                    // Récupérer les détails de l'utilisateur à partir de son ID
+                    String username = getUserUsername(comment.getId_user_id());
+
+                    // Formater la date du commentaire
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = comment.getCreated_at().format(formatter);
+
+                    setText(comment.getContent() + " - " + username + " - " + formattedDate);
+                } else {
+                    setText(null);
+                }
+            }
+        });
+    }
+    private String getUserUsername(int userId) {
+        // Implémentez la logique pour obtenir le nom d'utilisateur à partir de l'ID de l'utilisateur
+        // Cette méthode est un exemple, vous devrez l'implémenter selon vos besoins.
+        return "Utilisateur" + userId;
     }
 
     public void initArticleDetails(Article article) {
         this.article = article;
         // Afficher les détails de l'article
-        titleLabel.setText(article.getTitle());
-        contentLabel.setText(article.getContent());
+        textAreaTitle.setText(article.getTitle());
+        textAreaContent.setText(article.getContent());
 
         // Convertir la date en chaîne formatée
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = article.getCreated_at().format(formatter);
         createdAtLabel.setText(formattedDate);
 
-        // Charger l'image de l'article
-        String imagePath = article.getImage();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            File imageFile = new File(imagePath);
-            if (imageFile.exists()) {
-                Image image = new Image(imageFile.toURI().toString());
-                imageView.setImage(image);
-            } else {
-                err.println("L'image n'existe pas : " + imagePath);
-            }
-        } else {
-            err.println("Chemin d'image invalide ou non spécifié pour l'article.");
-        }
         List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
         commentsListView.getItems().setAll(comments);
     }
-
     @FXML
     private void addCommentButtonClicked(ActionEvent event) {
         String content = commentTextArea.getText().trim();

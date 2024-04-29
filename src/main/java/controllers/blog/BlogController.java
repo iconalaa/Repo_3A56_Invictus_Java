@@ -8,25 +8,49 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import entities.Article;
 import services.blog.ArticleService;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BlogController {
 
+
+    public HBox likeContainer;
+    public ImageView imgReaction;
+    public Label reactionName;
+    public HBox reactionsContainer;
+    public ImageView imgLike;
+    public ImageView imgLove;
+    public ImageView imgCare;
+    public ImageView imgHaha;
+    public ImageView imgWow;
+    public ImageView imgSad;
+    public ImageView imgAngry;
+    public Label nbComments;
+    public Label nbShares;
     @FXML
     private GridPane articleGridPane;
 
     private final ArticleService articleService;
+    private long startTime = 0L;
+    private Reactions currentReaction;
+    private final Article article = new Article();
+    @FXML
+    private Label nbReactions;
 
     public BlogController() {
         articleService = new ArticleService();
@@ -130,4 +154,69 @@ public class BlogController {
         int blue = random.nextInt(256);
         return String.format("#%02x%02x%02x", red, green, blue);
     }
+
+
+    public void onReactionImgPressed(MouseEvent mouseEvent) {
+        switch (((ImageView)mouseEvent.getSource()).getId()) {
+            case "imgLove":
+                this.setReaction(Reactions.LOVE);
+                break;
+            case "imgCare":
+                this.setReaction(Reactions.CARE);
+                break;
+            case "imgHaha":
+                this.setReaction(Reactions.HAHA);
+                break;
+            case "imgWow":
+                this.setReaction(Reactions.WOW);
+                break;
+            case "imgSad":
+                this.setReaction(Reactions.SAD);
+                break;
+            case "imgAngry":
+                this.setReaction(Reactions.ANGRY);
+                break;
+            default:
+                this.setReaction(Reactions.LIKE);
+        }
+
+        this.reactionsContainer.setVisible(false);
+    }
+
+    public void onLikeContainerPressed(MouseEvent mouseEvent) {
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public void onLikeContainerMouseReleased(MouseEvent mouseEvent) {
+        if (System.currentTimeMillis() - this.startTime > 500L) {
+            this.reactionsContainer.setVisible(true);
+        } else {
+            if (this.reactionsContainer.isVisible()) {
+                this.reactionsContainer.setVisible(false);
+            }
+
+            if (this.currentReaction == Reactions.NON) {
+                this.setReaction(Reactions.LIKE);
+            } else {
+                this.setReaction(Reactions.NON);
+            }
+        }
+    }
+    public void setReaction(Reactions reaction) {
+        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(reaction.getImgSrc())));
+        this.imgReaction.setImage(image);
+        this.reactionName.setText(reaction.getName());
+        this.reactionName.setTextFill(Color.web(reaction.getColor()));
+        if (this.currentReaction == Reactions.NON) {
+            this.article.setTotalReactions(this.article.getTotalReactions() + 1);
+        }
+
+        this.currentReaction = reaction;
+        if (this.currentReaction == Reactions.NON) {
+            this.article.setTotalReactions(this.article.getTotalReactions() - 1);
+        }
+
+        this.nbReactions.setText(String.valueOf(this.article.getTotalReactions()));
+    }
+
 }

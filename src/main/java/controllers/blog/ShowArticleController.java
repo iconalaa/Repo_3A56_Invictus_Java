@@ -3,6 +3,7 @@ package controllers.blog;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import entities.Article;
@@ -17,6 +18,8 @@ import static java.lang.System.err;
 public class ShowArticleController implements Initializable {
 
     public ImageView imageView;
+    public TextArea textAreaContent;
+    public TextArea textAreaTitle;
     @FXML
     private Label titleLabel;
 
@@ -36,8 +39,8 @@ public class ShowArticleController implements Initializable {
 
     public void initArticleDetails(Article article) {
         // Afficher les détails de l'article
-        titleLabel.setText(article.getTitle());
-        contentLabel.setText(article.getContent());
+        textAreaTitle.setText(article.getTitle());
+        textAreaContent.setText(article.getContent());
 
         // Convertir la date en chaîne formatée
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
