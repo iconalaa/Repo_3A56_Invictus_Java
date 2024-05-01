@@ -3,7 +3,8 @@ package controllers.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Doctor;
 
-import entities.User;
+import javax.mail.*;
+import javax.mail.internet.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Properties;
+import java.util.UUID;
 
 public class DoctorController {
     @FXML
@@ -56,8 +59,11 @@ public class DoctorController {
 
     @FXML
     public void addDoctor(ActionEvent event) throws IOException {
+
         if (validateFields()) {
             LocalDate date = datePicker.getValue();
+            // Generate confirmation token
+            String confirmationToken = generateConfirmationToken();
 //            ******** cryPtage *********
             char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
             StringBuilder sb = new StringBuilder();
@@ -66,9 +72,12 @@ public class DoctorController {
             }
             String hashedPassword = sb.toString();
             Doctor P = new Doctor(email.getText(),hashedPassword,new String[]{"ROLE_PATIENT"},name.getText(),lastname.getText(),date,gender.getValue(),"x",matricule.getText());
+            P.setConfirmationToken(confirmationToken);
+
             DoctorService service = new DoctorService();
             try {
                 service.add(P);
+                sendConfirmationEmail(P.getEmail(), confirmationToken);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Account Created");
                 alert.setHeaderText("Welcome To our Compaign");
@@ -78,6 +87,42 @@ public class DoctorController {
             }
         } else {
             System.out.println("Invalid Inputs");
+        }
+    }
+    private String generateConfirmationToken() {
+        // Generate a random token
+        return UUID.randomUUID().toString();
+    }
+    // Method to send confirmation email
+    private void sendConfirmationEmail(String userEmail, String confirmationToken) {
+        // Sender's email address
+        // Email properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+
+        String senderEmail = "radiohub.noreply@gmail.com";
+        String senderPassword = "itsRadiohub1";
+        Session session = Session.getDefaultInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject("Email Confirmation");
+            message.setText("Please click on the following link to confirm your email: http://yourapp.com/confirm?token="+confirmationToken);
+            Transport.send(message);
+            System.out.println("Confirmation email sent successfully.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 

@@ -2,6 +2,7 @@ package controllers.user;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -55,16 +56,35 @@ public class LoginController {
                 if (rs.next()) {
                     BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                     if (result.verified) {
-
-
+                        User u =service.getUserById(rs.getInt("id"));
                         String[] userRoles = rs.getString("roles").split(",");
                         for (String role : userRoles) {
                             if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
-                                showScene(event, "dashboard.fxml");
+
                                 return;
                             }
                         }
-                        showScene(event, "home.fxml");
+
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+                            Parent root = loader.load();
+                            HomeController controller = loader.getController();
+                            controller.setHome(u);
+                            Scene scene = new Scene(root);
+                            Stage stage = new Stage();
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+                            stage.setTitle("RadioHub");
+                            stage.show();
+                            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            currentStage.close();
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("ERROR");
@@ -83,7 +103,7 @@ public class LoginController {
 
     }
 
-    public void showScene(ActionEvent event, String x) {
+    public void showScene(ActionEvent event, String x,String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
         try {
             Parent root = loader.load();
@@ -92,7 +112,7 @@ public class LoginController {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle("RadioHub");
+            stage.setTitle(title+" | RadioHub");
             stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);

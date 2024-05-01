@@ -5,6 +5,13 @@ import java.util.Arrays;
 
 public class Doctor extends User {
     private String matricule;
+    private String confirmationToken;
+
+    // Constructor, getters, setters, and other methods...
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
     public Doctor() {
     }
 

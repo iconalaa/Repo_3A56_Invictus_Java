@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -38,7 +37,7 @@ public class DashboardController {
         try {
             List<User> users = ps.showAll();
             mainVBox.setSpacing(10);
-            int maxColumns = 4;
+            int maxColumns = 1;
             for (int i = 0; i < users.size(); i += maxColumns) {
                 HBox rowHBox = new HBox();
                 rowHBox.setSpacing(20);
@@ -59,6 +58,7 @@ public class DashboardController {
     }
 
 
+
     private StackPane createUserCard(User user) {
         try {
 
@@ -67,18 +67,30 @@ public class DashboardController {
 
             ImageView imgCard = (ImageView) stackPane.lookup("#imgCard");
             Label nameCard = (Label) stackPane.lookup("#nameCard");
+            Label emailCard = (Label) stackPane.lookup("#emailCard");
+            Label roleCard = (Label) stackPane.lookup("#roleCard");
             Button deleteBtn = (Button) stackPane.lookup("#deleteBtn");
             Button updateBtn = (Button) stackPane.lookup("#updateBtn");
 
             imgCard.setImage(new Image(new File("C:/Users/Mega-Pc/Pictures/img/low-img/femme-1.png").toURI().toString()));
-            nameCard.setText(user.getName() + " " + user.getLastName());
+            nameCard.setText("Name: "+user.getName() + " " + user.getLastName());
+            emailCard.setText("Email: "+user.getEmail());
+            roleCard.setText("Role: "+user.getName());
             deleteBtn.setOnAction(e -> {
-                try {
-                    ps.delete(user.getUser_id());
-                    refreshDisplay();
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Are you sure you want to delete this?");
+                alert.setContentText("This action cannot be undone.");
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            ps.delete(user.getUser_id());
+                            refreshDisplay();
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                });
             });
             updateBtn.setOnAction(e -> {
                 userToUpdate = user;
