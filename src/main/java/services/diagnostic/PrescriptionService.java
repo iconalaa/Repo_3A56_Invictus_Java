@@ -1,7 +1,9 @@
 package services.diagnostic;
 
+import entities.Image;
 import entities.Prescription;
 import entities.Report;
+import entities.User;
 import services.PrescriptionCrud;
 import utils.MyDataBase;
 
@@ -110,26 +112,67 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
     @Override
     public List<Prescription> displayAll() throws SQLException {
         List<Prescription> prescriptions = new ArrayList<>();
-        String sql = "SELECT * FROM prescription";
+
+        String sql = "SELECT p.id AS prescription_id, p.report_id, p.contenu, p.date, p.signature_filename, " +
+                "r.id AS report_id, r.doctor_id, " +
+                "u.name AS doctor_name, u.lastname AS doctor_lastName, " +
+                "i.id AS image_id, " +
+                "patient.id AS patient_id, patient.name AS patient_name, patient.lastname AS patient_lastName " +
+                "FROM prescription p " +
+                "INNER JOIN report r ON p.report_id = r.id " +
+                "INNER JOIN user u ON r.doctor_id = u.id " +
+                "INNER JOIN image i ON r.image_id = i.id " +
+                "LEFT JOIN user patient ON i.patient_id = patient.id";
+
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int prescriptionId = resultSet.getInt("prescription_id");
                 int reportId = resultSet.getInt("report_id");
+                int doctorId = resultSet.getInt("doctor_id");
+                String doctorName = resultSet.getString("doctor_name");
+                String doctorLastName = resultSet.getString("doctor_lastName");
+                int imageId = resultSet.getInt("image_id");
+                int patientId = resultSet.getInt("patient_id");
+                String patientName = resultSet.getString("patient_name");
+                String patientLastName = resultSet.getString("patient_lastName");
                 String contenu = resultSet.getString("contenu");
                 Date date = resultSet.getDate("date");
                 String signatureFilename = resultSet.getString("signature_filename");
 
+                User doctor = new User();
+                doctor.setUser_id(doctorId);
+                doctor.setName(doctorName);
+                doctor.setLastName(doctorLastName);
 
-                Prescription prescription = new Prescription( contenu, signatureFilename);
-                prescription.setId(id);
+                User patient = new User();
+                patient.setUser_id(patientId);
+                patient.setName(patientName);
+                patient.setLastName(patientLastName);
+
+                Image image = new Image();
+                image.setId(imageId);
+                image.setPatient(patient);
+
+                Report report = new Report();
+                report.setId(reportId);
+                report.setDoctor(doctor);
+                report.setImage(image);
+
+                Prescription prescription = new Prescription(contenu, signatureFilename);
+                prescription.setId(prescriptionId);
+                prescription.setReport(report);
+                prescription.setContenu(contenu);
+                prescription.setDate(date);
+                prescription.setSignature_filename(signatureFilename);
 
                 prescriptions.add(prescription);
             }
         } catch (SQLException e) {
-            System.err.println("Failed to display all prescriptions: " + e.getMessage());
+            System.err.println("Failed to display prescriptions: " + e.getMessage());
             throw e;
         }
+
         return prescriptions;
     }
 

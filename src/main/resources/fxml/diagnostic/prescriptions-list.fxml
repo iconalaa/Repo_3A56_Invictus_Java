@@ -2,7 +2,10 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.PrescriptionsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.PrescritionsListController">
     <left>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="181.0" spacing="5.0" stylesheets="@../../style/doctor-space.css" BorderPane.alignment="CENTER">
             <children>
@@ -26,7 +29,7 @@
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="26.0" prefWidth="161.0" text="Doctor's Space">
+                        <Label fx:id="dashboardLabel" prefHeight="26.0" prefWidth="161.0" text="Doctor's Space">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -109,7 +112,7 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="718.0" spacing="5.0" styleClass="white-background" stylesheets="@../../style/doctor-space.css">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="718.0" styleClass="white-background" stylesheets="@../../style/doctor-space.css">
                     <children>
                         <Pane prefHeight="55.0" prefWidth="238.0" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="search-container" stylesheets="@../../style/doctor-space.css">
@@ -146,21 +149,58 @@
                     </children>
                 </HBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" styleClass="primary-color" stylesheets="@../../style/doctor-space.css" VBox.vgrow="ALWAYS">
-                    <children>
-                        <VBox>
-                            <children>
-                                <Label prefHeight="26.0" prefWidth="130.0" text="Prescriptions">
-                                    <font>
-                                        <Font name="System Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <HBox prefHeight="120.0" prefWidth="200.0" />
-                            </children>
-                        </VBox>
-                    </children>
                     <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </padding>
+               <children>
+                  <VBox prefHeight="557.0" prefWidth="664.0" styleClass="primary-color" stylesheets="@../../style/doctor-space.css">
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/arrow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label styleClass="title-label" stylesheets="@../../style/prescription.css" text="Presciptions">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <ScrollPane prefHeight="390.0" prefWidth="590.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
+                           <content>
+                              <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="640.0" spacing="10" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
+                                 <children>
+                                    <ListView fx:id="PrescriptionsView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="600.0" stylesheets="@../../style/doctor-space.css">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="primary-color" />
+                                       </styleClass>
+                                    </ListView>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0" spacing="20.0">
+                     <children>
+                        <Button onAction="#openPdfPrescription" stylesheets="@../../style/prescription.css" text="Generate PDF Report" />
+                     </children>
+                  </HBox>
+               </children>
                 </VBox>
             </children>
         </VBox>

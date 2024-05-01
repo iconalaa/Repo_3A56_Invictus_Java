@@ -150,7 +150,7 @@ public class PrescriptionsController {
     }
     private String saveSignature() {
         WritableImage image = signatureCanvas.snapshot(null, null);
-        String filename = "signature_" + UUID.randomUUID() + ".png";
+        String filename = "signature_" + UUID.randomUUID();
 
         // Specify the directory path within the resources folder
         String directoryPath = "src/main/resources/img/signatures"; // Update with your desired path
@@ -160,16 +160,17 @@ public class PrescriptionsController {
         }
 
         // Save the image in the specified directory
-        File file = new File(directory, filename);
+        File file = new File(directory, filename + ".png");
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-            return filename; // Return just the filename
+            return filename; // Return just the filename without the extension
         } catch (IOException e) {
             errorLabel.setText("Failed to save signature.");
             e.printStackTrace();
             return null; // Return null if save is unsuccessful
         }
     }
+
     public void setSelectedReportId(int selectedReportId) {
         this.selectedReportId = selectedReportId;
     }

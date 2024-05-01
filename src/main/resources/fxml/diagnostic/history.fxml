@@ -89,7 +89,7 @@
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="26.0" prefWidth="161.0" text="Prescriptions">
+                        <Label fx:id="prescriptionsLabel" prefHeight="26.0" prefWidth="161.0" text="Prescriptions">
                             <font>
                                 <Font size="15.0" />
                             </font>

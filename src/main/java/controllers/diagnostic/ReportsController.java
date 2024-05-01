@@ -24,6 +24,8 @@ public class ReportsController {
     @FXML
     private Label doctorSpaceLabel;
     @FXML
+    private  Label prescriptionLabel;
+    @FXML
     private Label historyLabel;
     @FXML
     private GridPane gridPane;
@@ -36,6 +38,7 @@ public class ReportsController {
     public void initialize() {
         doctorSpaceLabel.setOnMouseClicked(this::openDashboard);
         historyLabel.setOnMouseClicked(this::openHistory);
+        prescriptionLabel.setOnMouseClicked(this::openPrescriptions);
 
         try {
             List<Report> allReports = reportService.displayAll();
@@ -107,6 +110,18 @@ public class ReportsController {
             e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
         }
     }
+    private void openPrescriptions(javafx.scene.input.MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescriptions-list.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
+        }
+    }
+
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));

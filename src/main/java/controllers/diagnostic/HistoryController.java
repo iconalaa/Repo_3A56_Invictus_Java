@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -45,9 +46,8 @@ public class HistoryController {
     private ListView<Report> HistoryView;
     @FXML
     public TextField searchprompt;
-
     @FXML
-    private Label coranaLabel;
+    private Label prescriptionsLabel;
 
 
 
@@ -131,8 +131,9 @@ public class HistoryController {
             e.printStackTrace(); // Handle the SQLException properly, such as showing an error message to the user
         }
 
-        reportsListLabel.setOnMouseClicked(event -> openReports(event));
-        doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
+        reportsListLabel.setOnMouseClicked(this::openReports);
+        doctorsapcelabel.setOnMouseClicked(this::openSpace);
+        prescriptionsLabel.setOnMouseClicked(this::openPrescriptions );
     }
 
     @FXML
@@ -203,6 +204,17 @@ public class HistoryController {
             window.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void openPrescriptions(javafx.scene.input.MouseEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescriptions-list.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the IOException properly, such as showing an error message to the user
         }
     }
 

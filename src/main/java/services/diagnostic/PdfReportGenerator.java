@@ -13,7 +13,7 @@ public class PdfReportGenerator {
     public static void generatePdfReport(Report report) {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.home") + "/Desktop/" +report.getImage().getPatient().getName()+ "Report.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.home") + "/Desktop/" +report.getImage().getPatient().getName()+ "_Report.pdf"));
             writer.setPageEvent(new PdfPageEventHelper() {
                 public void onEndPage(PdfWriter writer, Document document) {
                     PdfContentByte cb = writer.getDirectContent();

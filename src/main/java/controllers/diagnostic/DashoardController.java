@@ -23,7 +23,8 @@ import java.sql.SQLException;
 
 
 public class DashoardController {
-
+    @FXML
+    public Label prescriptionList;
     @FXML
     private Label reportsListLabel; // Add fx:id attribute here
     @FXML
@@ -32,6 +33,7 @@ public class DashoardController {
     private Label reportsdone;
     @FXML
     private Label prescriptionsLabel;
+
     @FXML
     private Label reportsLabel;
     @FXML
@@ -44,12 +46,14 @@ public class DashoardController {
     private void initialize() {
         fetchAndDisplayCounts();
         updateCoronaLabel();
-        updateCityLabel();
+        //updateCityLabel();
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         historylabel.setOnMouseClicked(event -> openHistory(event));
+        prescriptionList.setOnMouseClicked(this::openPrescriptions);
+
+
 
     }
-
     private void updateCityLabel() {
         org.json.JSONObject locationInfo = MachineLocation.getMachineLocation();
         if (locationInfo != null) {
@@ -67,7 +71,6 @@ public class DashoardController {
             cityLabel.setText("Unknown");
         }
     }
-
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));
@@ -78,10 +81,19 @@ public class DashoardController {
             e.printStackTrace();
         }
     }
-    
     private void openReports(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/reports.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(loader.load()));
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void openPrescriptions(javafx.scene.input.MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/prescriptions-list.fxml"));
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(new Scene(loader.load()));
             window.show();
