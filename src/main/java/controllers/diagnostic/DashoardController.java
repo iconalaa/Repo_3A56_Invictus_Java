@@ -49,6 +49,7 @@ public class DashoardController {
         historylabel.setOnMouseClicked(event -> openHistory(event));
 
     }
+
     private void updateCityLabel() {
         org.json.JSONObject locationInfo = MachineLocation.getMachineLocation();
         if (locationInfo != null) {
@@ -66,6 +67,7 @@ public class DashoardController {
             cityLabel.setText("Unknown");
         }
     }
+
     private void openHistory(javafx.scene.input.MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/history.fxml"));

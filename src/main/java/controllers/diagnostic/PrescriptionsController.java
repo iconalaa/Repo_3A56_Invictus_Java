@@ -38,12 +38,14 @@ public class PrescriptionsController {
     private Label errorLabel;
     @FXML
     private Canvas signatureCanvas;
+
     @FXML
     private TextArea diseaseTextArea;
     @FXML
     private TextArea medicationsTextArea;
 
     private HashMap<String, String[]> database = new HashMap<>();
+
     private GraphicsContext gc;
     private int selectedReportId;
     private PrescriptionService prescriptionService;

@@ -45,8 +45,10 @@ public class HistoryController {
     private ListView<Report> HistoryView;
     @FXML
     public TextField searchprompt;
+
     @FXML
     private Label coranaLabel;
+
 
 
     private ReportService reportService;
@@ -132,10 +134,6 @@ public class HistoryController {
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         doctorsapcelabel.setOnMouseClicked(event -> openSpace(event));
     }
-
-
-
-
 
     @FXML
     private void openPrescription(ActionEvent event) {
