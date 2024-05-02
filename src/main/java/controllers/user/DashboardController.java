@@ -59,7 +59,24 @@ public class DashboardController {
 
 
 
-    private StackPane createUserCard(User user) {
+    public static String convertRole(String roleString) {
+        // Remove square brackets and leading/trailing whitespace
+        String[] roles = roleString.substring(1, roleString.length()-1).split(",");
+
+        // Process each role
+        StringBuilder convertedRoles = new StringBuilder();
+        for (String role : roles) {
+            String trimmedRole = role.trim().substring(6).toLowerCase();
+            convertedRoles.append("| ").append(trimmedRole);
+        }
+        if (convertedRoles.length() > 0) {
+            convertedRoles.setLength(convertedRoles.length() - 1);
+        }
+
+        return convertedRoles.toString();
+    }
+
+        private StackPane createUserCard(User user) {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/card.fxml"));
@@ -71,11 +88,13 @@ public class DashboardController {
             Label roleCard = (Label) stackPane.lookup("#roleCard");
             Button deleteBtn = (Button) stackPane.lookup("#deleteBtn");
             Button updateBtn = (Button) stackPane.lookup("#updateBtn");
-
-            imgCard.setImage(new Image(new File("C:/Users/Mega-Pc/Pictures/img/low-img/femme-1.png").toURI().toString()));
+            imgCard.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+user.getBrochure_filename()).toURI().toString()));
             nameCard.setText("Name: "+user.getName() + " " + user.getLastName());
             emailCard.setText("Email: "+user.getEmail());
-            roleCard.setText("Role: "+user.getName());
+
+            String roleString = String.join("",user.getRole());
+            String convertedRole = convertRole(roleString);
+            roleCard.setText("Role: "+convertedRole);
             deleteBtn.setOnAction(e -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");

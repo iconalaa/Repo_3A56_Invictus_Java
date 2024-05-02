@@ -16,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ProfileController {
@@ -27,17 +28,13 @@ public class ProfileController {
     private ImageView profileImg;
 
     @FXML
-    private Label profileLastName;
-
-    @FXML
     private Label profileName;
 
 
     void initialise(User u) {
-        profileName.setText(u.getName());
-        profileLastName.setText(u.getLastName());
+        profileName.setText(u.getName()+" "+u.getLastName());
         profileEmail.setText(u.getEmail());
-//        profileImg
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+u.getBrochure_filename()).toURI().toString()));
     }
 
     @FXML

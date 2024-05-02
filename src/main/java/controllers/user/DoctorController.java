@@ -2,30 +2,36 @@ package controllers.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Doctor;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.mail.*;
 import javax.mail.internet.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import services.user.DoctorService;
 
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Properties;
 import java.util.UUID;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import java.util.concurrent.atomic.AtomicReference;
+
 
 public class DoctorController {
     @FXML
@@ -56,6 +62,9 @@ public class DoctorController {
     private Label dateError;
     @FXML
     private Label matriculeError;
+    @FXML
+    private Button uploadImg;
+    private File selectedImageFile;
 
     @FXML
     public void addDoctor(ActionEvent event) throws IOException {
@@ -64,16 +73,16 @@ public class DoctorController {
             LocalDate date = datePicker.getValue();
             // Generate confirmation token
             String confirmationToken = generateConfirmationToken();
-//            ******** cryPtage *********
+            // Hash password
             char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
             StringBuilder sb = new StringBuilder();
             for (char c : bcryptChars) {
                 sb.append(c);
             }
             String hashedPassword = sb.toString();
-            Doctor P = new Doctor(email.getText(),hashedPassword,new String[]{"ROLE_PATIENT"},name.getText(),lastname.getText(),date,gender.getValue(),"x",matricule.getText());
+            String imageName = selectedImageFile != null ? selectedImageFile.getName() : "x";
+            Doctor P = new Doctor(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), imageName, matricule.getText());
             P.setConfirmationToken(confirmationToken);
-
             DoctorService service = new DoctorService();
             try {
                 service.add(P);
@@ -89,10 +98,31 @@ public class DoctorController {
             System.out.println("Invalid Inputs");
         }
     }
+
+    @FXML
+    public void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Upload Image");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        selectedImageFile = fileChooser.showOpenDialog(((Stage) ((Button) event.getSource()).getScene().getWindow()));
+        if (selectedImageFile != null) {
+            System.out.println("Selected Image: " + selectedImageFile.getName());
+            File destination = new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + selectedImageFile.getName());
+            try {
+                copyFile(selectedImageFile, destination);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     private String generateConfirmationToken() {
         // Generate a random token
         return UUID.randomUUID().toString();
     }
+
     // Method to send confirmation email
     private void sendConfirmationEmail(String userEmail, String confirmationToken) {
         // Sender's email address
@@ -118,7 +148,7 @@ public class DoctorController {
             message.setFrom(new InternetAddress(senderEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Email Confirmation");
-            message.setText("Please click on the following link to confirm your email: http://yourapp.com/confirm?token="+confirmationToken);
+            message.setText("Please click on the following link to confirm your email: http://yourapp.com/confirm?token=" + confirmationToken);
             Transport.send(message);
             System.out.println("Confirmation email sent successfully.");
         } catch (MessagingException e) {
@@ -183,6 +213,18 @@ public class DoctorController {
             currentStage.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void copyFile(File source, File dest) throws IOException {
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try (FileInputStream fis = new FileInputStream(source);
+             FileOutputStream fos = new FileOutputStream(dest);
+             FileChannel sourceChannel = fis.getChannel();
+             FileChannel destChannel = fos.getChannel()) {
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
         }
     }
 

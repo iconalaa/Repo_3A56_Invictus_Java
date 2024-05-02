@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 
 public class HomeController {
@@ -30,6 +32,7 @@ public class HomeController {
     public void setHome(User u){
         this.user=u;
         nameLabel.setText(user.getName()+" "+user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+user.getBrochure_filename()).toURI().toString()));
     }
 
     @FXML
@@ -42,6 +45,7 @@ public class HomeController {
         stage.setTitle("Profile | RadioHub");
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
         stage.showAndWait();
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
