@@ -102,6 +102,9 @@ public class ArticleService implements IArticleService<Article> {
         }
         return article;
     }
+
+    public void incrementLikes(int id) {
+    }
 }
 
 

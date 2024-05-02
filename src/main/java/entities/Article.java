@@ -107,6 +107,10 @@ public class Article {
     }
 
 
+    public char[] getTotalLikes() {
+
+        return new char[0];
+    }
 }
 
 

@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.Image?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowArticleController" style="-fx-background-color: #f5f5f5;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowArticleController">
 
-    <ImageView fitHeight="268.0" fitWidth="834.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../img/Gradiant-bg.png" />
-        </image>
-    </ImageView>
-    <ImageView fitHeight="53.0" fitWidth="317.0" layoutX="478.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../img/logo/logo-row.png" />            </image>
-    </ImageView>
-    <Line endX="424.1999816894531" endY="245.0" layoutX="51.0" layoutY="475.0" startX="424.1999816894531" startY="-317.3999938964844" stroke="#5f7fd7" />
-    <ImageView fx:id="imageView" fitHeight="215.0" fitWidth="398.0" layoutX="34.0" layoutY="147.0" preserveRatio="true" />
-    <Label fx:id="createdAtLabel" layoutX="14.0" layoutY="705.0" prefHeight="26.0" prefWidth="192.0" text="created_at">
+    <Pane layoutX="-4.0" prefHeight="55.0" prefWidth="907.0" stylesheets="@../../style/styles.css">
+        <children>
+            <ImageView fitHeight="38.0" fitWidth="165.0" layoutX="728.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../img/logo/logo-row.png" />            </image>
+            </ImageView>
+        </children>
+        <styleClass>
+            <String fx:value="post-background" />
+            <String fx:value="top-border" />
+        </styleClass>
+    </Pane>
+    <Line endX="424.199951171875" endY="86.69293212890625" layoutX="51.0" layoutY="475.0" startX="424.199951171875" startY="-401.1000061035156" stroke="#5f7fd7" />
+    <ImageView fx:id="imageView" fitHeight="215.0" fitWidth="398.0" layoutX="26.0" layoutY="77.0" preserveRatio="true" />
+    <Label fx:id="createdAtLabel" layoutX="29.0" layoutY="559.0" prefHeight="26.0" prefWidth="192.0" text="created_at">
         <font>
             <Font name="System Bold" size="12.0" />
         </font></Label>
-    <TextArea fx:id="textAreaContent" layoutX="34.0" layoutY="438.0" prefHeight="266.0" prefWidth="410.0" text="content&#10;" />
-    <TextArea fx:id="textAreaTitle" layoutX="34.0" layoutY="380.0" prefHeight="39.0" prefWidth="354.0" text="titre" />
+   <Label fx:id="titre" layoutX="51.0" layoutY="313.0" prefHeight="26.0" prefWidth="207.0" text="titre">
+      <font>
+         <Font name="Arial Bold" size="18.0" />
+      </font>
+   </Label>
+   <Label fx:id="content" layoutX="51.0" layoutY="357.0" prefHeight="192.0" prefWidth="334.0" text="content">
+      <font>
+         <Font name="Arial" size="14.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="192.0" fitWidth="248.0" layoutX="594.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../img/pdf.png" />
+      </image>
+   </ImageView>
+   <Button layoutX="641.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#btnPDF" text="Telecharge PDF" />
 
 
 </AnchorPane>

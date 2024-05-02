@@ -169,6 +169,7 @@ public class AddArticleController implements Initializable {
     public Rectangle selectImageButton;
     public Label nomErreur;
     public Label TypeError;
+    public Label TypeError2;
     @FXML
     private ImageView selectedImageview;
 

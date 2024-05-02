@@ -110,21 +110,7 @@ public class ListArticleController {
                             // Définissez le conteneur global comme contenu graphique de la cellule
                             setGraphic(cellContainer);
 
-//                            editButton.setOnAction(event -> {
-//                                try {
-//                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/UpdateArticle.fxml"));
-//
-//                                    Parent root = loader.load();
-//                                    UpdateArticleController updateArticleController = loader.getController();
-//                                    updateArticleController.setArticle(article);
-//                                    updateArticleController.setListArticleController(ListArticleController.this); // Passer une référence à ListArticleController
-//                                    Stage stage = new Stage();
-//                                    stage.setScene(new Scene(root));
-//                                    stage.showAndWait();
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            });
+
                             editButton.setOnAction(event -> {
                                 try {
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/UpdateArticle.fxml"));
