@@ -1,27 +1,27 @@
-Flu,Ibuprofen: Oseltamivir (Tamiflu), Zanamivir (Relenza), Peramivir (Rapivab)
-Headache,Aspirin: Aspirin, Ibuprofen (Advil, Motrin IB), Acetaminophen (Tylenol), Diclofenac, Sumatriptan, Rizatriptan, Almotriptan
-Acid Indigestion, Antacids: Bismuth Subsalicylate, Histamine H2 Receptor Antagonists, Hyoscyamine, Proton Pump Inhibitors, Simethicone, Sodium Bicarbonate
-Acne, Anti-acne Cleansing (Topical): Clindamycin, Erythromycin, Tetracyclines, Metronidazole, Azelaic Acid, Benzoyl Peroxide, Isotretinoin, Keratolytics, Retinoids (Topical)
-Actinic Keratoses, Fluorouracil: Masoprocol
-Acute Myocardial Infarction, Antithrombotic Agents: Nitroglycerin, ACE Inhibitors, Beta-Adrenergic Blockers, Angiotensin-Receptor Blockers, Thrombolytics
-AIDS Infection, Fusion Inhibitors: Non-Nucleoside Reverse Transcriptase Inhibitors, Nucleoside Reverse Transcriptase Inhibitors, Nucleotide Reverse Transcriptase Inhibitors, Protease Inhibitors
-Alcohol Withdrawal, Benzodiazepines: Beta Adrenergic Blocking Agents, Carbamazepine, Disulfiram, Hydroxyzine, Lithium, Naltrexone, Thiamine, Phenobarbital
-Allergies, Adrenocorticoids (Nasal Inhalation, Oral Inhalation, Systemic): Antihistamines, Non-sedating Antihistamines, Phenothiazine-Derivative Antihistamines, Azelastine, Cromolyn, Decongestants (Ophthalmic), Ephedrine, Hydroxyzine
-Alopecia, Dutasteride: Finasteride, Minoxidil
-Alzheimer''s Disease, Cholinesterase Inhibitors: Memantine
-Amebiasis, Chloroquine: Iodoquinol, Metronidazole
-Amenorrhea, Bromocriptine: Progestins
-Anemia, Adrenocorticoids (Systemic): Androgens, Cyclosporine, Folic Acid, Iron Supplements, Leucovorin, Vitamin B-12
-Angina, Antiplatelet Agents: Beta Adrenergic Blocking Agents, Calcium Channel Blockers, Ranolazine, Nitrates
-Anxiety, Antidepressants (Tricyclic, SSRIs, SNRIs): Barbiturates, Benzodiazepines, Beta Adrenergic Blocking Agents, Buspirone, Ergotamine, Beladonna and Phenobarbital, Haloperidol, Hydroxyzine, Loxapine, Meprobamate, Phenothiazines, Thiothixene
-Arthritis (Osteoarthritis, Rheumatoid Arthritis), Acetaminophen: Adrenocorticoids (Oral Inhalation, Systemic), Anakinra, Non-sedating Antihistamines
-Bone Fracture, Analgesics: Acetaminophen, Nonsteroidal Anti-inflammatory Drugs (NSAIDs), Opioids
-Pneumonia, Antibiotics: Amoxicillin, Azithromycin, Levofloxacin
-Breast Cancer, Hormone Therapy: Tamoxifen, Aromatase Inhibitors
-Deep Vein Thrombosis, Anticoagulants: Warfarin, Heparin, Direct Oral Anticoagulants (DOACs)
-Pulmonary Embolism, Anticoagulants: Warfarin, Heparin, Direct Oral Anticoagulants (DOACs)
-Liver Cirrhosis, Diuretics: Spironolactone, Furosemide
-Chronic Kidney Disease, Antihypertensives: ACE Inhibitors, Angiotensin II Receptor Blockers (ARBs)
-Heart Failure, Heart Failure Medications: Beta-Blockers, ACE Inhibitors, Diuretics, Aldosterone Antagonists
-Stroke, Thrombolytics: Alteplase
-Hypertension, Antihypertensives: Calcium Channel Blockers, Beta-Blockers, Diuretics, ACE Inhibitors
+Flu: Oseltamivir (Tamiflu), Zanamivir (Relenza), Peramivir (Rapivab)
+Headache: Aspirin, Ibuprofen (Advil, Motrin IB), Acetaminophen (Tylenol), Diclofenac, Sumatriptan, Rizatriptan, Almotriptan
+Acid Indigestion: Bismuth Subsalicylate, Histamine H2 Receptor Antagonists, Hyoscyamine, Proton Pump Inhibitors, Simethicone, Sodium Bicarbonate
+Acne: Clindamycin, Erythromycin, Tetracyclines, Metronidazole, Azelaic Acid, Benzoyl Peroxide, Isotretinoin, Keratolytics, Retinoids (Topical)
+Actinic Keratoses: Fluorouracil, Masoprocol
+Acute Myocardial Infarction: Nitroglycerin, ACE Inhibitors, Beta-Adrenergic Blockers, Angiotensin-Receptor Blockers, Thrombolytics
+AIDS Infection: Fusion Inhibitors, Non-Nucleoside Reverse Transcriptase Inhibitors, Nucleoside Reverse Transcriptase Inhibitors, Nucleotide Reverse Transcriptase Inhibitors, Protease Inhibitors
+Alcohol Withdrawal: Benzodiazepines, Beta Adrenergic Blocking Agents, Carbamazepine, Disulfiram, Hydroxyzine, Lithium, Naltrexone, Thiamine, Phenobarbital
+Allergies: Adrenocorticoids (Nasal Inhalation, Oral Inhalation, Systemic), Antihistamines, Non-sedating Antihistamines, Phenothiazine-Derivative Antihistamines, Azelastine, Cromolyn, Decongestants (Ophthalmic), Ephedrine, Hydroxyzine
+Alopecia: Dutasteride, Finasteride, Minoxidil
+Alzheimer's Disease: Cholinesterase Inhibitors, Memantine
+Amebiasis: Chloroquine, Iodoquinol, Metronidazole
+Amenorrhea: Bromocriptine, Progestins
+Anemia: Adrenocorticoids (Systemic), Androgens, Cyclosporine, Folic Acid, Iron Supplements, Leucovorin, Vitamin B-12
+Angina: Antiplatelet Agents, Beta Adrenergic Blocking Agents, Calcium Channel Blockers, Nitrates, Ranolazine
+Anxiety: Antidepressants (Tricyclic, SSRIs, SNRIs), Barbiturates, Benzodiazepines, Beta Adrenergic Blocking Agents, Buspirone, Ergotamine, Beladonna and Phenobarbital, Haloperidol, Hydroxyzine, Loxapine, Meprobamate, Phenothiazines, Thiothixene
+Arthritis (Osteoarthritis, Rheumatoid Arthritis): Acetaminophen, Adrenocorticoids (Oral Inhalation, Systemic), Anakinra, Non-sedating Antihistamines
+Bone Fracture: Analgesics, Acetaminophen, Nonsteroidal Anti-inflammatory Drugs (NSAIDs), Opioids
+Pneumonia: Antibiotics, Amoxicillin, Azithromycin, Levofloxacin
+Breast Cancer: Hormone Therapy, Tamoxifen, Aromatase Inhibitors
+Deep Vein Thrombosis: Anticoagulants, Warfarin, Heparin, Direct Oral Anticoagulants (DOACs)
+Pulmonary Embolism: Anticoagulants, Warfarin, Heparin, Direct Oral Anticoagulants (DOACs)
+Liver Cirrhosis: Diuretics, Spironolactone, Furosemide
+Chronic Kidney Disease: Antihypertensives, ACE Inhibitors, Angiotensin II Receptor Blockers (ARBs)
+Heart Failure: Heart Failure Medications, Beta-Blockers, ACE Inhibitors, Diuretics, Aldosterone Antagonists
+Stroke: Thrombolytics, Alteplase
+Hypertension: Antihypertensives, Calcium Channel Blockers, Beta-Blockers, Diuretics, ACE Inhibitors

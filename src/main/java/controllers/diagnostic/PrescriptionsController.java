@@ -57,14 +57,23 @@ public class PrescriptionsController {
             BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/database.txt")));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                database.put(parts[0].trim().toLowerCase(), parts[1].split(": "));
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    String disease = parts[0].trim().toLowerCase();
+                    String[] medications = parts[1].split(",");
+                    for (int i = 0; i < medications.length; i++) {
+                        medications[i] = medications[i].trim();
+                    }
+                    database.put(disease, medications);
+                }
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-          ////signature
+
+
+        ////signature
         prescriptionService = new PrescriptionService();
         gc = signatureCanvas.getGraphicsContext2D();
         initDraw(gc);
@@ -170,7 +179,6 @@ public class PrescriptionsController {
             return null; // Return null if save is unsuccessful
         }
     }
-
     public void setSelectedReportId(int selectedReportId) {
         this.selectedReportId = selectedReportId;
     }
@@ -189,12 +197,18 @@ public class PrescriptionsController {
         if (!disease.isEmpty()) {
             String[] medications = database.getOrDefault(disease, new String[]{"No medications found."});
             StringBuilder result = new StringBuilder();
-            for (String medication : medications) {
-                result.append(medication).append("\n");
+            if (medications.length > 0) {
+                result.append("Medications for ").append(disease).append(":\n");
+                for (String medication : medications) {
+                    result.append("- ").append(medication).append("\n");
+                }
+            } else {
+                result.append("No medications found for ").append(disease).append(".");
             }
             medicationsTextArea.setText(result.toString());
         } else {
             medicationsTextArea.setText("Please enter a disease or medical problem.");
         }
     }
+
 }
