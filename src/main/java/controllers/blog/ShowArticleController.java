@@ -1,9 +1,9 @@
 package controllers.blog;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -26,7 +26,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
