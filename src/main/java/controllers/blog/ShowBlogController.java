@@ -42,6 +42,7 @@ public class ShowBlogController implements Initializable {
     private CommentService commentService;
     private Article article;
     private int likesCount = 0;
+    private boolean liked = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -114,7 +115,12 @@ public class ShowBlogController implements Initializable {
 
     @FXML
     private void likeButtonClicked(ActionEvent event) {
-        likesCount++;
+        if (liked) {
+            likesCount--;
+        } else {
+            likesCount++;
+        }
+        liked = !liked;
         updateLikesCount();
     }
 

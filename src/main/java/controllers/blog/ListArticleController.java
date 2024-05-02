@@ -1,5 +1,7 @@
 package controllers.blog;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -24,6 +27,7 @@ import java.util.Optional;
 import static java.lang.System.err;
 
 public class ListArticleController {
+    public TextArea searchField;
     @FXML
     private ListView<Article> articleListView;
     @FXML
@@ -37,9 +41,13 @@ public class ListArticleController {
     public Button btnBlog;
 
     private List<Article> articles;
+    private final ObservableList<Article> displayedArticles; // Déclaration de la variable displayedArticles
+
 
     public ListArticleController() {
         articleService = new ArticleService();
+        displayedArticles = FXCollections.observableArrayList(); // Initialisation de displayedArticles
+
     }
 
     @FXML
@@ -206,4 +214,20 @@ public class ListArticleController {
         Article selectedArticle = articleListView.getSelectionModel().getSelectedItem();
         if (selectedArticle != null) showArticle(selectedArticle);
     }
+
+    public void searche(KeyEvent keyEvent) {
+        // Récupérer le terme de recherche depuis le champ de recherche
+        String searchTerm = searchField.getText().toLowerCase().trim();
+
+        List<Article> filteredArticles = articles.stream()
+                .filter(article -> article.getTitle().toLowerCase().contains(searchTerm) ||
+                        article.getContent().toLowerCase().contains(searchTerm))
+                .toList();
+
+        // Mettre à jour la liste affichée dans le ListView
+        displayedArticles.clear(); // Effacer les éléments existants
+        displayedArticles.addAll(filteredArticles); // Mise à jour des éléments du ListView
+    }
+
+
 }
