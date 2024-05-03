@@ -188,7 +188,7 @@ public class ImageService {
         }
     }
 
-        public Image getImageById(int imageId) throws SQLException {
+    public Image getImageById(int imageId) throws SQLException {
         String query = "SELECT i.*, p.*, r.* " +
                 "FROM image i " +
                 "INNER JOIN user p ON i.patient_id = p.id AND p.roles LIKE '%ROLE_PATIENT%' " +
@@ -240,7 +240,7 @@ public class ImageService {
 
 
 
-                   return image;
+                    return image;
 
 
 
@@ -317,4 +317,3 @@ public class ImageService {
 
 
 }
-

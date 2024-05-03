@@ -64,6 +64,9 @@ static  FlowPane x;
             addImageButton.setVisible(true);
             flowpaneimages.getChildren().clear();
                 List<Image> images = ps.getImages();
+            System.out.println(images);
+                if(ps.getImages().size() >0)
+                {
                 for (Image image : images) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/cardImage.fxml"));
                     AnchorPane pane = loader.load();
@@ -88,7 +91,7 @@ static  FlowPane x;
                         setText(image.getFilename());
                     }
                 }
-            });
+            });}
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

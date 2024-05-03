@@ -6,14 +6,14 @@ public class Report {
     private int id;
     private String interpretation_med;
     private String interpretation_rad;
-    private Doctor doctor;
+    private User doctor;
     private Image image;
     private Date date;
     private boolean is_edited;
 
     public Report(){};
 
-    public Report( String interpretation_med, String interpretation_rad, Doctor doctor, Image image, boolean is_edited) {
+    public Report( String interpretation_med, String interpretation_rad, User doctor, Image image, boolean is_edited) {
         this.interpretation_med = interpretation_med;
         this.interpretation_rad = interpretation_rad;
         this.doctor = doctor;
@@ -21,7 +21,7 @@ public class Report {
         this.is_edited = is_edited;
     }
 
-    public Report(String interpretation_med, String interpretation_rad, Doctor doctor, Image image, Date date, boolean is_edited) {
+    public Report(String interpretation_med, String interpretation_rad, User doctor, Image image, Date date, boolean is_edited) {
         this.interpretation_med = interpretation_med;
         this.interpretation_rad = interpretation_rad;
         this.doctor = doctor;
@@ -30,7 +30,7 @@ public class Report {
         this.is_edited = is_edited;
     }
 
-    public Report(int id, String interpretation_med, String interpretation_rad, Doctor doctor, Image image, Date date, boolean is_edited) {
+    public Report(int id, String interpretation_med, String interpretation_rad, User doctor, Image image, Date date, boolean is_edited) {
         this.id = id;
         this.interpretation_med = interpretation_med;
         this.interpretation_rad = interpretation_rad;
@@ -64,11 +64,11 @@ public class Report {
         this.interpretation_rad = interpretation_rad;
     }
 
-    public Doctor getDoctor() {
+    public User getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(User doctor) {
         this.doctor = doctor;
     }
 
@@ -108,4 +108,6 @@ public class Report {
                 ", is_edited=" + is_edited +
                 '}';
     }
+
+
 }

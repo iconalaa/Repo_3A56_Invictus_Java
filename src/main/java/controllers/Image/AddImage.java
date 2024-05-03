@@ -171,7 +171,7 @@ public class AddImage {
             throw new RuntimeException(e);
         }
 
-        stage.close();
+
 
 
     }
