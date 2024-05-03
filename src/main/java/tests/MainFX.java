@@ -19,6 +19,7 @@ public class MainFX extends Application {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
         primaryStage.setTitle("RadioHub");
         primaryStage.setResizable(false);
+        primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

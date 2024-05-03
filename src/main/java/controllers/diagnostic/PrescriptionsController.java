@@ -54,7 +54,7 @@ public class PrescriptionsController {
 
              //// database implimentation
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/database.txt")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/fxml/diagnostic/database.txt")));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");

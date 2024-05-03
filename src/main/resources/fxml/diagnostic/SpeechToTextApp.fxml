@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.TextArea?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.diagnostic.SpeechToTextController">
+
+    <TextField fx:id="inputTextField" promptText="Speak here..." />
+    <TextArea fx:id="outputTextArea" prefWidth="200" prefHeight="100" />
+
+    <Button text="Convert to Text" onAction="#convertToText" />
+
+
+</VBox>

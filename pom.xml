@@ -69,12 +69,20 @@
                 <version>20210307</version> <!-- Or the latest version available -->
             </dependency>
 
+        <dependency>
+            <groupId>net.sf.phat</groupId>
+            <artifactId>sphinx4-core</artifactId>
+            <version>5prealpha</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
