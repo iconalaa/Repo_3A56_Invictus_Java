@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import services.Image.DroitServices;
 
 import java.sql.SQLException;
@@ -45,6 +46,7 @@ public class Share {
         for (Node node : checkBoxContainer.getChildren()) {
             if (node instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) node;
+                checkBox.getStyleClass().add("checkbox");
                 if (checkBox.isSelected()) {
                     atLeastOneSelected=true;
                     String radiologistIdString = checkBox.getId().replace("radiologist_", "");
@@ -67,7 +69,8 @@ public class Share {
         }
         droitServices.addRoleToImage(selectedImage.getId(), selectedRadiologistIds);
         refreshCheckBoxes();
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     private void refreshCheckBoxes() throws SQLException {

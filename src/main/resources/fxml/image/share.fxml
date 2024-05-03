@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="253.0" style="-fx-background-color: WHITE; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.Share">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="253.0" style="-fx-background-color: WHITE; -fx-border-radius: 20;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.Share">
    <children>
-      <VBox fx:id="checkBoxContainer" alignment="CENTER" layoutX="27.0" layoutY="75.0" prefHeight="233.0" prefWidth="194.0" />
+      <VBox fx:id="checkBoxContainer" alignment="CENTER" layoutX="27.0" layoutY="75.0" prefHeight="233.0" prefWidth="194.0" stylesheets="@css/style.css" />
       <VBox layoutX="156.0" layoutY="374.0" prefHeight="50.0" prefWidth="86.0" />
       <Text fill="#545b61" layoutX="60.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SHARE">
          <font>

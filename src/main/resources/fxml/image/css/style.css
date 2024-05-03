@@ -244,4 +244,15 @@
     -fx-pref-width: 200px; /* Preferred width */
 }
 
+.checkbox {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-border-color: #000000; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-padding: 5px; /* Padding */
+}
 
+.checkbox:selected {
+    -fx-background-color: #336699; /* Background color when selected */
+    -fx-text-fill: white; /* Text color when selected */
+}

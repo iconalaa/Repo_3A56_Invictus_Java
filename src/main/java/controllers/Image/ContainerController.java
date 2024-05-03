@@ -2,13 +2,16 @@ package controllers.Image;
 
 import controllers.Image.ImageDashboard;
 import entities.Interpretation;
+import javafx.animation.PauseTransition;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.dcm4che3.imageio.plugins.dcm.DicomImageReader;
 import services.interpretation.InterpreationServices;
 
@@ -31,6 +35,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContainerController {
+    @FXML
+    private Button zoombutton;
+    @FXML
+    private AnchorPane playground;
 
     private Image originalImage;
     private double scale = 1.0;
@@ -45,6 +53,8 @@ public class ContainerController {
     private StackPane fx;
     @FXML
     private FlowPane inter_con;
+    private double contrastFactor = 1.0;
+
     private InterpreationServices interpreationServices = new InterpreationServices();
 
     @FXML
@@ -70,8 +80,17 @@ public class ContainerController {
 
 
 
+            //Image iconImage = new Image(getClass().getResourceAsStream("fxml/image/assets/OIP.jpg"));
 
+            // Create an ImageView with the icon image
+            //ImageView iconView = new ImageView(iconImage);
 
+            // Set the size of the icon
+           // iconView.setFitWidth(16); // Set your desired width
+            //iconView.setFitHeight(16); // Set your desired height
+
+            // Set the icon as graphic for the button
+            //zoombutton.setGraphic(iconView);
 
         // Load DICOM image
             File dicomFile = new File("src/main/java/dicom/" + ImageDashboard.selectedImage.getId() + ".dcm");
@@ -92,6 +111,7 @@ public class ContainerController {
 
             // Add scroll event handler for zooming
             op.setOnScroll(this::handleScroll);
+
 
             dicomStream.close();
         }
@@ -120,6 +140,8 @@ public class ContainerController {
     }
     private void handleScroll(ScrollEvent event) {
         // Zooming
+        //if (playground.contains(event.getX(), event.getY())) {
+       // }
         if (zoom) {
             double delta = event.getDeltaY();
             if (delta > 0) {
@@ -138,12 +160,16 @@ public class ContainerController {
     void zoom(MouseEvent event) {
         zoom=true;
         span=false;
+        playground.setCursor(Cursor.CROSSHAIR);
+
 
     }
     @FXML
     void span(MouseEvent event) {
         zoom=false;
         span=true;
+        playground.setCursor(Cursor.MOVE);
+
 
 
     }
@@ -203,5 +229,74 @@ public class ContainerController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void rotate(MouseEvent event) {
+        op.setRotate(op.getRotate() + 90);
+        playground.setCursor(Cursor.CLOSED_HAND);
+
+    }
+
+
+    private void adjustContrast() {
+        // Get the image's pixel reader
+        javafx.scene.image.PixelReader pixelReader = originalImage.getPixelReader();
+
+        // Create a new writable image with the same dimensions as the original image
+        javafx.scene.image.WritableImage adjustedImage = new javafx.scene.image.WritableImage(
+                (int) originalImage.getWidth(),
+                (int) originalImage.getHeight()
+        );
+
+        // Get the image's pixel writer
+        javafx.scene.image.PixelWriter pixelWriter = adjustedImage.getPixelWriter();
+
+        // Iterate over each pixel in the image
+        for (int y = 0; y < originalImage.getHeight(); y++) {
+            for (int x = 0; x < originalImage.getWidth(); x++) {
+                // Get the color of the pixel at (x, y)
+                javafx.scene.paint.Color color = pixelReader.getColor(x, y);
+
+                // Adjust the contrast of the pixel color
+                double red = adjustComponent(color.getRed(), contrastFactor);
+                double green = adjustComponent(color.getGreen(), contrastFactor);
+                double blue = adjustComponent(color.getBlue(), contrastFactor);
+
+                // Write the adjusted color to the new image
+                pixelWriter.setColor(x, y, javafx.scene.paint.Color.color(red, green, blue));
+            }
+        }
+
+        // Update the imageView to display the adjusted image
+        op.setImage(adjustedImage);
+    }
+
+    private double adjustComponent(double component, double contrastFactor) {
+        // Adjust the component using the contrast factor
+        double adjustedComponent = (component - 0.5) * contrastFactor + 0.5;
+
+        // Ensure the adjusted component is within the valid range [0, 1]
+        return Math.min(Math.max(adjustedComponent, 0), 1);
+    }
+    @FXML
+    void addContrast(ActionEvent event) {
+        contrastFactor += 0.1;
+        adjustContrast();
+    }
+    @FXML
+    private void reduceContrast(ActionEvent event) {
+        contrastFactor -= 0.1;
+        adjustContrast();
+    }
+    /*private void changeCursorForContrastAction() {
+        // Change cursor to a custom image or predefined cursor type
+        Scene scene = decreaseContrastButton.getScene();
+        scene.setCursor(Cursor.CROSSHAIR);
+
+        // Revert cursor back to default after a short delay (for demonstration)
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> scene.setCursor(Cursor.DEFAULT));
+        pause.play();
+    }*/
+
 
 }
