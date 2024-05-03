@@ -1,5 +1,8 @@
 package controllers.blog;
 
+import entities.Article;
+import entities.Comment;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import entities.Article;
-import entities.Comment;
 import javafx.stage.Stage;
 import services.blog.CommentService;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -57,24 +59,24 @@ public class ShowBlogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         commentService = new CommentService();
-        // Créer une cell factory pour personnaliser l'affichage des commentaires dans la ListView
+        // Create a cell factory to customize the display of comments in the ListView
         commentsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Comment comment, boolean empty) {
                 super.updateItem(comment, empty);
                 if (comment != null) {
-                    // Créer une mise en page pour le commentaire
+                    // Create a layout for the comment
                     VBox commentLayout = new VBox();
                     Label commentContent = new Label(comment.getContent());
-                    Label commentUsername = new Label(getUserUsername(comment.getId_user_id()));
+                    Label commentUsername = new Label(comment.getUser().getName());
                     Label commentDate = new Label(comment.getCreated_at().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-                    // Ajouter des styles CSS si nécessaire
+                    // Add CSS styles if necessary
                     commentContent.getStyleClass().add("comment-content");
                     commentUsername.getStyleClass().add("comment-username");
                     commentDate.getStyleClass().add("comment-date");
 
-                    // Ajouter les éléments à la mise en page
+                    // Add elements to the layout
                     commentLayout.getChildren().addAll(commentContent, commentUsername, commentDate);
                     setGraphic(commentLayout);
                 } else {
@@ -84,26 +86,28 @@ public class ShowBlogController implements Initializable {
         });
     }
 
-    private String getUserUsername(int userId) {
-        // Implémentez la logique pour obtenir le nom d'utilisateur à partir de l'ID de l'utilisateur
-        // Cette méthode est un exemple, vous devrez l'implémenter selon vos besoins.
-        return "Utilisateur" + userId;
-    }
-
-    public void initArticleDetails(Article article) {
+    public void initArticleDetails(Article article) throws SQLException {
         this.article = article;
-        // Afficher les détails de l'article
+        // Display article details
         titre.setText(article.getTitle());
         content.setText(article.getContent());
-
-        // Convertir la date en chaîne formatée
+// Charger l'image de l'article
+        if (article.getImage() != null && !article.getImage().isEmpty()) {
+            File imageFile = new File(article.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                imageView.setImage(image);
+            }
+        }
+        // Convert date to formatted string
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = article.getCreated_at().format(formatter);
         createdAtLabel.setText(formattedDate);
 
-        List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
+        List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
         commentsListView.getItems().setAll(comments);
     }
+
     private boolean containsBadWords(String content) {
         for (String word : BAD_WORDS) {
             if (content.toLowerCase().contains(word)) {
@@ -112,29 +116,42 @@ public class ShowBlogController implements Initializable {
         }
         return false;
     }
+
     @FXML
-    private void addCommentButtonClicked(ActionEvent event) {
+    private void addCommentButtonClicked(ActionEvent event) throws SQLException {
         String content = commentTextArea.getText().trim();
         LocalDateTime created_at = LocalDateTime.now();
 
         if (!content.isEmpty()) {
-            // Vérifiez si le commentaire contient des mots inappropriés
+            // Check if the comment contains inappropriate words
             if (!containsBadWords(content)) {
                 if (article != null) {
-                    Comment comment = new Comment(article.getId(), content, created_at);
-                    commentService.addComment(comment);
+                    // Create a new comment with the current user and article
+                    User user = new User(); // Replace this with the actual user object
+                    Comment comment = new Comment(user, article, content, created_at);
+
+                    // Add the comment using the comment service
+                    try {
+                        commentService.addComment(comment, user, article);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // Handle the exception
+                    }
+
+                    // Clear the comment text area
                     commentTextArea.clear();
-                    List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
+
+                    // Update the comments list view
+                    List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
                     commentsListView.getItems().setAll(comments);
                 } else {
-                    err.println("L'article est null. Assurez-vous que la méthode initArticleDetails() est appelée pour initialiser l'article avant d'ajouter un commentaire.");
+                    err.println("The article is null. Make sure the initArticleDetails() method is called to initialize the article before adding a comment.");
                 }
             } else {
-                // Affichez un message d'erreur ou prenez une autre action appropriée
-                errorLabel.setText("Votre commentaire contient des mots inappropriés.");
+                // Display an error message or take appropriate action
+                errorLabel.setText("Your comment contains inappropriate words.");
             }
         }
-
     }
 
     @FXML
@@ -165,136 +182,3 @@ public class ShowBlogController implements Initializable {
         }
     }
 }
-
-//package controllers.blog;
-//
-//import javafx.event.ActionEvent;
-//import javafx.fxml.FXML;
-//import javafx.fxml.Initializable;
-//import javafx.scene.control.*;
-//import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
-//import javafx.scene.layout.HBox;
-//import entities.Article;
-//import entities.Comment;
-//import services.blog.CommentService;
-//
-//import java.io.File;
-//import java.net.URL;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-//import java.util.List;
-//import java.util.ResourceBundle;
-//
-//import static java.lang.System.err;
-//
-//public class ShowBlogController implements Initializable {
-//
-//    public TextArea commentTextArea;
-//    public ListView<Comment> commentsListView;
-//    public HBox likesContainer;
-//    public Label likesLabel;
-//    @FXML
-//    public ImageView selectedImageview;
-//
-//    public TextField TextFieldTitre;
-//    public TextField TextFieldContent;
-//    public Label titre;
-//    public Label content;
-//    public ImageView imageView;
-//
-//
-//    @FXML
-//    private Label createdAtLabel;
-//    private CommentService commentService;
-//    private Article article;
-//    private int likesCount = 0;
-//
-//    private static ListCell<Comment> call(ListView<Comment> param) {
-//        ListCell<Comment> listCell = new ListCell<Comment>() {
-//            @Override
-//            protected void updateItem(Comment comment, boolean empty) {
-//                super.updateItem(comment, empty);
-//                if (comment != null) {
-//                    // Formater la date du commentaire
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//                    String formattedDate = comment.getCreated_at().format(formatter);
-//                    setText(comment.getContent() + " - " + formattedDate);
-//                } else setText(null);
-//            }
-//        };
-//        return listCell;
-//    }
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        commentService = new CommentService();
-//        // Créer une cell factory pour personnaliser l'affichage des commentaires dans la ListView
-//        commentsListView.setCellFactory(param -> new ListCell<>() {
-//            @Override
-//            protected void updateItem(Comment comment, boolean empty) {
-//                super.updateItem(comment, empty);
-//                if (comment != null) {
-//                    // Récupérer les détails de l'utilisateur à partir de son ID
-//                    String username = getUserUsername(comment.getId_user_id());
-//
-//                    // Formater la date du commentaire
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//                    String formattedDate = comment.getCreated_at().format(formatter);
-//
-//                    setText(comment.getContent() + " - " + username + " - " + formattedDate);
-//                } else {
-//                    setText(null);
-//                }
-//            }
-//        });
-//    }
-//    private String getUserUsername(int userId) {
-//        // Implémentez la logique pour obtenir le nom d'utilisateur à partir de l'ID de l'utilisateur
-//        // Cette méthode est un exemple, vous devrez l'implémenter selon vos besoins.
-//        return "Utilisateur" + userId;
-//    }
-//
-//    public void initArticleDetails(Article article) {
-//        this.article = article;
-//        // Afficher les détails de l'article
-//        titre.setText(article.getTitle());
-//        content.setText(article.getContent());
-//
-//        // Convertir la date en chaîne formatée
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        String formattedDate = article.getCreated_at().format(formatter);
-//        createdAtLabel.setText(formattedDate);
-//
-//        List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
-//        commentsListView.getItems().setAll(comments);
-//    }
-//    @FXML
-//    private void addCommentButtonClicked(ActionEvent event) {
-//        String content = commentTextArea.getText().trim();
-//        LocalDateTime created_at = LocalDateTime.now();
-//
-//        if (!content.isEmpty()) {
-//            if (article != null) {
-//                Comment comment = new Comment(article.getId(), content, created_at);
-//                commentService.addComment(comment);
-//                commentTextArea.clear();
-//                List<Comment> comments = commentService.readCommentsByArticleId(article.getId());
-//                commentsListView.getItems().setAll(comments);
-//            } else {
-//                err.println("L'article est null. Assurez-vous que la méthode initArticleDetails() est appelée pour initialiser l'article avant d'ajouter un commentaire.");
-//            }
-//        }
-//    }
-//
-//    @FXML
-//    private void likeButtonClicked(ActionEvent event) {
-//        likesCount++;
-//        updateLikesCount();
-//    }
-//
-//    private void updateLikesCount() {
-//        likesLabel.setText("Likes: " + likesCount);
-//    }
-//}
-//

@@ -81,7 +81,6 @@ public class ShowArticleController implements Initializable {
 
 
     public void btnPDF(MouseEvent mouseEvent) {
-        // Vérifier si l'article est initialisé
         if (article != null) {
             Document document = new Document();
             try {
@@ -95,7 +94,13 @@ public class ShowArticleController implements Initializable {
                     // Écrire le contenu de l'article dans le document PDF
                     PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
                     document.open();
-                    document.add(new Paragraph("Titre: " + article.getTitle()));
+
+                    // Ajouter le titre centré et en gras
+                    Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+                    Paragraph title = new Paragraph(article.getTitle(), titleFont);
+                    title.setAlignment(Element.ALIGN_CENTER);
+                    document.add(title);
+
                     document.add(new Paragraph("Contenu: " + article.getContent()));
 
                     // Ajouter l'image à partir du chemin spécifié dans l'article
@@ -104,17 +109,34 @@ public class ShowArticleController implements Initializable {
                             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(article.getImage());
                             // Redimensionner l'image selon vos besoins
                             image.scaleToFit(400, 400);
+                            // Encadrer l'image
+                            image.setBorder(Rectangle.BOX);
+                            image.setBorderWidth(1);
                             document.add(image);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
 
+                    // Ajouter le logo en haut à droite
+                    com.itextpdf.text.Image logo = com.itextpdf.text.Image.getInstance("C:\\Users\\friaa\\OneDrive - ESPRIT\\Bureau\\java_v1\\src\\main\\resources\\img\\logo\\logo 2.png");
+                    logo.scaleToFit(50, 50); // Changer les dimensions selon vos besoins
+                    logo.setAbsolutePosition(document.getPageSize().getWidth() - 70, document.getPageSize().getHeight() - 70);
+                    document.add(logo);
+
+
+                    // Ajouter la date en bas à droite
+                    Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
+                    Paragraph date = new Paragraph("Date: " + createdAtLabel.getText(), dateFont);
+                    date.setAlignment(Element.ALIGN_RIGHT);
+                    date.setSpacingBefore(10);
+                    document.add(date);
+
                     document.close();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Article Recharger");
                     alert.setHeaderText(null);
-                    alert.setContentText("Article bien telechargé.");
+                    alert.setContentText("Article bien téléchargé.");
                     alert.showAndWait();
                     backToListArticle(mouseEvent);
                 } else {
@@ -123,6 +145,10 @@ public class ShowArticleController implements Initializable {
             } catch (FileNotFoundException | DocumentException e) {
                 e.printStackTrace();
                 err.println("Erreur lors de la création du PDF.");
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else {
             err.println("L'article n'est pas initialisé.");

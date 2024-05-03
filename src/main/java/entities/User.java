@@ -29,6 +29,17 @@ public class User {
         this.brochure_filename = brochure_filename;
     }
 
+    public User(int userId, String userEmail, String[] userRoles, String userName, String userLastname, LocalDate userBirthDate, String userGender, String userBrochureFilename) {
+        this.user_id = userId;
+        this.email = userEmail;
+        this.role = userRoles;
+        this.name = userName;
+        this.lastName = userLastname;
+        this.birth_date = userBirthDate;
+        this.gender = userGender;
+        this.brochure_filename = userBrochureFilename;
+    }
+
     public String getPassword() {return password;}
 
     public void setPassword(String password) {

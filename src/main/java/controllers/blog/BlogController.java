@@ -16,6 +16,7 @@ import services.blog.ArticleService;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,6 +126,8 @@ public class BlogController {
             stage.show();
         } catch (IOException e) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Error loading ShowArticle.fxml", e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

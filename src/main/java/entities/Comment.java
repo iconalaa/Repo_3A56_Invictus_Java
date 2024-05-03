@@ -6,14 +6,22 @@ import java.time.LocalDateTime;
 public class Comment {
 
     private int id;
-    private final int article_id;
-    private int id_user_id = 0;
+    private User user;
+    private Article article;
+    private String content;
+    private LocalDateTime created_at;
 
-
-    public Comment(int id, int article_id, int id_user_id, String content, LocalDateTime created_at) {
+    public Comment(int id, User user, Article article, String content, LocalDateTime created_at) {
         this.id = id;
-        this.article_id = article_id;
-        this.id_user_id = id_user_id;
+        this.user = user;
+        this.article = article;
+        this.content = content;
+        this.created_at = created_at;
+    }
+
+    public Comment(User user, Article article, String content, LocalDateTime created_at) {
+        this.user = user;
+        this.article = article;
         this.content = content;
         this.created_at = created_at;
     }
@@ -22,37 +30,16 @@ public class Comment {
         this.id = id;
     }
 
-
-
-    private final String content;
-    private LocalDateTime created_at;
-
-    public Comment(int article_id, int id_user_id, String content, LocalDateTime created_at) {
-        this.id = 0; // Valeur par défaut
-        this.id_user_id=id_user_id;
-        this.article_id = article_id;
-        this.content = content;
-        this.created_at = created_at;
-    }
-
-
-
-    public Comment(int article_id, String content, LocalDateTime created_at) {
-        this.article_id = article_id;
-        this.content = content;
-        this.created_at = created_at;
-    }
-
     public int getId() {
         return id;
     }
 
-    public int getArticle_id() {
-        return article_id;
-    }
-
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getCreated_at() {
@@ -63,30 +50,30 @@ public class Comment {
         this.created_at = created_at;
     }
 
-    public Comment(int article_id, String content) {
-        this.article_id = article_id;
-        this.content = content;
+    public User getUser() {
+        return user;
     }
 
-    public void setId_user_id(int id_user_id) {
-        this.id_user_id = id_user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getId_user_id() {
-        return id_user_id;
+    public Article getArticle() {
+        return article;
     }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
     @Override
     public String toString() {
-        return "Comment{id=" + id +
-                ", article_id=" + article_id +
-                ", id_user_id=" + id_user_id +
+        return "Comment{" +
+                "id=" + id +
+                ", user=" + user +
+                ", article=" + article +
                 ", content='" + content + '\'' +
                 ", created_at=" + created_at +
                 '}';
     }
-
-
-    public void setContent(String s) {
-    }
 }
-
