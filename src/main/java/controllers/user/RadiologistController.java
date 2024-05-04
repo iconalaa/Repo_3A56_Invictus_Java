@@ -63,7 +63,7 @@ public class RadiologistController {
                 sb.append(c);
             }
             String hashedPassword = sb.toString();
-            Radiologist R = new Radiologist(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x", mat_cnom.getText());
+            Radiologist R = new Radiologist(email.getText(), hashedPassword, new String[]{"ROLE_WAITING_RADIOLOGIST"}, name.getText(), lastname.getText(), date, gender.getValue(), "x", mat_cnom.getText());
             RadiologistService service = new RadiologistService();
             try {
                 service.add(R);

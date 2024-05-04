@@ -8,6 +8,7 @@ import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserService implements ICrud<User> {
@@ -117,57 +118,6 @@ public class UserService implements ICrud<User> {
         return null;
     }
 
-    public boolean isEmailTaken(String email) throws SQLException {
-        String query = "SELECT * FROM user WHERE email = ?";
-        PreparedStatement preparedStatement = MyDataBase.getInstance().getConnection().prepareStatement(query);
-        preparedStatement.setString(1, email);
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            return resultSet.next();
-        }
-    }
-
-    public void updateforgottenpassword(String email, String password) {
-        char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.toCharArray());
-        StringBuilder sb = new StringBuilder();
-        for (char c : bcryptChars) {
-            sb.append(c);
-        }
-        String passwordencrypted = sb.toString();
-
-        String query = "UPDATE user " + "SET password = ? WHERE email = ?";
-        try {
-            PreparedStatement preparedStatement = MyDataBase.getInstance().getConnection().prepareStatement(query);
-            preparedStatement.setString(1, passwordencrypted);
-            preparedStatement.setString(2, email);
-            preparedStatement.executeUpdate();
-            System.out.println("Password updated!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public boolean verfier_mail(String mail) {
-        Statement stm = null;
-        ResultSet rst = null;
-
-        try {
-            stm = connection.createStatement();
-            String query = "SELECT * FROM utilisateur WHERE email='" + mail + "'";
-            rst = stm.executeQuery(query);
-            if (rst.next()) {
-                return true;
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-
-        }
-
-        return false;
-    }
-
-    ;
-
     public int countUsers(String role) throws SQLException {
         int count = 0;
         PreparedStatement statement = null;
@@ -185,5 +135,49 @@ public class UserService implements ICrud<User> {
         }
         return count;
     }
+
+    public List<User> getToApproveUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "SELECT * FROM user WHERE JSON_CONTAINS(roles, ?) OR JSON_CONTAINS(roles, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "\"ROLE_WAITING_DOCTOR\"");
+            statement.setString(2, "\"ROLE_WAITING_RADIOLOGIST\"");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                // Extracting roles as a string and then converting it into a string array
+                String rolesString = resultSet.getString("roles");
+                String[] roles = rolesString.split(", "); // Assuming roles are stored as comma-separated values
+
+                // Creating a new User object using the provided constructor
+                User user = new User(
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        roles,
+                        resultSet.getString("name"),
+                        resultSet.getString("lastName"),
+                        resultSet.getDate("date_birth").toLocalDate(),
+                        resultSet.getString("gender"),
+                        resultSet.getString("brochure_filename")
+                );
+                user.setUser_id(resultSet.getInt("id"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close statement and result set in finally block
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+        return users;
+    }
+
 
 }

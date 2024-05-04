@@ -72,7 +72,6 @@ public class DoctorController {
         if (validateFields()) {
             LocalDate date = datePicker.getValue();
             // Generate confirmation token
-            String confirmationToken = generateConfirmationToken();
             // Hash password
             char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
             StringBuilder sb = new StringBuilder();
@@ -81,12 +80,10 @@ public class DoctorController {
             }
             String hashedPassword = sb.toString();
             String imageName = selectedImageFile != null ? selectedImageFile.getName() : "x";
-            Doctor P = new Doctor(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), imageName, matricule.getText());
-            P.setConfirmationToken(confirmationToken);
+            Doctor P = new Doctor(email.getText(), hashedPassword, new String[]{"ROLE_WAITING_DOCTOR"}, name.getText(), lastname.getText(), date, gender.getValue(), imageName, matricule.getText());
             DoctorService service = new DoctorService();
             try {
                 service.add(P);
-                sendConfirmationEmail(P.getEmail(), confirmationToken);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Account Created");
                 alert.setHeaderText("Welcome To our Compaign");
@@ -118,43 +115,6 @@ public class DoctorController {
         }
     }
 
-    private String generateConfirmationToken() {
-        // Generate a random token
-        return UUID.randomUUID().toString();
-    }
-
-    // Method to send confirmation email
-    private void sendConfirmationEmail(String userEmail, String confirmationToken) {
-        // Sender's email address
-        // Email properties
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-
-
-        String senderEmail = "radiohub.noreply@gmail.com";
-        String senderPassword = "itsRadiohub1";
-        Session session = Session.getDefaultInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(senderEmail, senderPassword);
-            }
-        });
-
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
-            message.setSubject("Email Confirmation");
-            message.setText("Please click on the following link to confirm your email: http://yourapp.com/confirm?token=" + confirmationToken);
-            Transport.send(message);
-            System.out.println("Confirmation email sent successfully.");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public boolean validateFields() {

@@ -18,7 +18,6 @@ public class RadiologistService implements ICrud<Radiologist> {
 
     @Override
     public void add(Radiologist el) throws SQLException {
-        el.setRole(new String[]{"ROLE_USER", "ROLE_Radiologist"});
         String req = "INSERT INTO user (email, roles, password, name, brochure_filename, lastname, date_birth, gender,matricule) VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = connection.prepareStatement(req);
         Gson gson = new Gson();

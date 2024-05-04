@@ -20,7 +20,6 @@ public class DoctorService implements ICrud<Doctor> {
 
     @Override
     public void add(Doctor el) throws SQLException {
-        el.setRole(new String[]{"ROLE_USER", "ROLE_DOCTOR"});
         String req = "INSERT INTO user (email, roles, password, name, brochure_filename, lastname, date_birth, gender,matricule) VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = connection.prepareStatement(req);
         Gson gson = new Gson();

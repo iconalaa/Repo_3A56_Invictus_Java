@@ -10,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.user.UserService;
@@ -34,11 +36,18 @@ public class DashboardController {
 
     private final UserService ps = new UserService();
     private User userToUpdate;
+    @FXML
+    private Circle notifCircle;
 
 
     public void initialize() {
         try {
             List<User> allUsers = ps.showAll();
+            if (ps.getToApproveUsers().isEmpty()) {
+                notifCircle.setRadius(0);
+            } else {
+                notifCircle.setRadius(3);
+            }
             displayUsers(allUsers); // Display all users initially
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
                 String searchTerm = newValue.trim();
@@ -59,12 +68,10 @@ public class DashboardController {
 
     private void displayUsers(List<User> users) {
         mainVBox.getChildren().clear(); // Clear existing user cards
-
         mainVBox.setSpacing(10);
         int maxColumns = 1;
         for (int i = 0; i < users.size(); i += maxColumns) {
             HBox rowHBox = new HBox();
-            rowHBox.setSpacing(20);
             for (int j = i; j < Math.min(i + maxColumns, users.size()); j++) {
                 User user = users.get(j);
                 StackPane userCard = createUserCard(user);
@@ -74,6 +81,7 @@ public class DashboardController {
             mainVBox.setSpacing(20);
         }
     }
+
     private List<User> filterUsers(List<User> users, String searchTerm) {
         String searchTermLowerCase = searchTerm.toLowerCase();
 
@@ -88,7 +96,7 @@ public class DashboardController {
 
     public static String convertRole(String roleString) {
         // Remove square brackets and leading/trailing whitespace
-        String[] roles = roleString.substring(1, roleString.length()-1).split(",");
+        String[] roles = roleString.substring(1, roleString.length() - 1).split(",");
 
         // Process each role
         StringBuilder convertedRoles = new StringBuilder();
@@ -103,7 +111,7 @@ public class DashboardController {
         return convertedRoles.toString();
     }
 
-        private StackPane createUserCard(User user) {
+    private StackPane createUserCard(User user) {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/card.fxml"));
@@ -115,13 +123,13 @@ public class DashboardController {
             Label roleCard = (Label) stackPane.lookup("#roleCard");
             Button deleteBtn = (Button) stackPane.lookup("#deleteBtn");
             Button updateBtn = (Button) stackPane.lookup("#updateBtn");
-            imgCard.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+user.getBrochure_filename()).toURI().toString()));
-            nameCard.setText("Name: "+user.getName() + " " + user.getLastName());
-            emailCard.setText("Email: "+user.getEmail());
+            imgCard.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+            nameCard.setText("Name: " + user.getName() + " " + user.getLastName());
+            emailCard.setText("Email: " + user.getEmail());
 
-            String roleString = String.join("",user.getRole());
+            String roleString = String.join("", user.getRole());
             String convertedRole = convertRole(roleString);
-            roleCard.setText("Role: "+convertedRole);
+            roleCard.setText("Role: " + convertedRole);
             deleteBtn.setOnAction(e -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
@@ -185,14 +193,15 @@ public class DashboardController {
         refreshDisplay();
 
     }
+
     @FXML
-    void FxStatistics(ActionEvent event) throws IOException,SQLException{
+    void FxStatistics(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/Statistics.fxml"));
         Parent root = loader.load();
         StatisticController controller = loader.getController();
-        int doctorsNum=ps.countUsers("ROLE_DOCTOR");
-        int radiologistNum=ps.countUsers("ROLE_RADIOLOGIST");
-        int usersNum=ps.countUsers("ROLE_USER");
+        int doctorsNum = ps.countUsers("ROLE_DOCTOR");
+        int radiologistNum = ps.countUsers("ROLE_RADIOLOGIST");
+        int usersNum = ps.countUsers("ROLE_USER");
         controller.setData(doctorsNum, radiologistNum, usersNum);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -205,8 +214,37 @@ public class DashboardController {
 
     }
 
-
-
+    @FXML
+    void fxNotification(MouseEvent event) throws IOException, SQLException {
+        if (ps.getToApproveUsers().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("You dont have Approval Request?");
+            alert.show();
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/approval.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setOnHidden(e -> {
+            try {
+                if (ps.getToApproveUsers().isEmpty()) {
+                    notifCircle.setRadius(0);
+                } else {
+                    notifCircle.setRadius(3);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        stage.show();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.setTitle("Notifications");
+    }
 
 
 }

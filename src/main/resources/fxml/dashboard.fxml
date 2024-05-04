@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.DashboardController">
@@ -27,12 +28,12 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </ScrollPane>
-      <Button layoutX="413.0" layoutY="14.0" mnemonicParsing="false" onAction="#FxStatistics" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: #FF6262;" styleClass="btn" stylesheets="@../style/doctor.css" text="Statistics">
+      <Button layoutX="740.0" layoutY="10.0" mnemonicParsing="false" onAction="#FxStatistics" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: #FF6262;" styleClass="btn" stylesheets="@../style/doctor.css" text="Statistics">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="248.0" layoutY="14.0" mnemonicParsing="false" onAction="#FxAdd" prefHeight="38.0" prefWidth="140.0" styleClass="btn" stylesheets="@../style/doctor.css" text="Add">
+      <Button layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#FxAdd" prefHeight="38.0" prefWidth="140.0" styleClass="btn" stylesheets="@../style/doctor.css" text="Add">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -170,5 +171,18 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </TextField>
+      <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="248.0" layoutY="18.0" onMouseClicked="#fxNotification" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon/Ringing.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Circle fx:id="notifCircle" fill="#2a91fe" layoutX="270.0" layoutY="18.0" radius="3.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Circle>
    </children>
 </AnchorPane>

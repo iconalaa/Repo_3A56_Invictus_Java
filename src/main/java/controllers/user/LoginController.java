@@ -59,13 +59,15 @@
                             User u =service.getUserById(rs.getInt("id"));
                             String[] userRoles = rs.getString("roles").split(",");
                             for (String role : userRoles) {
-//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
+                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
+                                    showScene(event,"dashboard.fxml","Dashboard");
+                                    return;
+                                }
+//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
 //
 //                                    return;
-//                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
-//
-//                                    return;
-//                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
+//                                }
+//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
 //
 //                                    return;
 //                                }
