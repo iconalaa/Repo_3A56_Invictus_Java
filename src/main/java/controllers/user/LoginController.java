@@ -59,16 +59,16 @@
                             User u =service.getUserById(rs.getInt("id"));
                             String[] userRoles = rs.getString("roles").split(",");
                             for (String role : userRoles) {
-                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
-
-                                    return;
-                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
-
-                                    return;
-                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
-
-                                    return;
-                                }
+//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
+//
+//                                    return;
+//                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
+//
+//                                    return;
+//                                }   if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
+//
+//                                    return;
+//                                }
                             }
 
                             try {
@@ -155,6 +155,22 @@
         public void signup(ActionEvent event) throws IOException {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/user/signUp.fxml"));
+                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+                Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        @FXML
+        void redirect_passwordpage(ActionEvent event) throws IOException {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/user/forgetPassword.fxml"));
                 stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setResizable(false);

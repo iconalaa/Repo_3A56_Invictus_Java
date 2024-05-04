@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DashboardController {
     private Stage stage;
@@ -28,6 +29,8 @@ public class DashboardController {
     private Parent root;
     @FXML
     private VBox mainVBox;
+    @FXML
+    TextField searchText;
 
     private final UserService ps = new UserService();
     private User userToUpdate;
@@ -35,20 +38,17 @@ public class DashboardController {
 
     public void initialize() {
         try {
-            List<User> users = ps.showAll();
-            mainVBox.setSpacing(10);
-            int maxColumns = 1;
-            for (int i = 0; i < users.size(); i += maxColumns) {
-                HBox rowHBox = new HBox();
-                rowHBox.setSpacing(20);
-                for (int j = i; j < Math.min(i + maxColumns, users.size()); j++) {
-                    User user = users.get(j);
-                    StackPane userCard = createUserCard(user);
-                    rowHBox.getChildren().add(userCard);
+            List<User> allUsers = ps.showAll();
+            displayUsers(allUsers); // Display all users initially
+            searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+                String searchTerm = newValue.trim();
+                if (!searchTerm.isEmpty()) {
+                    List<User> filteredUsers = filterUsers(allUsers, searchTerm);
+                    displayUsers(filteredUsers); // Display filtered users
+                } else {
+                    displayUsers(allUsers); // Display all users if search text is empty
                 }
-                mainVBox.getChildren().add(rowHBox);
-                mainVBox.setSpacing(20);
-            }
+            });
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -57,6 +57,33 @@ public class DashboardController {
         }
     }
 
+    private void displayUsers(List<User> users) {
+        mainVBox.getChildren().clear(); // Clear existing user cards
+
+        mainVBox.setSpacing(10);
+        int maxColumns = 1;
+        for (int i = 0; i < users.size(); i += maxColumns) {
+            HBox rowHBox = new HBox();
+            rowHBox.setSpacing(20);
+            for (int j = i; j < Math.min(i + maxColumns, users.size()); j++) {
+                User user = users.get(j);
+                StackPane userCard = createUserCard(user);
+                rowHBox.getChildren().add(userCard);
+            }
+            mainVBox.getChildren().add(rowHBox);
+            mainVBox.setSpacing(20);
+        }
+    }
+    private List<User> filterUsers(List<User> users, String searchTerm) {
+        String searchTermLowerCase = searchTerm.toLowerCase();
+
+        List<User> filteredUsers = users.stream()
+                .filter(user -> user.getName().toLowerCase().contains(searchTermLowerCase) ||
+                        user.getEmail().toLowerCase().contains(searchTermLowerCase))
+                .collect(Collectors.toList());
+
+        return filteredUsers;
+    }
 
 
     public static String convertRole(String roleString) {
@@ -158,5 +185,28 @@ public class DashboardController {
         refreshDisplay();
 
     }
+    @FXML
+    void FxStatistics(ActionEvent event) throws IOException,SQLException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/Statistics.fxml"));
+        Parent root = loader.load();
+        StatisticController controller = loader.getController();
+        int doctorsNum=ps.countUsers("ROLE_DOCTOR");
+        int radiologistNum=ps.countUsers("ROLE_RADIOLOGIST");
+        int usersNum=ps.countUsers("ROLE_USER");
+        controller.setData(doctorsNum, radiologistNum, usersNum);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.show();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.setTitle("User Statistics");
+
+    }
+
+
+
+
 
 }
