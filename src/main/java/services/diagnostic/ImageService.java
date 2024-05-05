@@ -32,7 +32,7 @@ public class ImageService {
         try (PreparedStatement st = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             st.setString(1, image.getFilename());
             st.setInt(2, image.getPatient().getUser_id()); // Use the patientId obtained above
-            st.setInt(3, 5); // Assuming user_id is an integer
+            st.setInt(3, 15); // Assuming user_id is an integer
             st.setString(4, image.getBodyPart());
             st.setDate(5, java.sql.Date.valueOf(image.getAquisitionDate())); // Set acquisition date
             st.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now())); // Set current date as dateajout

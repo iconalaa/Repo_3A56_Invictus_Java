@@ -11,6 +11,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -23,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.dcm4che3.imageio.plugins.dcm.DicomImageReader;
+import services.diagnostic.ReportService;
 import services.interpretation.InterpreationServices;
 
 import javax.imageio.ImageIO;
@@ -30,6 +32,9 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +61,7 @@ public class ContainerController {
     private double contrastFactor = 1.0;
 
     private InterpreationServices interpreationServices = new InterpreationServices();
+    private ReportService reportService = new ReportService();
 
     @FXML
     void initialize() throws IOException {
@@ -75,7 +81,7 @@ public class ContainerController {
                 // Pass the image data to the controller
                 controller.setInterpretationData(image);
                 // Add the pane to the flow pane
-               this.inter_con.getChildren().addAll(pane);
+                this.inter_con.getChildren().addAll(pane);
             }
 
 
@@ -86,13 +92,13 @@ public class ContainerController {
             //ImageView iconView = new ImageView(iconImage);
 
             // Set the size of the icon
-           // iconView.setFitWidth(16); // Set your desired width
+            // iconView.setFitWidth(16); // Set your desired width
             //iconView.setFitHeight(16); // Set your desired height
 
             // Set the icon as graphic for the button
             //zoombutton.setGraphic(iconView);
 
-        // Load DICOM image
+            // Load DICOM image
             File dicomFile = new File("src/main/java/dicom/" + ImageDashboard.selectedImage.getId() + ".dcm");
             ImageInputStream dicomStream = ImageIO.createImageInputStream(dicomFile);
             DicomImageReader dicomReader = new DicomImageReader(null);
@@ -116,7 +122,7 @@ public class ContainerController {
             dicomStream.close();
         }
 
-    catch (Exception e) {
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -141,7 +147,7 @@ public class ContainerController {
     private void handleScroll(ScrollEvent event) {
         // Zooming
         //if (playground.contains(event.getX(), event.getY())) {
-       // }
+        // }
         if (zoom) {
             double delta = event.getDeltaY();
             if (delta > 0) {
@@ -173,6 +179,42 @@ public class ContainerController {
 
 
     }
+    @FXML
+    public void affect(MouseEvent event) throws IOException {
+        try {
+            // Check if a report exists for the selected image
+            boolean hasReport = reportService.checkReportExists(ImageDashboard.selectedImage.getId());
+
+            // If a report exists, display an alert
+            if (hasReport) {
+                // Display an alert indicating a report already exists for the selected image
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Report Already Exists");
+                alert.setHeaderText(null);
+                alert.setContentText("A report has already been done for this image.");
+                alert.showAndWait();
+            } else {
+                // Load the FXML file for the new window
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/link.fxml"));
+                // Load the root node of the new scene
+                Parent root = loader.load();
+
+                // Create a new stage for the new window
+                Stage newStage = new Stage();
+                // Set the scene with the loaded root node
+                newStage.setScene(new Scene(root));
+
+                // Show the new window
+                newStage.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 
 

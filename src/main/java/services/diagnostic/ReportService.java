@@ -23,20 +23,14 @@ public class ReportService implements ReportCrud<Report> {
     }
     @Override
     public void add(Report report, User doctor, Image image) throws SQLException {
-        String sql = "INSERT INTO report (doctor_id, image_id, interpretation_med, interpretation_rad, is_edited, date) " +
-                "SELECT ?, ?, ?, ?, ?, ? FROM dual " +
-                "INNER JOIN user u ON u.id = ? " +
-                "INNER JOIN image i ON i.id = ?";
+        String sql = "INSERT INTO report (doctor_id, image_id, interpretation_rad, is_edited) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, doctor.getUser_id());
+            statement.setInt(1, doctor.getUser_id()); // Assuming doctor.getId() returns the doctor's ID
             statement.setInt(2, image.getId());
-            statement.setString(3, report.getInterpretation_med());
-            statement.setString(4, report.getInterpretation_rad());
-            statement.setBoolean(5, report.isIs_edited());
-            statement.setDate(6, new java.sql.Date(report.getDate().getTime()));
-            statement.setInt(7, doctor.getUser_id());
-            statement.setInt(8, image.getId());
+            statement.setString(3, report.getInterpretation_rad());
+            statement.setBoolean(4, false); // Set is_edited to false by default
 
             statement.executeUpdate();
             System.out.println("Report added successfully.");
@@ -276,10 +270,26 @@ public class ReportService implements ReportCrud<Report> {
     }
 
 
-
-
-
-
+    public boolean checkReportExists(int imageId) {
+        try {
+            // Execute a query to check if the image ID exists in the report table
+            String sql = "SELECT COUNT(*) FROM report WHERE image_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, imageId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    // If there's at least one row in the result set, a report exists for the image
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        return count > 0;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Return false by default if there's an error or no report exists
+        return false;
+    }
 }
 
 

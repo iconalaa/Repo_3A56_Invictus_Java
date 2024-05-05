@@ -35,6 +35,7 @@
          <children>
             <Button fx:id="zoombutton" layoutX="254.0" mnemonicParsing="false" onMouseClicked="#zoom" prefHeight="52.0" prefWidth="69.0" styleClass="Share-button" stylesheets="@css/style.css" text="Zoom" />
             <Button layoutX="363.0" layoutY="-2.0" mnemonicParsing="false" onMouseClicked="#span" prefHeight="52.0" prefWidth="78.0" styleClass="Share-button" stylesheets="@css/style.css" text="Span" />
+            <Button layoutX="175.0" layoutY="-2.0" mnemonicParsing="false" onMouseClicked="#affect" prefHeight="52.0" prefWidth="78.0" styleClass="Share-button" stylesheets="@css/style.css" text="Doctor" />
             <ImageView fitHeight="40.0" fitWidth="69.0" layoutX="14.0" layoutY="4.0" onMouseClicked="#returnToIm" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/return-57.png" />
