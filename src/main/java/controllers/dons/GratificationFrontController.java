@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import java.io.IOException;
@@ -22,9 +25,8 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-
-import java.io.IOException;
-import java.sql.SQLException;
+import javafx.stage.Stage;
+import Services.PDFGeneration;
 
 public class GratificationFrontController {
 
@@ -83,13 +85,17 @@ public class GratificationFrontController {
                 service.ajouter(g);
                 int payable = Integer.parseInt(String.valueOf(mont));
 
+
+                // Set success URL to the generated PDF file
+                String successUrl = "file://" + System.getProperty("user.home") + "/Desktop/" + g.getDonor().getPrenom_donateur() + "_Report.pdf";
+
+
                 Stripe.apiKey = "sk_test_51OoAAEIWVdhcEaWiVsWuSH8Vvjp2uNLt6clHC56qJNPBSB9QhA4YLRaDFhvAhkzmuvj1vsTFD27b2Rr5Sho916F200mSsFg3iP";
 
                 SessionCreateParams params = SessionCreateParams.builder()
                         .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                         .setMode(SessionCreateParams.Mode.PAYMENT)
-                        .setSuccessUrl("https://www.youtube.com/watch?v=1TO48Cnl66ws")
-                        .setCancelUrl("https://www.youtube.com/watch?v=G1MfL1oGN0E")
+                        .setSuccessUrl("https://www.youtube.com/watch?v=1TO48Cnl66w")
                         .addLineItem(
                                 SessionCreateParams.LineItem.builder()
                                         .setQuantity(1L)
@@ -110,14 +116,25 @@ public class GratificationFrontController {
                 Session session = Session.create(params);
 
                 String checkoutUrl = session.getUrl();
-                System.out.println("Checkout URL: " + checkoutUrl);
+                //System.out.println("Checkout URL: " + checkoutUrl);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PaimentInterface.fxml"));
+                Parent root = loader.load();
+                PaiementInterfaceController controller = loader.getController();
+
+                controller.loadCheckoutUrl(checkoutUrl);
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.showAndWait();
 
 
-                 //webView.getEngine().load(checkoutUrl);
+                PDFGeneration.generatePdfReport(g);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Congratulations");
-                alert.setHeaderText("Your donation has been added successfully'");
+                alert.setHeaderText("Your donation has been added successfully, Please proceed with the payment'");
                 alert.show();
 
             } catch (SQLException | StripeException e) {
@@ -131,6 +148,7 @@ public class GratificationFrontController {
         } else {
             System.out.println("Invalid Inputs");
         }
+
     }
 
 

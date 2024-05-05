@@ -17,13 +17,43 @@ public class ServiceGratification implements IServices<gratification> {
         connection = a.connection;
 
     }
-    @Override
+    /*@Override
     public void ajouter(gratification gratification) throws SQLException {
 
         LocalDate currentDate = LocalDate.now();
         Date sqlDate = Date.valueOf(currentDate);
 
         int donorId = getLastdonorDB();
+
+        String req = "INSERT INTO gratification (id_donateur_id, titre_grat, desc_grat, date_grat, type_grat, montant) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(req)) {
+            statement.setInt(1, donorId);
+            statement.setString(2, gratification.getTitre_grat());
+            statement.setString(3, gratification.getDesc_grat());
+            statement.setDate(4, sqlDate);
+            statement.setString(5, gratification.getType_grat());
+            statement.setDouble(6, gratification.getMontant());
+
+            statement.executeUpdate();
+            System.out.println("Gratification ajoutée");
+        } catch (SQLException e) {
+            System.err.println("Failed to add gratification: " + e.getMessage());
+            throw e;
+        }
+    }
+
+     */
+    @Override
+    public void ajouter(gratification gratification) throws SQLException {
+        LocalDate currentDate = LocalDate.now();
+        Date sqlDate = Date.valueOf(currentDate);
+
+        int donorId = getLastdonorDB();
+        // Fetch the donor from the database
+        donateur donor = getDonorById(donorId);
+        gratification.setDonor(donor); // Set the donor in the gratification object
 
         String req = "INSERT INTO gratification (id_donateur_id, titre_grat, desc_grat, date_grat, type_grat, montant) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
@@ -117,5 +147,28 @@ public class ServiceGratification implements IServices<gratification> {
             throw e;
         }
         return donorId;
+    }
+
+    public donateur getDonorById(int donorId) {
+        String query = "SELECT * FROM donateur WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, donorId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                donateur donor = new donateur();
+                donor.setId(resultSet.getInt("id"));
+                donor.setNom_donateur(resultSet.getString("nom_donateur"));
+                donor.setPrenom_donateur(resultSet.getString("prenom_donateur"));
+                donor.setTelephone(resultSet.getInt("telephone"));
+                donor.setEmail(resultSet.getString("email"));
+                donor.setType_donateur(resultSet.getString("type_donateur"));
+
+
+                return donor;
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to retrieve donor: " + e.getMessage());
+        }
+        return null;
     }
 }
