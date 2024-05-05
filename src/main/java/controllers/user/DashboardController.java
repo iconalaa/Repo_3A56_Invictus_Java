@@ -35,6 +35,7 @@ public class DashboardController {
     TextField searchText;
 
     private final UserService ps = new UserService();
+    private User user = new User();
     private User userToUpdate;
     @FXML
     private Circle notifCircle;
@@ -247,4 +248,9 @@ public class DashboardController {
     }
 
 
+    public void setUser(User u) {
+        this.user=u;
+        System.out.println(u.getUser_id());
+
+    }
 }

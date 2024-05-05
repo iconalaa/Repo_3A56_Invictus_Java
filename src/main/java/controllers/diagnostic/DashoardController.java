@@ -1,6 +1,8 @@
 package controllers.diagnostic;
 
 
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,7 +30,7 @@ public class DashoardController {
     @FXML
     private Label reportsListLabel; // Add fx:id attribute here
     @FXML
-     private Label historylabel;
+    private Label historylabel;
     @FXML
     private Label reportsdone;
     @FXML
@@ -40,6 +42,8 @@ public class DashoardController {
     private Label coranaLabel;
     @FXML
     private Label cityLabel;
+
+    User loggedInUser = SessionManager.getLoggedInUser();
 
 
     @FXML
@@ -107,15 +111,15 @@ public class DashoardController {
 
         try {
             // Get count of awaiting reports
-            int awaitingReportsCount = reportService.getAwaitingReportsCount();
+            int awaitingReportsCount = reportService.getAwaitingReportsCount(loggedInUser.getUser_id());
             reportsLabel.setText(String.valueOf(awaitingReportsCount));
 
             // Get count of reports done
-            int reportsDoneCount = reportService.getReportsDoneCount();
+            int reportsDoneCount = reportService.getReportsDoneCount(loggedInUser.getUser_id());
             reportsdone.setText(String.valueOf(reportsDoneCount));
 
             // Get count of prescriptions
-            int prescriptionsCount = prescriptionService.getAllPrescriptionsCount();
+            int prescriptionsCount = prescriptionService.getAllPrescriptionsCount(loggedInUser.getUser_id());
             prescriptionsLabel.setText(String.valueOf(prescriptionsCount));
         } catch (SQLException e) {
             e.printStackTrace(); // Handle exception appropriately

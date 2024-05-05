@@ -1,6 +1,8 @@
 package controllers.diagnostic;
 
+import controllers.user.SessionManager;
 import entities.Report;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,6 +53,8 @@ public class HistoryController {
 
 
 
+    User loggedInUser = SessionManager.getLoggedInUser();
+    int id =loggedInUser.getUser_id();
     private ReportService reportService;
     private PrescriptionService prescriptionService;
 
@@ -65,7 +69,7 @@ public class HistoryController {
         try {
 
             // Fetch reports from the database
-            List<Report> reports = reportService.displayEditedReports();
+            List<Report> reports = reportService.displayEditedReports(id);
             // Convert list to ObservableList
             ObservableList<Report> observableReports = FXCollections.observableArrayList(reports);
 

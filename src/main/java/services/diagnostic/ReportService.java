@@ -46,7 +46,7 @@ public class ReportService implements ReportCrud<Report> {
         }
     }
     @Override
-    public List<Report> displayAll() throws SQLException {
+    public List<Report> displayAll(int id) throws SQLException {
         List<Report> reports = new ArrayList<>();
 
         String sql = "SELECT r.id, r.interpretation_med, r.interpretation_rad, r.doctor_id, r.image_id, r.is_edited, r.date, " +
@@ -58,10 +58,12 @@ public class ReportService implements ReportCrud<Report> {
                 "INNER JOIN user u ON r.doctor_id = u.id " +
                 "INNER JOIN image i ON r.image_id = i.id " +
                 "LEFT JOIN user p ON i.patient_id = p.id " +
-                "LEFT JOIN user rad ON i.radiologist_id = rad.id " ;
+                "LEFT JOIN user rad ON i.radiologist_id = rad.id " +
+                "WHERE r.doctor_id = ?";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int reportId = resultSet.getInt("id");
                 String interpretationMed = resultSet.getString("interpretation_med");
@@ -117,6 +119,7 @@ public class ReportService implements ReportCrud<Report> {
 
         return reports;
     }
+
     @Override
     public void update(Report report, int id) throws SQLException {
         String sql = "UPDATE report SET interpretation_med = ?, interpretation_rad = ?, is_edited = ?, date = ? WHERE id = ?";
@@ -165,7 +168,7 @@ public class ReportService implements ReportCrud<Report> {
             System.out.println("Prescriptions linked to the report deleted successfully.");
         }
     }
-    public List<Report> displayEditedReports() throws SQLException {
+    public List<Report> displayEditedReports(int id) throws SQLException {
         List<Report> reports = new ArrayList<>();
 
         String sql = "SELECT r.id, r.interpretation_med, r.interpretation_rad, r.doctor_id, r.image_id, r.is_edited, r.date, " +
@@ -178,96 +181,106 @@ public class ReportService implements ReportCrud<Report> {
                 "INNER JOIN image i ON r.image_id = i.id " +
                 "LEFT JOIN user p ON i.patient_id = p.id " +
                 "LEFT JOIN user rad ON i.radiologist_id = rad.id " +
-                "WHERE r.is_edited = true"; // Add WHERE clause to filter by is_edited
+                "WHERE r.doctor_id = ? AND r.is_edited = true"; // Added condition for doctor_id
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                int reportId = resultSet.getInt("id");
-                String interpretationMed = resultSet.getString("interpretation_med");
-                String interpretationRad = resultSet.getString("interpretation_rad");
-                int doctorId = resultSet.getInt("doctor_id");
-                String doctorName = resultSet.getString("doctor_name");
-                String doctorLastName = resultSet.getString("doctor_lastName");
-                int imageId = resultSet.getInt("image_id");
-                String imageFilename = resultSet.getString("image_filename");
-                String imageBodyPart = resultSet.getString("image_bodypart");
-                boolean isEdited = resultSet.getBoolean("is_edited");
-                Date date = resultSet.getDate("date");
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); // Set the doctor's ID parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int reportId = resultSet.getInt("id");
+                    String interpretationMed = resultSet.getString("interpretation_med");
+                    String interpretationRad = resultSet.getString("interpretation_rad");
+                    int doctorId = resultSet.getInt("doctor_id");
+                    String doctorName = resultSet.getString("doctor_name");
+                    String doctorLastName = resultSet.getString("doctor_lastName");
+                    int imageId = resultSet.getInt("image_id");
+                    String imageFilename = resultSet.getString("image_filename");
+                    String imageBodyPart = resultSet.getString("image_bodypart");
+                    boolean isEdited = resultSet.getBoolean("is_edited");
+                    Date date = resultSet.getDate("date");
 
-                User doctor = new User();
-                doctor.setUser_id(doctorId);
-                doctor.setName(doctorName);
-                doctor.setLastName(doctorLastName);
+                    User doctor = new User();
+                    doctor.setUser_id(doctorId);
+                    doctor.setName(doctorName);
+                    doctor.setLastName(doctorLastName);
 
-                Image image = new Image();
-                image.setId(imageId);
-                image.setFilename(imageFilename);
-                image.setBodyPart(imageBodyPart);
+                    Image image = new Image();
+                    image.setId(imageId);
+                    image.setFilename(imageFilename);
+                    image.setBodyPart(imageBodyPart);
 
-                int patientId = resultSet.getInt("patient_id");
-                if (!resultSet.wasNull()) {
-                    String patientName = resultSet.getString("patient_name");
-                    String patientLastName = resultSet.getString("patient_lastName");
-                    User patient = new User();
-                    patient.setUser_id(patientId);
-                    patient.setName(patientName);
-                    patient.setLastName(patientLastName);
-                    image.setPatient(patient);
+                    int patientId = resultSet.getInt("patient_id");
+                    if (!resultSet.wasNull()) {
+                        String patientName = resultSet.getString("patient_name");
+                        String patientLastName = resultSet.getString("patient_lastName");
+                        User patient = new User();
+                        patient.setUser_id(patientId);
+                        patient.setName(patientName);
+                        patient.setLastName(patientLastName);
+                        image.setPatient(patient);
+                    }
+
+                    int radiologistId = resultSet.getInt("radiologist_id");
+                    if (!resultSet.wasNull()) {
+                        String radiologistName = resultSet.getString("radiologist_name");
+                        String radiologistLastName = resultSet.getString("radiologist_lastName");
+                        User radiologist = new User();
+                        radiologist.setUser_id(radiologistId);
+                        radiologist.setName(radiologistName);
+                        radiologist.setLastName(radiologistLastName);
+                        image.setRadiologist(radiologist);
+                    }
+
+                    Report report = new Report(reportId, interpretationMed, interpretationRad, doctor, image, date, isEdited);
+                    reports.add(report);
                 }
-
-                int radiologistId = resultSet.getInt("radiologist_id");
-                if (!resultSet.wasNull()) {
-                    String radiologistName = resultSet.getString("radiologist_name");
-                    String radiologistLastName = resultSet.getString("radiologist_lastName");
-                    User radiologist = new User();
-                    radiologist.setUser_id(radiologistId);
-                    radiologist.setName(radiologistName);
-                    radiologist.setLastName(radiologistLastName);
-                    image.setRadiologist(radiologist);
-                }
-
-                Report report = new Report(reportId, interpretationMed, interpretationRad, doctor, image, date, isEdited);
-                reports.add(report);
             }
         } catch (SQLException e) {
-            System.err.println("Failed to display reports: " + e.getMessage());
+            System.err.println("Failed to display edited reports: " + e.getMessage());
             throw e;
         }
 
         return reports;
     }
 
-    public int getAwaitingReportsCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS count FROM report WHERE is_edited = false";
+    public int getAwaitingReportsCount(int id) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM report WHERE is_edited = false AND doctor_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); // Set the doctor's ID parameter
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("count");
                 }
             }
+        } catch (SQLException e) {
+            System.err.println("Failed to get awaiting reports count: " + e.getMessage());
+            throw e;
         }
         return 0;
     }
 
-    public int getReportsDoneCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS count FROM report WHERE is_edited = true";
+    public int getReportsDoneCount(int id) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM report WHERE is_edited = true AND doctor_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); // Set the doctor's ID parameter
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("count");
                 }
             }
+        } catch (SQLException e) {
+            System.err.println("Failed to get reports done count: " + e.getMessage());
+            throw e;
         }
         return 0;
     }
+
 
 
 
 
 
 }
-
 
 
 

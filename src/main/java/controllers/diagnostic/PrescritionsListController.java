@@ -1,6 +1,8 @@
 package controllers.diagnostic;
 
+import controllers.user.SessionManager;
 import entities.Prescription;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +35,8 @@ public class PrescritionsListController {
 
     @FXML
     private Label reportsListLabel;
+
+    User loggedInUser = SessionManager.getLoggedInUser();
     private PrescriptionService prescriptionService;
     public PrescritionsListController(){
         prescriptionService =new PrescriptionService();
@@ -45,7 +49,7 @@ public class PrescritionsListController {
         try {
 
 
-            List<Prescription> prescriptions = prescriptionService.displayAll();
+            List<Prescription> prescriptions = prescriptionService.displayAll(loggedInUser.getUser_id());
 
             ObservableList<Prescription> observablePrescriptions = FXCollections.observableArrayList(prescriptions);
 

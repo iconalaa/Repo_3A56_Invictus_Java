@@ -57,6 +57,10 @@ public class LoginController {
                     BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                     if (result.verified) {
                         User u =service.getUserById(rs.getInt("id"));
+                        // Inside your login method after successful authentication
+                        User loggedInUser = service.getUserById(rs.getInt("id"));
+                        SessionManager.setLoggedInUser(loggedInUser);
+
                         String[] userRoles = rs.getString("roles").split(",");
                         for (String role : userRoles) {
                             if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
@@ -74,10 +78,10 @@ public class LoginController {
                         }
 
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
                             Parent root = loader.load();
-                            HomeController controller = loader.getController();
-                            controller.setHome(u);
+//                            HomeController controller = loader.getController();
+//                            controller.setHome(u);
                             Scene scene = new Scene(root);
                             Stage stage = new Stage();
                             stage.setResizable(false);

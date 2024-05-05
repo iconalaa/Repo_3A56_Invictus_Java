@@ -1,5 +1,7 @@
 package controllers.diagnostic;
 
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -31,17 +33,22 @@ public class ReportsController {
     private GridPane gridPane;
 
     private ReportService reportService;
+    User loggedInUser = SessionManager.getLoggedInUser();
+    int id =loggedInUser.getUser_id();
+
 
     public ReportsController() {
         reportService = new ReportService();
     }
     public void initialize() {
+        System.out.println(id);
         doctorSpaceLabel.setOnMouseClicked(this::openDashboard);
         historyLabel.setOnMouseClicked(this::openHistory);
         prescriptionLabel.setOnMouseClicked(this::openPrescriptions);
 
         try {
-            List<Report> allReports = reportService.displayAll();
+
+            List<Report> allReports = reportService.displayAll(id);
             List<Report> filteredReports = new ArrayList<>();
 
             // Filter reports where edited is false

@@ -110,7 +110,7 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
         }
     }
     @Override
-    public List<Prescription> displayAll() throws SQLException {
+    public List<Prescription> displayAll(int id) throws SQLException {
         List<Prescription> prescriptions = new ArrayList<>();
 
         String sql = "SELECT p.id AS prescription_id, p.report_id, p.contenu, p.date, p.signature_filename, " +
@@ -122,51 +122,54 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
                 "INNER JOIN report r ON p.report_id = r.id " +
                 "INNER JOIN user u ON r.doctor_id = u.id " +
                 "INNER JOIN image i ON r.image_id = i.id " +
-                "LEFT JOIN user patient ON i.patient_id = patient.id";
+                "LEFT JOIN user patient ON i.patient_id = patient.id " +
+                "WHERE r.doctor_id = ?"; // Add WHERE clause to filter by doctor ID
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                int prescriptionId = resultSet.getInt("prescription_id");
-                int reportId = resultSet.getInt("report_id");
-                int doctorId = resultSet.getInt("doctor_id");
-                String doctorName = resultSet.getString("doctor_name");
-                String doctorLastName = resultSet.getString("doctor_lastName");
-                int imageId = resultSet.getInt("image_id");
-                int patientId = resultSet.getInt("patient_id");
-                String patientName = resultSet.getString("patient_name");
-                String patientLastName = resultSet.getString("patient_lastName");
-                String contenu = resultSet.getString("contenu");
-                Date date = resultSet.getDate("date");
-                String signatureFilename = resultSet.getString("signature_filename");
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); // Set the doctor ID parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int prescriptionId = resultSet.getInt("prescription_id");
+                    int reportId = resultSet.getInt("report_id");
+                    int doctorId = resultSet.getInt("doctor_id");
+                    String doctorName = resultSet.getString("doctor_name");
+                    String doctorLastName = resultSet.getString("doctor_lastName");
+                    int imageId = resultSet.getInt("image_id");
+                    int patientId = resultSet.getInt("patient_id");
+                    String patientName = resultSet.getString("patient_name");
+                    String patientLastName = resultSet.getString("patient_lastName");
+                    String contenu = resultSet.getString("contenu");
+                    Date date = resultSet.getDate("date");
+                    String signatureFilename = resultSet.getString("signature_filename");
 
-                User doctor = new User();
-                doctor.setUser_id(doctorId);
-                doctor.setName(doctorName);
-                doctor.setLastName(doctorLastName);
+                    User doctor = new User();
+                    doctor.setUser_id(doctorId);
+                    doctor.setName(doctorName);
+                    doctor.setLastName(doctorLastName);
 
-                User patient = new User();
-                patient.setUser_id(patientId);
-                patient.setName(patientName);
-                patient.setLastName(patientLastName);
+                    User patient = new User();
+                    patient.setUser_id(patientId);
+                    patient.setName(patientName);
+                    patient.setLastName(patientLastName);
 
-                Image image = new Image();
-                image.setId(imageId);
-                image.setPatient(patient);
+                    Image image = new Image();
+                    image.setId(imageId);
+                    image.setPatient(patient);
 
-                Report report = new Report();
-                report.setId(reportId);
-                report.setDoctor(doctor);
-                report.setImage(image);
+                    Report report = new Report();
+                    report.setId(reportId);
+                    report.setDoctor(doctor);
+                    report.setImage(image);
 
-                Prescription prescription = new Prescription(contenu, signatureFilename);
-                prescription.setId(prescriptionId);
-                prescription.setReport(report);
-                prescription.setContenu(contenu);
-                prescription.setDate(date);
-                prescription.setSignature_filename(signatureFilename);
+                    Prescription prescription = new Prescription(contenu, signatureFilename);
+                    prescription.setId(prescriptionId);
+                    prescription.setReport(report);
+                    prescription.setContenu(contenu);
+                    prescription.setDate(date);
+                    prescription.setSignature_filename(signatureFilename);
 
-                prescriptions.add(prescription);
+                    prescriptions.add(prescription);
+                }
             }
         } catch (SQLException e) {
             System.err.println("Failed to display prescriptions: " + e.getMessage());
@@ -175,7 +178,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
 
         return prescriptions;
     }
-
 
     public int getReportIdByInterpretation(String interpretation) throws SQLException {
         String sql = "SELECT id FROM report WHERE interpretation_med = ?";
@@ -205,9 +207,12 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
         }
         return false;
     }
-    public int getAllPrescriptionsCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS count FROM prescription";
+    public int getAllPrescriptionsCount(int doctorId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM prescription p " +
+                "INNER JOIN report r ON p.report_id = r.id " +
+                "WHERE r.doctor_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, doctorId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("count");
@@ -216,6 +221,7 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
         }
         return 0;
     }
+
 
 
 }

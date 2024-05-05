@@ -12,5 +12,5 @@ public interface PrescriptionCrud<T> {
     void delete(int id) throws SQLException;
     void update(T entity,int id) throws SQLException;
 
-    List<T> displayAll() throws SQLException;
+    List<T> displayAll(int id) throws SQLException;
 }
