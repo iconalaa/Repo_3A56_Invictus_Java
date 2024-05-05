@@ -1,6 +1,8 @@
 package controllers.user;
 
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,6 +21,7 @@ import java.sql.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import services.user.UserService;
 import utils.MyDataBase;
 
 public class LoginController {
@@ -38,40 +41,66 @@ public class LoginController {
     private PasswordField passwordField;
 
     private Connection connection;
-
+    private final UserService service = new UserService();
 
     @FXML
     public void login(ActionEvent event) throws IOException {
         if (validateFields()) {
             connection = MyDataBase.getInstance().getConnection();
+            String req = "SELECT * FROM user WHERE email = ?";
 
-            String req = "SELECT * FROM user WHERE email = ? AND password = ?";
-            String hashedPassword = HashPassword.hashPassword(passwordField.getText());
-            System.out.println(hashedPassword);
             try {
                 PreparedStatement ps = connection.prepareStatement(req);
                 ps.setString(1, emailField.getText());
-                ps.setString(2, hashedPassword);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setResizable(false);
-                    stage.setScene(scene);
-                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-                    stage.setTitle("RadioHub");
-                    stage.show();
-                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                    stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-                    stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    currentStage.close();
+                    BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
+                    if (result.verified) {
+                        User u =service.getUserById(rs.getInt("id"));
+                        String[] userRoles = rs.getString("roles").split(",");
+                        for (String role : userRoles) {
+                            if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
+                                showScene(event,"dashboard.fxml","Dashboard");
+                                return;
+                            }
+//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
+//
+//                                    return;
+//                                }
+//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
+//
+//                                    return;
+//                                }
+                        }
+
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+                            Parent root = loader.load();
+                            HomeController controller = loader.getController();
+                            controller.setHome(u);
+                            Scene scene = new Scene(root);
+                            Stage stage = new Stage();
+                            stage.setResizable(false);
+                            stage.setScene(scene);
+                            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+                            stage.setTitle("RadioHub");
+                            stage.show();
+                            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+                            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            currentStage.close();
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERROR");
+                        alert.setHeaderText("Password Doesn't Match !");
+                        alert.show();
+                    }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Invalid Cordentials !");
-                    alert.show();
+                    emailError.setText("Email doesn't Exist in DB !");
                 }
 
             } catch (SQLException ex) {
@@ -82,15 +111,42 @@ public class LoginController {
 
     }
 
+    public void showScene(ActionEvent event, String x,String title) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            stage.setTitle(title+" | RadioHub");
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public boolean validateFields() {
         String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         boolean test = true;
-        if (!emailField.getText().matches(emailPattern)) {
+        if (emailField.getText().length() == 0) {
+            emailError.setText("Email can't be empty !");
+            test = false;
+        } else if (!emailField.getText().matches(emailPattern)) {
             emailError.setText("Invalid Email !");
             test = false;
         }
-        if (!passwordField.getText().matches(passwordPattern)) {
+        if (passwordField.getText().length() == 0) {
+            passwordError.setText("Write your password !");
+            test = false;
+        } else if (!passwordField.getText().matches(passwordPattern)) {
             passwordError.setText("Invalid Password Minimum 6 Characters !");
             test = false;
         }
@@ -101,6 +157,22 @@ public class LoginController {
     public void signup(ActionEvent event) throws IOException {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/user/signUp.fxml"));
+            stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    @FXML
+    void redirect_passwordpage(ActionEvent event) throws IOException {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/user/forgetPassword.fxml"));
             stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
             scene = new Scene(root);
             stage.setResizable(false);

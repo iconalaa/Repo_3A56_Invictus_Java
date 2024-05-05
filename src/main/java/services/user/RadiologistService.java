@@ -1,4 +1,6 @@
 package services.user;
+import com.google.gson.Gson;
+import entities.Doctor;
 import entities.Radiologist;
 import entities.User;
 import services.ICrud;
@@ -16,28 +18,31 @@ public class RadiologistService implements ICrud<Radiologist> {
 
     @Override
     public void add(Radiologist el) throws SQLException {
-        UserService userService = new UserService();
-        el.getUser().setRole(new String[]{"ROLE_USER","ROLE_RADIOLOGIST"});
-        userService.add(el.getUser());
-        int id = getLastInsertedUserIdFromDatabase();
-        if (id != -1){
-        String req = "INSERT INTO radiologist (user_id,mat_cnom,dispo) VALUES (?, ?, ?)";
+        String req = "INSERT INTO user (email, roles, password, name, brochure_filename, lastname, date_birth, gender,matricule) VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = connection.prepareStatement(req);
-        st.setInt(1,id);
-        st.setString(2,el.getMat_nom() );
-        st.setBoolean(3,el.isDispo());
+        Gson gson = new Gson();
+        String roles = gson.toJson(el.getRole());
+        st.setString(1, el.getEmail());
+        st.setString(2, roles);
+        st.setString(3, el.getPassword());
+        st.setString(4, el.getName());
+        st.setString(5, el.getBrochure_filename());
+        st.setString(6, el.getLastName());
+        st.setString(7, el.getBirth_date().toString());
+        st.setString(8, el.getGender());
+        st.setString(9, el.getMatricule());
         st.executeUpdate();
         System.out.println("Added Successfully");
-        }else System.out.println("User Not Found !");
     }
     @Override
     public void update(Radiologist el, int id) throws SQLException {
-        String req = "UPDATE radiologist SET mat_cnom = ?, dispo = ? WHERE id = ?";
+        UserService service = new UserService();
+        service.update(el, id);
+        String req = "UPDATE user SET matricule = ? WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
-            ps.setString(1, el.getMat_nom());
-            ps.setBoolean(2, el.isDispo());
-            ps.setInt(3, id);
+            ps.setString(1, el.getMatricule());
+            ps.setInt(2, id);
             ps.executeUpdate();
             System.out.println("Modified");
         } catch (SQLException e) {
@@ -48,12 +53,7 @@ public class RadiologistService implements ICrud<Radiologist> {
 
     @Override
     public void delete(int id) throws SQLException {
-        User user = null;
-        user = findUserById(id);
-        user.setRole(new String[] {"ROLE_USER"});
-        UserService service = new UserService();
-        service.update(user,user.getUser_id());
-        String req = "DELETE FROM radiologist WHERE id = ?";
+        String req = "DELETE FROM user WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setInt(1, id);
         ps.executeUpdate();
@@ -69,8 +69,17 @@ public class RadiologistService implements ICrud<Radiologist> {
 
         while (rs.next()){
             Radiologist rad = new Radiologist();
-            rad.setMat_nom(rs.getString("mat_cnom"));
-            rad.setDispo(rs.getBoolean("dispo"));
+            rad.setBirth_date(rs.getDate("date_birth").toLocalDate());
+            rad.setUser_id(rs.getInt("id"));
+            rad.setEmail(rs.getString("email"));
+            rad.setGender(rs.getString("gender"));
+            rad.setBrochure_filename(rs.getString("brochure_filename"));
+            rad.setPassword(rs.getString("password"));
+            rad.setName(rs.getString("name"));
+            rad.setLastName(rs.getString("lastname"));
+            String[] x = new String[]{rs.getString("roles")};
+            rad.setRole(x);
+            rad.setMatricule(rs.getString("matricule"));
             radiologist.add(rad);
         }
         return radiologist;

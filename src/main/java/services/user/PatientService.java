@@ -1,11 +1,11 @@
 package services.user;
 
+import com.google.gson.Gson;
+import entities.Doctor;
 import entities.Patient;
 import entities.User;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import services.ICrud;
 import utils.MyDataBase;
@@ -20,35 +20,50 @@ public class PatientService implements ICrud<Patient> {
 
   @Override
   public void add(Patient el) throws SQLException {
-    UserService userService = new UserService();
-    el.getUser().setRole(new String[] { "ROLE_USER", "ROLE_PATIENT" });
-    userService.add(el.getUser());
-    int id = getLastInsertedUserIdFromDatabase();
-    if (id != -1) {
-      String req =
-        "INSERT INTO patient (user_id,cas_med,n_cnam,assurance,num_assurance) VALUES (?, ?, ?, ?,?)";
-      PreparedStatement st = connection.prepareStatement(req);
-      st.setInt(1, id);
-      st.setString(2, el.getCas_med());
-      st.setInt(3, el.getN_cnam());
-      st.setString(4, el.getAssurance());
-      st.setInt(5, el.getNum_assurance());
-      st.executeUpdate();
-      System.out.println("Added Successfully");
-    } else System.out.println("User Not Found !");
+    el.setRole(new String[]{"ROLE_USER", "ROLE_PATIENT"});
+    String req = "INSERT INTO user (email, roles, password, name, brochure_filename, lastname, date_birth, gender,cas_med,n_cnam,assurance,num_assurance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    PreparedStatement st = connection.prepareStatement(req);
+    Gson gson = new Gson();
+    String roles = gson.toJson(el.getRole());
+    st.setString(1, el.getEmail());
+    st.setString(2, roles);
+    st.setString(3, el.getPassword());
+    st.setString(4, el.getName());
+    st.setString(5, el.getBrochure_filename());
+    st.setString(6, el.getLastName());
+    st.setString(7, el.getBirth_date().toString());
+    st.setString(8, el.getGender());
+    st.setString(9, el.getCas_med());
+    st.setInt(10, el.getN_cnam());
+    st.setString(11, el.getAssurance());
+    st.setInt(12, el.getNum_assurance());
+    st.executeUpdate();
+    System.out.println("Added Successfully");
   }
 
   @Override
-  public void update(Patient el, int id) throws SQLException {}
+  public void update(Patient el, int id) throws SQLException {
+    UserService service = new UserService();
+    service.update(el, id);
+    String req = "UPDATE user SET cas_med = ?, n_cnam = ?, assurance = ?, num_assurance = ? WHERE id = ?";
+    try {
+      PreparedStatement ps = connection.prepareStatement(req);
+      ps.setString(1, el.getCas_med());
+      ps.setInt(2, el.getN_cnam());
+      ps.setString(3, el.getAssurance());
+      ps.setInt(4, el.getNum_assurance());
+      ps.setInt(5, id);
+      ps.executeUpdate();
+      System.out.println("Modified");
+    } catch (SQLException e) {
+      System.err.println("Error modifying user: " + e.getMessage());
+      throw e;
+    }
+  }
 
   @Override
   public void delete(int id) throws SQLException {
-    User user = null;
-    user = findUserById(id);
-    user.setRole(new String[] { "ROLE_USER" });
-    UserService service = new UserService();
-    service.update(user, user.getUser_id());
-    String req = "DELETE FROM patient WHERE id = ?";
+    String req = "DELETE FROM user WHERE id = ?";
     PreparedStatement ps = connection.prepareStatement(req);
     ps.setInt(1, id);
     ps.executeUpdate();
@@ -57,7 +72,29 @@ public class PatientService implements ICrud<Patient> {
 
   @Override
   public ArrayList<Patient> showAll() throws SQLException {
-    return null;
+    ArrayList<Patient> patient = new ArrayList<>();
+    String req = "SELECT * FROM user";
+    Statement st = connection.createStatement();
+    ResultSet rs = st.executeQuery(req);
+    while (rs.next()) {
+      Patient rad = new Patient();
+      rad.setBirth_date(rs.getDate("date_birth").toLocalDate());
+      rad.setUser_id(rs.getInt("id"));
+      rad.setEmail(rs.getString("email"));
+      rad.setGender(rs.getString("gender"));
+      rad.setBrochure_filename(rs.getString("brochure_filename"));
+      rad.setPassword(rs.getString("password"));
+      rad.setName(rs.getString("name"));
+      rad.setLastName(rs.getString("lastname"));
+      String[] x = new String[]{rs.getString("roles")};
+      rad.setRole(x);
+      rad.setAssurance(rs.getString("assurance"));
+      rad.setCas_med(rs.getString("cas_med"));
+      rad.setN_cnam(rs.getInt("n_cnam"));
+      rad.setNum_assurance(rs.getInt("num_assurance"));
+      patient.add(rad);
+    }
+    return patient;
   }
 
   public User findUserById(int id) {

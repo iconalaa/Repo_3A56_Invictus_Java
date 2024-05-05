@@ -101,8 +101,16 @@ public class User {
 
     @Override
     public String toString() {
-        return  name ;
+        return "User{" +
+                "user_id=" + user_id +
+                ", password=" + password +
+                ", email='" + email + '\'' +
+                ", role=" + Arrays.toString(role) +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birth_date='" + birth_date + '\'' +
+                ", gender='" + gender + '\'' +
+                ", brochure_filename='" + brochure_filename + '\'' +
+                '}';
     }
-
-
 }

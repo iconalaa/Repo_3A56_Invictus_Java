@@ -1,10 +1,14 @@
 package services.user;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.google.gson.Gson;
 import entities.User;
 import services.ICrud;
 import utils.MyDataBase;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserService implements ICrud<User> {
@@ -28,14 +32,13 @@ public class UserService implements ICrud<User> {
         st.setString(6, el.getLastName());
         st.setString(7, el.getBirth_date().toString());
         st.setString(8, el.getGender());
-
         st.executeUpdate();
         System.out.println("Added Successfully");
     }
 
 
     @Override
-    public void update(User el,int id) throws SQLException {
+    public void update(User el, int id) throws SQLException {
         String req = "UPDATE user SET name = ?,  lastname = ? , email = ? , password = ? , brochure_filename = ?,date_birth = ?,gender = ?, roles = ? WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
@@ -72,9 +75,9 @@ public class UserService implements ICrud<User> {
         ArrayList<User> users = new ArrayList<>();
         String req = "SELECT * FROM user";
         Statement st = connection.createStatement();
-        ResultSet rs =  st.executeQuery(req);
+        ResultSet rs = st.executeQuery(req);
 
-        while (rs.next()){
+        while (rs.next()) {
             User user = new User();
             user.setBirth_date(rs.getDate("date_birth").toLocalDate());
             user.setUser_id(rs.getInt("id"));
@@ -91,8 +94,90 @@ public class UserService implements ICrud<User> {
         return users;
     }
 
+    public User getUserById(int id) {
+        String sql = "SELECT * FROM USER WHERE id = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("id"));
+                user.setRole(rs.getString("roles").split(","));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setLastName(rs.getString("lastname"));
+                user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+                user.setBrochure_filename(rs.getString("brochure_filename"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public int countUsers(String role) throws SQLException {
+        int count = 0;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "SELECT COUNT(*) AS user_count FROM user WHERE JSON_CONTAINS(roles, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "\"" + role + "\"");
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt("user_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
+    public List<User> getToApproveUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "SELECT * FROM user WHERE JSON_CONTAINS(roles, ?) OR JSON_CONTAINS(roles, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "\"ROLE_WAITING_DOCTOR\"");
+            statement.setString(2, "\"ROLE_WAITING_RADIOLOGIST\"");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                // Extracting roles as a string and then converting it into a string array
+                String rolesString = resultSet.getString("roles");
+                String[] roles = rolesString.split(", "); // Assuming roles are stored as comma-separated values
+
+                // Creating a new User object using the provided constructor
+                User user = new User(
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        roles,
+                        resultSet.getString("name"),
+                        resultSet.getString("lastName"),
+                        resultSet.getDate("date_birth").toLocalDate(),
+                        resultSet.getString("gender"),
+                        resultSet.getString("brochure_filename")
+                );
+                user.setUser_id(resultSet.getInt("id"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close statement and result set in finally block
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+        return users;
+    }
 
     public User findUserById(int userId) throws SQLException {
 
@@ -120,9 +205,6 @@ public class UserService implements ICrud<User> {
 
 
     }
-
-
-
 
     // Retrieve all patients from the database
     public ArrayList<User> showAllp() throws SQLException {
@@ -155,14 +237,4 @@ public class UserService implements ICrud<User> {
         System.out.println("liste des patient {"+patients+"}}}}}");
         return patients;
     }
-
-
-
-
-
-
-
-
-
-
 }

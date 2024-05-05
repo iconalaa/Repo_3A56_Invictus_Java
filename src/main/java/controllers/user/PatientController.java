@@ -1,5 +1,6 @@
 package controllers.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Patient;
 import entities.User;
 import javafx.event.ActionEvent;
@@ -69,9 +70,14 @@ public class PatientController {
             LocalDate date = datePicker.getValue();
             int cnam = Integer.parseInt(n_cnam.getText());
             int assuranceNum = Integer.parseInt(num_assurance.getText());
-            String hashedPassword = HashPassword.hashPassword(password.getText());
-            User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
-            Patient P = new Patient(U, medicalCase.getText(), cnam, assuranceNum, assurance.getText());
+            //            ******** cryPtage *********
+            char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
+            StringBuilder sb = new StringBuilder();
+            for (char c : bcryptChars) {
+                sb.append(c);
+            }
+            String hashedPassword = sb.toString();
+            Patient P = new Patient(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x", medicalCase.getText(), cnam, assuranceNum, assurance.getText());
             PatientService service = new PatientService();
             try {
                 service.add(P);
@@ -134,7 +140,7 @@ public class PatientController {
             genderError.setText("Chose a gender !");
             test = false;
         }
-        if (datePicker.getValue() == null) {
+        if (datePicker.getValue() == null || datePicker.getValue().isAfter(LocalDate.of(2021, 12, 31))) {
             dateError.setText("Chose Date of birth please !");
             test = false;
         }

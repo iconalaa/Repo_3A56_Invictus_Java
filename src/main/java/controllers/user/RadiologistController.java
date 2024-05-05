@@ -1,5 +1,6 @@
 package controllers.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.Radiologist;
 import entities.User;
 import javafx.event.ActionEvent;
@@ -55,9 +56,14 @@ public class RadiologistController {
     public void addRadiologist(ActionEvent event) throws IOException {
         if (validateFields()) {
             LocalDate date = datePicker.getValue();
-            String hashedPassword = HashPassword.hashPassword(password.getText());
-            User U = new User(email.getText(), hashedPassword, new String[]{"ROLE_PATIENT"}, name.getText(), lastname.getText(), date, gender.getValue(), "x");
-            Radiologist R = new Radiologist(U, mat_cnom.getText());
+            //            ******** cryPtage *********
+            char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, password.getText().toCharArray());
+            StringBuilder sb = new StringBuilder();
+            for (char c : bcryptChars) {
+                sb.append(c);
+            }
+            String hashedPassword = sb.toString();
+            Radiologist R = new Radiologist(email.getText(), hashedPassword, new String[]{"ROLE_WAITING_RADIOLOGIST"}, name.getText(), lastname.getText(), date, gender.getValue(), "x", mat_cnom.getText());
             RadiologistService service = new RadiologistService();
             try {
                 service.add(R);
@@ -68,8 +74,7 @@ public class RadiologistController {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        } else
-            System.out.println("Invalid Inputs");
+        } else System.out.println("Invalid Inputs");
     }
 
     @FXML
@@ -99,7 +104,7 @@ public class RadiologistController {
             genderError.setText("Chose a gender !");
             test = false;
         }
-        if (datePicker.getValue() == null) {
+        if (datePicker.getValue() == null || datePicker.getValue().isAfter(LocalDate.of(2021, 12, 31))) {
             dateError.setText("Chose Date of birth please !");
             test = false;
         }
@@ -109,6 +114,7 @@ public class RadiologistController {
         }
         return test;
     }
+
     @FXML
     void returnSignUp(MouseEvent event) {
         try {

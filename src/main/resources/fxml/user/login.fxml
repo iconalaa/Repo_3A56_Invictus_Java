@@ -67,7 +67,7 @@
                   <Label fx:id="passwordError" textFill="#ff6060" />
                </children>
             </VBox>
-            <Hyperlink prefHeight="25.0" prefWidth="117.0" text="Forget Password ?" textFill="#000000cb" underline="true">
+            <Hyperlink onAction="#redirect_passwordpage" prefHeight="25.0" prefWidth="117.0" text="Forget Password ?" textFill="#000000cb" underline="true">
                <VBox.margin>
                   <Insets left="-250.0" top="-25.0" />
                </VBox.margin>
