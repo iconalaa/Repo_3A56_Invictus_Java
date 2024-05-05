@@ -172,15 +172,16 @@
         @FXML
         void redirect_passwordpage(ActionEvent event) throws IOException {
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/user/forgetPassword.fxml"));
-                stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setResizable(false);
-                stage.setScene(scene);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/forgetPassword.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
                 stage.show();
                 Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
                 stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
                 stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+                stage.setTitle("Rest Password");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }

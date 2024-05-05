@@ -117,6 +117,29 @@ public class UserService implements ICrud<User> {
         }
         return null;
     }
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM USER WHERE email = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUser_id(rs.getInt("id"));
+                user.setRole(rs.getString("roles").split(","));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setLastName(rs.getString("lastname"));
+                user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+                user.setBrochure_filename(rs.getString("brochure_filename"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public int countUsers(String role) throws SQLException {
         int count = 0;
