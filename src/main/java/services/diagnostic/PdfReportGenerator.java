@@ -5,8 +5,10 @@ import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import entities.Report;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class PdfReportGenerator {
 
@@ -65,8 +67,12 @@ public class PdfReportGenerator {
             document.add(new Paragraph(report.getInterpretation_rad()));
 
             // Add the medical image
-            String imagePath = "/img/testimage/" + report.getImage().getFilename() + ".png";
-            Image medicalImage = Image.getInstance(PdfReportGenerator.class.getResource(imagePath));
+//            String imagePath = "/img/testimage/" + report.getImage().getFilename() + ".png";
+//            Image medicalImage = Image.getInstance(PdfReportGenerator.class.getResource(imagePath));
+            String imagePath = "C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony/public/uploads/signatures/" + report.getImage().getFilename()+".png";
+            Image medicalImage = Image.getInstance(imagePath);
+            InputStream imageStream = new FileInputStream(imagePath);
+
             medicalImage.scaleToFit(400, 400);
             medicalImage.setAlignment(Element.ALIGN_CENTER);
             document.add(medicalImage);

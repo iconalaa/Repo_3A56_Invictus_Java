@@ -50,7 +50,7 @@ public class DashoardController {
     private void initialize() {
         fetchAndDisplayCounts();
         updateCoronaLabel();
-        //updateCityLabel();
+        updateCityLabel();
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         historylabel.setOnMouseClicked(event -> openHistory(event));
         prescriptionList.setOnMouseClicked(this::openPrescriptions);
@@ -143,7 +143,7 @@ public class DashoardController {
                 }
                 in.close();
 
-                // Print the response for debugging
+                 //Print the response for debugging
                 //System.out.println("Response from API: " + response.toString());
 
                 // Parse JSON response
