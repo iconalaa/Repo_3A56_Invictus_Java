@@ -78,7 +78,7 @@ public class LoginController {
                         }
 
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/dashboard.fxml"));
                             Parent root = loader.load();
 //                            HomeController controller = loader.getController();
 //                            controller.setHome(u);
@@ -137,7 +137,7 @@ public class LoginController {
     }
 
     public boolean validateFields() {
-        String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
+       /* String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         boolean test = true;
         if (emailField.getText().length() == 0) {
@@ -154,7 +154,8 @@ public class LoginController {
             passwordError.setText("Invalid Password Minimum 6 Characters !");
             test = false;
         }
-        return test;
+        return test;*/
+        return true;
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package services.Image;
 
+import controllers.user.SessionManager;
 import entities.Droit;
 
 import entities.User;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class DroitServices  implements  DroitCrud<Droit>{
     private Connection connection;
+    int iduser= SessionManager.getLoggedInUser().getUser_id();
+
 
     public DroitServices()
     {connection = MyDataBase.getInstance().getConnection();
@@ -137,7 +140,7 @@ public class DroitServices  implements  DroitCrud<Droit>{
 
     @Override
     public ArrayList<User> getRadwithoutGuest(int imageId) throws SQLException {
-        String sql = "SELECT r.* FROM user r LEFT JOIN droit d ON r.id = d.radioloqist_id AND d.image_id = ? WHERE d.image_id IS NULL OR d.role NOT IN ('guest', 'owner');\n";
+        String sql = "SELECT r.* FROM user r LEFT JOIN droit d ON r.id = d.radioloqist_id AND d.image_id = ? WHERE  r.roles like '%ROLE_RADIOLOGIST%' and d.image_id IS NULL OR d.role NOT IN ('guest', 'owner') ;\n";
         ArrayList<User> rads = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -164,6 +167,16 @@ public class DroitServices  implements  DroitCrud<Droit>{
             System.err.println("Error retrieving radiologists with guest role: " + e.getMessage());
             throw e;
         }
+
+for (int i=0;i<rads.size();i++)
+{
+    if (rads.get(i).getUser_id()==iduser)
+    {
+        rads.remove(i);
+    }
+
+}
+        System.out.println(rads);
 
         return rads;
     }
