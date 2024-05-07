@@ -86,7 +86,6 @@ public class GratificationFrontController {
                 int payable = Integer.parseInt(String.valueOf(mont));
 
 
-                // Set success URL to the generated PDF file
                 String successUrl = "file://" + System.getProperty("user.home") + "/Desktop/" + g.getDonor().getPrenom_donateur() + "_Report.pdf";
 
 
