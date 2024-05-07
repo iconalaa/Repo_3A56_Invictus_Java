@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
@@ -25,6 +27,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -106,30 +111,13 @@ public class GratificationController implements Initializable {
     private MenuItem pggratifications;
 
     @FXML
+    private Pagination pagination;
+
+    private final int itemsPerPage = 5;
+
+    @FXML
     private ObservableList<gratification> gratssList = FXCollections.observableArrayList();
 
-    /*
-    public void addGrat(ActionEvent event) throws IOException {
-
-        if (validateFields()) {
-            int  mont = Integer.parseInt(montant.getText());
-            gratification g = new gratification(mont, titre.getText(), desc.getText(), type.getText());
-            ServiceGratification service = new ServiceGratification();
-            try {
-                service.ajouter(g);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Congratulations");
-                alert.setHeaderText("Your donation has been added successfully'");
-                alert.show();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            System.out.println("Invalid Inputs");
-        }
-    }
-
-     */
 
     private void loadGratificationData() {
         try {
@@ -138,40 +126,15 @@ public class GratificationController implements Initializable {
             gratssList.clear();
             gratssList.addAll(gratss);
             tableGrats.setItems(gratssList);
+            pagination.setPageCount((int) Math.ceil((double) gratssList.size() / itemsPerPage));
+            pagination.setCurrentPageIndex(0); // Reset to first page
+            //pagination.setPageFactory(this::createPage); // Update the page factory
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    /*
-    @FXML
-    private void modifyGratification(ActionEvent event) {
-        gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
-        if (selectedGratification != null) {
-            // Fetch modified values from text fields
-            String modifiedTitle = updtitle.getText();
-            String modifiedType = updtype.getText();
-            String modifiedDesc = upddesc.getText();
-            int modifiedMontant = Integer.parseInt(updmont.getText());
 
-            selectedGratification.setTitre_grat(modifiedTitle);
-            selectedGratification.setType_grat(modifiedType);
-            selectedGratification.setDesc_grat(modifiedDesc);
-            selectedGratification.setMontant(modifiedMontant);
-
-            try {
-                ServiceGratification service = new ServiceGratification();
-                service.modifier(selectedGratification);
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Gratification modified successfully");
-                // Refresh the table view to reflect the changes
-                loadGratificationData();
-            } catch (SQLException e) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to modify gratification: " + e.getMessage());
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Warning", "Please select a gratification to modify");
-        }
-    }*/
 
     @FXML
     private void modifygrat(ActionEvent event) throws IOException {
@@ -220,37 +183,6 @@ public class GratificationController implements Initializable {
         alert.showAndWait();
     }
 
-    /*
-    public boolean validateFields() {
-        String textPattern = "^[A-Za-z ]+$";
-        String numberPattern = "\\d+";
-        boolean test = true;
-        if (!titre.getText().matches(textPattern)) {
-            titreErreur.setText("Invalid title !");
-            test = false;
-        }
-
-        if (!desc.getText().matches(textPattern)) {
-            descErreur.setText("Description must be text !");
-            test = false;
-        }
-
-        if (!montant.getText().matches(numberPattern)) {
-            montantErreur.setText("The amount must be numeric !");
-            test = false;
-        }
-
-        if (!type.getText().matches(textPattern)) {
-            typeErreur.setText("Invalid Type !");
-            test = false;
-        }
-
-
-
-        return test;
-    }
-
-     */
 
 
 
@@ -268,21 +200,18 @@ public class GratificationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTable();
+        pagination.setPageCount(1); // Initially set to 1 page
+        pagination.setCurrentPageIndex(0); // Initially set to the first page
+        //pagination.setPageFactory(this::createPage);
         loadGratificationData();
+
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchGratification();
         });
-        /*tableGrats.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
 
-                updtitle.setText(newValue.getTitre_grat());
-                updtype.setText(newValue.getType_grat());
-                upddesc.setText(newValue.getDesc_grat());
-                updmont.setText(String.valueOf(newValue.getMontant()));
-            }
-        });*/
         pgdonations.setOnAction(this::navigateToDonations);
         pggratifications.setOnAction(this::navigateToGratifications);
+
     }
 
     @FXML
@@ -325,4 +254,35 @@ public class GratificationController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    /*
+    private ObservableList<gratification> createPage(int pageIndex) {
+        int fromIndex = pageIndex * itemsPerPage;
+        int toIndex = Math.min(fromIndex + itemsPerPage, gratssList.size());
+        return (ObservableList<gratification>) gratssList.subList(fromIndex, toIndex);
+    }
+
+     */
+
+
+
+    /*private Node createPage(int pageIndex) {
+        int fromIndex = pageIndex * itemsPerPage;
+        int toIndex = Math.min(fromIndex + itemsPerPage, gratssList.size());
+
+        TableView<gratification> tableView = new TableView<>(FXCollections.observableArrayList(gratssList.subList(fromIndex, toIndex)));
+        tableView.getColumns().addAll(idColumn, dateColumn, titreColumn, typeColumn, descColumn, montantColumn);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        VBox vbox = new VBox(tableView);
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(10));
+
+        return vbox;
+    }
+
+     */
+
+
+
 }

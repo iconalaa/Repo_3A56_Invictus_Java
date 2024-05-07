@@ -5,8 +5,19 @@
 
 .table-view .column-header {
     -fx-background-color: #1180d5; /* Header background color */
-    -fx-text-fill: #beb9b9; /* White for header text */
+    -fx-text-fill: #FFFFFF; /* White for header text */
     -fx-font-weight: bold; /* Bold text for header */
+    -fx-border-radius: 10;
+}
+
+.table-view .column-header-background . label{
+    -fx-text-fill: white;
+}
+
+.table-view .column-header-background{
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-border-width: 3;
 }
 
 /* Define alternating row colors */

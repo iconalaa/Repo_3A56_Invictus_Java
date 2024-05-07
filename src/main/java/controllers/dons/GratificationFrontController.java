@@ -95,7 +95,7 @@ public class GratificationFrontController {
                 SessionCreateParams params = SessionCreateParams.builder()
                         .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                         .setMode(SessionCreateParams.Mode.PAYMENT)
-                        .setSuccessUrl("https://www.youtube.com/watch?v=1TO48Cnl66w")
+                        .setSuccessUrl("https://www.canva.com/design/DAGEk1eYwlQ/P_t0ix4ORAjg06tojnbsAw/view?utm_content=DAGEk1eYwlQ&utm_campaign=designshare&utm_medium=link&utm_source=editor")
                         .addLineItem(
                                 SessionCreateParams.LineItem.builder()
                                         .setQuantity(1L)
@@ -134,7 +134,7 @@ public class GratificationFrontController {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Congratulations");
-                alert.setHeaderText("Your donation has been added successfully, Please proceed with the payment'");
+                alert.setHeaderText("Your donation has been added successfully, a PDF file has been downloaded on your desktop as proof'");
                 alert.show();
 
             } catch (SQLException | StripeException e) {

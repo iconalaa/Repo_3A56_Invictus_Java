@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/newGratification.fxml"));
+        FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/Gratifications.fxml"));
         Parent root = load.load();
         Scene scene = new Scene(root, Color.WHITE) ;
         Stage stage = new Stage() ;
