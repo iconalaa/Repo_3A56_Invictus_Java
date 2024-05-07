@@ -103,10 +103,10 @@
                      <children>
                         <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/claim-icon.png" />
+                              <Image url="@../img/icon/diagnosis.png" />
                            </image>
                         </ImageView>
-                        <Label text="Claims" />
+                        <Label text="Diagnostic" />
                      </children>
                      <VBox.margin>
                         <Insets top="30.0" />

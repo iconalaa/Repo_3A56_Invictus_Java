@@ -67,18 +67,19 @@ public class LoginController {
                                 showScene(event,"dashboard.fxml","Dashboard");
                                 return;
                             }
-//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
-//
-//                                    return;
-//                                }
-//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
-//
-//                                    return;
-//                                }
+                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
+                                    showScene(event, "diagnostic/dashboard.fxml", "Diagnostic");
+
+                                    return;
+                                }
+                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
+                                    showScene(event, "image/dashboard.fxml", "Diagnostic");
+                                    return;
+                                }
                         }
 
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
                             Parent root = loader.load();
 //                            HomeController controller = loader.getController();
 //                            controller.setHome(u);
