@@ -78,7 +78,7 @@ public class LoginController {
                         }
 
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/dashboard.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/dashboard.fxml"));
                             Parent root = loader.load();
 //                            HomeController controller = loader.getController();
 //                            controller.setHome(u);

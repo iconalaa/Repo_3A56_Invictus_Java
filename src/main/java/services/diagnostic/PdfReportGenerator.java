@@ -67,11 +67,11 @@ public class PdfReportGenerator {
             document.add(new Paragraph(report.getInterpretation_rad()));
 
             // Add the medical image
-//            String imagePath = "/img/testimage/" + report.getImage().getFilename() + ".png";
-//            Image medicalImage = Image.getInstance(PdfReportGenerator.class.getResource(imagePath));
-            String imagePath = "C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony/public/uploads/signatures/" + report.getImage().getFilename()+".png";
-            Image medicalImage = Image.getInstance(imagePath);
-            InputStream imageStream = new FileInputStream(imagePath);
+            String imagePath = "/dicom/" + report.getImage().getId() + ".png";
+            Image medicalImage = Image.getInstance(PdfReportGenerator.class.getResource(imagePath));
+//            String imagePath = "C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony/public/uploads/signatures/" + report.getImage().getFilename()+".png";
+//            Image medicalImage = Image.getInstance(imagePath);
+//            InputStream imageStream = new FileInputStream(imagePath);
 
             medicalImage.scaleToFit(400, 400);
             medicalImage.setAlignment(Element.ALIGN_CENTER);
