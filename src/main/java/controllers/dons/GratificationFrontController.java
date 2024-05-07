@@ -54,27 +54,6 @@ public class GratificationFrontController {
     @FXML
     private Label typeErreur ;
 
-    /*public void addGrat(ActionEvent event) throws IOException {
-
-        if (validateFields()) {
-            int  mont = Integer.parseInt(montant.getText());
-            gratification g = new gratification(mont, titre.getText(), desc.getText(), type.getText());
-            ServiceGratification service = new ServiceGratification();
-            try {
-                service.ajouter(g);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Congratulations");
-                alert.setHeaderText("Your donation has been added successfully'");
-                alert.show();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            System.out.println("Invalid Inputs");
-        }
-    }
-
-     */
 
     public void addGrat(ActionEvent event) throws IOException {
         if (validateFields()) {
