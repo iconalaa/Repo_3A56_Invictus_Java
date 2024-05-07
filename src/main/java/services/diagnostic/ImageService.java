@@ -1,13 +1,21 @@
 package services.diagnostic;
 
+import controllers.user.SessionManager;
 import entities.Droit;
 import entities.Image;
 
 import entities.User;
+import org.dcm4che3.imageio.plugins.dcm.DicomImageReadParam;
 import services.Image.DroitServices;
 import services.interpretation.InterpreationServices;
 import utils.MyDataBase;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +23,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ImageService {
 
+private int iduser=SessionManager.getLoggedInUser().getUser_id();
 
     private Connection connection;
 
@@ -32,7 +42,7 @@ public class ImageService {
         try (PreparedStatement st = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             st.setString(1, image.getFilename());
             st.setInt(2, image.getPatient().getUser_id()); // Use the patientId obtained above
-            st.setInt(3, 15); // Assuming user_id is an integer
+            st.setInt(3, iduser); // Assuming user_id is an integer
             st.setString(4, image.getBodyPart());
             st.setDate(5, java.sql.Date.valueOf(image.getAquisitionDate())); // Set acquisition date
             st.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now())); // Set current date as dateajout
@@ -49,7 +59,7 @@ public class ImageService {
                     // Create Droit object and add it
                     User rad = new User();
 
-                    rad.setUser_id(5);
+                    rad.setUser_id(iduser);
                     Droit droit = new Droit(rad, image, "owner");
                     DroitServices droitServices = new DroitServices();
                     droitServices.add(droit);
@@ -119,7 +129,7 @@ public class ImageService {
         String query = "SELECT i.*, p.*, r.* " +
                 "FROM image i " +
                 "INNER JOIN user p ON i.patient_id = p.id AND p.roles LIKE '%ROLE_PATIENT%' " +
-                "INNER JOIN user r ON i.radiologist_id = r.id AND r.roles LIKE '%ROLE_RADIOLOGIST%'";
+                "INNER JOIN user r ON i.radiologist_id = r.id AND r.roles LIKE '%ROLE_RADIOLOGIST%' and i.radiologist_id="+iduser;
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
@@ -267,7 +277,7 @@ public class ImageService {
         ArrayList<Image> imagelist = new ArrayList<>();
         String query = "SELECT i.*, u1.*, u2.* FROM image i INNER JOIN droit d ON d.image_id = i.id INNER JOIN user u1 ON i.radiologist_id = u1.id INNER JOIN user u2 ON i.patient_id = u2.id WHERE d.radioloqist_id = ? AND d.role = 'guest';";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, radId);
+            statement.setInt(1, iduser);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     // Inside the loop, retrieve image data and create Image objects
@@ -308,7 +318,33 @@ public class ImageService {
                 }
                 return imagelist;
             }}}
+    public static void convertDicomToPng(String inputFilePath, String outputFilePath) {
+        try {
+            // Read DICOM file
+            File inputFile = new File(inputFilePath);
+            ImageInputStream iis = ImageIO.createImageInputStream(inputFile);
 
+            // Get DICOM image reader
+            Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+            ImageReader reader = iter.next();
+            reader.setInput(iis, false);
+
+            // Read DICOM image
+            BufferedImage image = reader.read(0, new DicomImageReadParam());
+
+            // Close image input stream
+            iis.close();
+
+            // Write PNG file
+            File outputFile = new File(outputFilePath);
+            ImageIO.write(image, "png", outputFile);
+
+            System.out.println("Conversion complete.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

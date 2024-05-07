@@ -16,17 +16,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.dcm4che3.imageio.plugins.dcm.DicomImageReadParam;
 import services.diagnostic.ImageService;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.user.UserService;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -143,7 +149,7 @@ public class AddImage {
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 
-
+                convertDicomToPng("src/main/java/dicom/" + newImage.getId()+".dcm", "src/main/java/dicom/" + newImage.getId()+".png");
                 Stage stage = (Stage) fileName.getScene().getWindow();
                 stage.close();
 
@@ -186,7 +192,33 @@ public class AddImage {
 
 
 
+    public static void convertDicomToPng(String inputFilePath, String outputFilePath) {
+        try {
+            // Read DICOM file
+            File inputFile = new File(inputFilePath);
+            ImageInputStream iis = ImageIO.createImageInputStream(inputFile);
 
+            // Get DICOM image reader
+            Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+            ImageReader reader = iter.next();
+            reader.setInput(iis, false);
+
+            // Read DICOM image
+            BufferedImage image = reader.read(0, new DicomImageReadParam());
+
+            // Close image input stream
+            iis.close();
+
+            // Write PNG file
+            File outputFile = new File(outputFilePath);
+            ImageIO.write(image, "png", outputFile);
+
+            System.out.println("Conversion complete.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

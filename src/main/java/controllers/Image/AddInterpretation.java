@@ -1,7 +1,9 @@
 package controllers.Image;
 
+import controllers.user.SessionManager;
 import entities.Image;
 import entities.Interpretation;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -21,6 +23,8 @@ public class AddInterpretation {
     @FXML
     private TextField interpretationt;
 
+    int iduser= SessionManager.getLoggedInUser().getUser_id();
+    User user= SessionManager.getLoggedInUser();
 
 
     private ContainerController consultController = new ContainerController();
@@ -50,7 +54,8 @@ public class AddInterpretation {
         Interpretation interpretation = new Interpretation();
 
         interpretation.setImage(image);
-        interpretation.setRadiologist(image.getRadiologist());
+
+        interpretation.setRadiologist(user);
 
         interpretation.setInterpretation(interpretationt.getText());
         interpretation.setDescriptin(desc.getText());
