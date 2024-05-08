@@ -119,7 +119,7 @@
                               <Image url="@../../img/search.png" />
                            </image>
                         </ImageView>
-                        <TextField prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" text="Search">
+                        <TextField prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" text="">
                            <font>
                               <Font size="11.0" />
                            </font>

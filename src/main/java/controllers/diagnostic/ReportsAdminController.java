@@ -200,7 +200,7 @@ public class ReportsAdminController {
             for (Report report : allReports) {
                 XSSFRow row = sheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(report.getImage().getPatient().getName() + " " + report.getImage().getPatient().getLastName());
-                row.createCell(1).setCellValue(report.getDoctor().getName());
+                row.createCell(1).setCellValue(report.getDoctor().getName() + " " +report.getDoctor().getLastName());
                 row.createCell(2).setCellValue(report.getDate().toString()); // Convert date to string or format it as required
                 row.createCell(3).setCellValue(report.getInterpretation_med());
                 row.createCell(4).setCellValue(report.getInterpretation_rad());

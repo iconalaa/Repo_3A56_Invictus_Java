@@ -122,7 +122,7 @@
                                         <Image url="@../../img/search.png" />
                                     </image>
                                 </ImageView>
-                                <TextField fx:id="searchprompt" prefHeight="26.0" prefWidth="204.0" promptText="search" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
+                                <TextField fx:id="searchprompt" prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
                                     <font>
                                         <Font size="11.0" />
                                     </font>

@@ -80,7 +80,7 @@
                         </font>
                      </Label>
                      <TextArea fx:id="diseaseTextArea" prefHeight="100" prefWidth="200" promptText="Enter disease or medical problem" />
-                     <Button onAction="#searchMedications" text="Search" />
+                     <Button onAction="#searchMedications" text="" />
                      <TextArea fx:id="medicationsTextArea" editable="false" prefHeight="200" prefWidth="200" />
                   </children>
                   <padding>
