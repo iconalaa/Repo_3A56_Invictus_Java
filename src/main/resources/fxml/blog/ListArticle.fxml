@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="post-background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ListArticleController">
@@ -23,7 +22,7 @@
                <Insets left="250.0" top="10.0" />
             </HBox.margin>
            </Label>
-          <TextArea fx:id="searchField" prefHeight="35.0" prefWidth="170.0" onKeyReleased="#searche">
+          <TextArea fx:id="searchField" onKeyReleased="#searche" prefHeight="35.0" prefWidth="170.0">
               <HBox.margin>
                   <Insets bottom="10.0" left="200.0" right="10.0" top="20.0" />
               </HBox.margin>
@@ -38,9 +37,9 @@
           </ImageView>
       </children>
    </HBox>
-   <HBox layoutX="256.0" layoutY="86.0" prefHeight="428.0" prefWidth="611.0">
+   <HBox layoutX="17.0" layoutY="86.0" prefHeight="428.0" prefWidth="850.0">
       <children>
-           <ListView fx:id="articleListView" prefHeight="442.0" prefWidth="612.0" />
+           <ListView fx:id="articleListView" prefHeight="428.0" prefWidth="850.0" />
 
       </children>
    </HBox>
@@ -54,7 +53,6 @@
             <Font name="System Bold Italic" size="12.0" />
         </font>
     </Button>
-   <Pane layoutY="-3.0" prefHeight="600.0" prefWidth="238.0" styleClass="post-background" stylesheets="@../../style/styles.css" />
 
 
 

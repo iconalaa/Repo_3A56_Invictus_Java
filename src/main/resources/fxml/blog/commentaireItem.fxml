@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,31 +9,37 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="94.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.CommentaireItem">
-    <HBox fx:id="commenterHbox" alignment="CENTER" prefHeight="94.0" prefWidth="500.0">
+    <HBox fx:id="commenterHbox" alignment="CENTER" layoutX="-7.0" prefHeight="110.0" prefWidth="507.0">
         <children>
             <HBox prefHeight="79.0" prefWidth="130.0">
                 <children>
                     <VBox alignment="CENTER" prefHeight="93.0" prefWidth="137.0">
                         <children>
-                            <ImageView fitHeight="52.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="userimg" fitHeight="59.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../img/user.png" />
                                 </image>
                             </ImageView>
-                     <TextField />
+                     <TextField fx:id="username" prefHeight="28.0" prefWidth="131.0" />
                         </children>
                     </VBox>
                 </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="97.0" prefWidth="314.0">
                 <children>
-                    <TextField fx:id="inputTextComment" prefHeight="26.0" prefWidth="287.0" promptText="Vous pouvez commenter ici" translateX="15.0" />
+                    <TextField fx:id="userComment" prefHeight="30.0" prefWidth="287.0" promptText="Vous pouvez commenter ici" translateX="15.0">
+                  <HBox.margin>
+                     <Insets top="55.0" />
+                  </HBox.margin></TextField>
                 </children>
             </HBox>
             <ImageView fx:id="commenterArt" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#commenterArt" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../../img/ic_share.png" />
                 </image>
+            <HBox.margin>
+               <Insets top="50.0" />
+            </HBox.margin>
             </ImageView>
         </children>
     </HBox>

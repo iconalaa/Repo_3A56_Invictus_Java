@@ -41,6 +41,7 @@ public class ShowArticleController implements Initializable {
 
     public Label content;
     public Label titre;
+    public ImageView backbtn;
     private Article article;
 
 
@@ -175,4 +176,16 @@ public class ShowArticleController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
-}
+
+    public void backbtn(MouseEvent mouseEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ListArticle.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+    }

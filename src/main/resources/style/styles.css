@@ -39,3 +39,6 @@
 
 .article-border {
 }
+.article-grid-pane > .article-container {
+    -fx-margin-top: 20px;
+}

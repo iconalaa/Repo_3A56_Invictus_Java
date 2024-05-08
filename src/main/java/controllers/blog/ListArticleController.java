@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -66,6 +67,13 @@ public class ListArticleController {
                             setText(null);
                             setGraphic(null);
                         } else {
+                            // Tronquer le contenu de l'article pour n'afficher qu'un nombre précis de caractères
+                            String truncatedContent = article.getContent().substring(0, Math.min(article.getContent().length(), 20)); // Limite à 100 caractères par exemple
+
+                            // Créez un label pour afficher le texte tronqué
+                            Label textLabel = new Label("Titre: " + article.getTitle() + "\nContent: " + truncatedContent + "...\nCreated_at: " + article.getCreated_at());
+
+
                             // Créez une ImageView pour afficher l'image dans la cellule
                             ImageView imageView = new ImageView();
                             imageView.setFitWidth(100); // Définissez la largeur souhaitée
@@ -84,9 +92,9 @@ public class ListArticleController {
                                 err.println("Chemin d'image invalide ou non spécifié pour l'article.");
                             }
 
-                            // Créez un label pour afficher le texte
-                            Label textLabel = new Label("Titre: " + article.getTitle() + "\nContent: " + article.getContent() +
-                                    "\nCreated_at: " + article.getCreated_at());
+//                            // Créez un label pour afficher le texte
+//                            Label textLabel = new Label("Titre: " + article.getTitle() + "\nContent: " + article.getContent() +
+//                                    "\nCreated_at: " + article.getCreated_at());
 
                             // Créez un conteneur pour placer l'image et le texte côte à côte
                             HBox imageTextContainer = new HBox(10); // Espace de 10 pixels entre l'image et le texte
@@ -165,37 +173,37 @@ public class ListArticleController {
         articleListView.setOnMouseClicked(this::handle);
     }
 
+    private void handle(MouseEvent mouseEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
+
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
     void refreshArticleList() {
         articleListView.getItems().clear();
         articles = articleService.readAllArticles();
         articleListView.getItems().addAll(articles);
     }
 
-    private void showArticle(Article article) {
-        try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
 
-            Parent root = loader.load();
-            ShowArticleController showArticleController = loader.getController();
-            showArticleController.initArticleDetails(article);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void navigateToAddArticle(MouseEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/AddArticle.fxml"));
+        Parent root = null;
         try {
-            Parent root = loader.load();
-            Stage stage = (Stage) btnAddArticle.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
     public void navigateToBlog(MouseEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/Blog.fxml"));
@@ -210,10 +218,7 @@ public class ListArticleController {
         }
     }
 
-    private void handle(MouseEvent event) {
-        Article selectedArticle = articleListView.getSelectionModel().getSelectedItem();
-        if (selectedArticle != null) showArticle(selectedArticle);
-    }
+
 
     public void searche(KeyEvent keyEvent) {
         // Récupérer le terme de recherche depuis le champ de recherche

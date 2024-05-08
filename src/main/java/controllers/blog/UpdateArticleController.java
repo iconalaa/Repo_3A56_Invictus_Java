@@ -164,8 +164,11 @@ package controllers.blog;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -194,6 +197,8 @@ public class UpdateArticleController implements Initializable {
     public Rectangle selectImageButton;
     public Label nomErreur;
     public Label TypeError;
+    public ImageView backbtn;
+    public Label TypeError2;
     @FXML
     private TextField titleField;
     @FXML
@@ -308,6 +313,17 @@ public class UpdateArticleController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+    public void backbtn(MouseEvent mouseEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ListArticle.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }
 

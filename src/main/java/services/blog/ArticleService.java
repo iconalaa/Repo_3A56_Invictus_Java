@@ -102,9 +102,30 @@ public class ArticleService implements IArticleService<Article> {
         }
         return article;
     }
-
-    public void incrementLikes(int id) {
+    public void updateArticleLikes(int articleId, int likes) throws SQLException {
+        String sql = "UPDATE article SET likes = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, likes);
+            statement.setInt(2, articleId);
+            statement.executeUpdate();
+        }
     }
+
+    // Méthode pour récupérer le nombre de likes actuel de l'article depuis la base de données
+    public int getArticleLikes(int articleId) throws SQLException {
+        String sql = "SELECT likes FROM article WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, articleId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("likes");
+                }
+            }
+        }
+        return 0;
+    }
+
+
 }
 
 

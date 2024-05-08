@@ -4,40 +4,25 @@ import java.time.LocalDateTime;
 
 public class Article {
 
-    private int id;
+    private int id, likes;
     private String title, content, image;
     private LocalDateTime created_at;
-    private int totalReactions;
-    private int nbComments;
-    private int nbShares;
 
-    public int getNbShares() {
-        return nbShares;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setNbShares(int nbShares) {
-        this.nbShares = nbShares;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public Article() {
 
     }
 
-    public int getTotalReactions() {
-        return totalReactions;
-    }
 
-    public void setTotalReactions(int totalReactions) {
-        this.totalReactions = totalReactions;
-    }
 
-    public int getNbComments() {
-        return nbComments;
-    }
 
-    public void setNbComments(int nbComments) {
-        this.nbComments = nbComments;
-    }
 
     public Article(int id, String title, String content, String image, LocalDateTime created_at) {
         this.id = id;
@@ -48,6 +33,27 @@ public class Article {
     }
 
     public Article(String title, String content, String image, LocalDateTime created_at) {
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.created_at = created_at;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", likes=" + likes +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
+
+    public Article(int id, int likes, String title, String content, String image, LocalDateTime created_at) {
+        this.id = id;
+        this.likes = likes;
         this.title = title;
         this.content = content;
         this.image = image;
@@ -95,22 +101,4 @@ public class Article {
     }
 
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
-                ", created_at=" + created_at +
-                '}';
-    }
-
-
-    public char[] getTotalLikes() {
-
-        return new char[0];
-    }
 }
-
-

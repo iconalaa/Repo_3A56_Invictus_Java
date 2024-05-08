@@ -18,6 +18,11 @@
                 <image>
                     <Image url="@../../img/logo/logo-row.png" />            </image>
             </ImageView>
+            <ImageView fx:id="backbtn" fitHeight="26.0" fitWidth="45.0" layoutX="14.0" layoutY="15.0" onMouseClicked="#backbtn" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../img/back1.png" />
+                </image>
+            </ImageView>
         </children>
         <styleClass>
             <String fx:value="post-background" />
