@@ -7,7 +7,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.UpdateController">
+<AnchorPane prefHeight="498.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.UpdateController">
    <children>
       <VBox layoutX="176.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -28,18 +30,23 @@
                   </Text>
                </children>
             </HBox>
-            <ComboBox fx:id="addRole" prefHeight="25.0" prefWidth="560.0" promptText="Select Role">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Doctor" />
-                     <String fx:value="Patient" />
-                     <String fx:value="Radiologist" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <SplitMenuButton fx:id="addRole" mnemonicParsing="false" prefHeight="35.0" prefWidth="187.0" text="Chose a Role">
+                    <items>
+                      <MenuItem fx:id="doctorRole" mnemonicParsing="false" text="Doctor" />
+                      <MenuItem fx:id="patientRole" mnemonicParsing="false" text="Patient" />
+                        <MenuItem fx:id="radiologistRole" mnemonicParsing="false" text="Radiologist" />
+                    </items>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </SplitMenuButton>
+               </children>
+            </HBox>
             <HBox spacing="20.0">
                <children>
                   <TextField fx:id="addName" prefHeight="35.0" prefWidth="301.0" promptText="Name" styleClass="input" stylesheets="@../../../style/doctor.css">
@@ -84,7 +91,35 @@
                   <DatePicker fx:id="addDate" prefHeight="25.0" prefWidth="279.0" />
                </children>
             </HBox>
-            <TextField fx:id="addMatricule" layoutX="10.0" layoutY="85.0" promptText="Matricule" styleClass="input" stylesheets="@../../../style/doctor.css">
+            <HBox layoutX="10.0" layoutY="230.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="addMedical" prefHeight="35.0" prefWidth="292.0" promptText="Medical Case" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addMedicalNum" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="292.0" promptText="CNAM Num°" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="413.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="addAssurance" prefHeight="35.0" prefWidth="292.0" promptText="Assurance" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addAssuranceNum" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="292.0" promptText="Assurance Num°" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <TextField fx:id="addMatricule" layoutX="10.0" layoutY="85.0" promptText="Matricule" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
                <font>
                   <Font size="16.0" />
                </font>

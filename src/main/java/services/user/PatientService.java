@@ -20,7 +20,7 @@ public class PatientService implements ICrud<Patient> {
 
   @Override
   public void add(Patient el) throws SQLException {
-    el.setRole(new String[]{"ROLE_USER", "ROLE_PATIENT"});
+    el.setRole(new String[]{"ROLE_PATIENT"});
     String req = "INSERT INTO user (email, roles, password, name, brochure_filename, lastname, date_birth, gender,cas_med,n_cnam,assurance,num_assurance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement st = connection.prepareStatement(req);
     Gson gson = new Gson();
