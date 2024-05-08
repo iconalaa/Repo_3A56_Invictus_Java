@@ -43,6 +43,7 @@
         private Connection connection;
         private final UserService service = new UserService();
 
+
         @FXML
         public void login(ActionEvent event) throws IOException {
             if (validateFields()) {
@@ -81,8 +82,8 @@
                             try {
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
                                 Parent root = loader.load();
-//                            HomeController controller = loader.getController();
-//                            controller.setHome(u);
+                                HomeController controller = loader.getController();
+                                controller.setHome(u);
                                 Scene scene = new Scene(root);
                                 Stage stage = new Stage();
                                 stage.setResizable(false);
