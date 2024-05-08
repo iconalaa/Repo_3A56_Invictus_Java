@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -28,11 +30,13 @@ public class HomeController {
     private User user = new User();
 
 
-
-    public void setHome(User u){
-        this.user=u;
-        nameLabel.setText(user.getName()+" "+user.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+user.getBrochure_filename()).toURI().toString()));
+    public void setHome(User u) {
+        this.user = u;
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
     }
 
     @FXML

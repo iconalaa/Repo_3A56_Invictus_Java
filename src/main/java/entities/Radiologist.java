@@ -16,6 +16,10 @@ public class Radiologist extends User {
         super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
         this.matricule = mat_nom;
     }
+    public Radiologist(User u, String mat_nom) {
+        super(u.email, u.password, u.role, u.name, u.lastName, u.birth_date, u.gender,u.brochure_filename);
+        this.matricule = mat_nom;
+    }
 
     public String getMatricule() {
         return matricule;

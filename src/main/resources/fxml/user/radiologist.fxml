@@ -140,6 +140,17 @@
                       <Label fx:id="matError" textFill="FF6060" />
                </children>
             </VBox>
+            <Button fx:id="uploadImg" contentDisplay="CENTER" mnemonicParsing="false" onAction="#uploadImage" prefHeight="33.0" prefWidth="222.0" style="-fx-background-color: #FFCC00; -fx-background-radius: 8;" text="Upload Profile Image" textFill="#333333">
+               <font>
+                  <Font name="HelveticaNowDisplay-Regular" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+            </Button>
                 <Button fx:id="signup" mnemonicParsing="false" onAction="#addRadiologist" styleClass="btn" stylesheets="@../../style/doctor.css" text="Sign Up">
                     <font>
                         <Font name="HelveticaNowDisplay-Regular" size="16.0" />

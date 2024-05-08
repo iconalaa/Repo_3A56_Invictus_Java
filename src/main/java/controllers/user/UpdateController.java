@@ -1,17 +1,23 @@
 package controllers.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import entities.Doctor;
+import entities.Patient;
+import entities.Radiologist;
 import entities.User;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import services.user.DoctorService;
+import services.user.PatientService;
+import services.user.RadiologistService;
 import services.user.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class updateController {
+public class UpdateController {
     @FXML
     private TextField fxEmail;
 
@@ -19,13 +25,10 @@ public class updateController {
     private TextField fxLastName;
 
     @FXML
-    private TextField fxMatricule;
-
-    @FXML
     private TextField fxName;
 
     @FXML
-    private TextField fxPassword;
+    private PasswordField fxPassword;
 
     @FXML
     private DatePicker addDate;
@@ -41,12 +44,8 @@ public class updateController {
     @FXML
     private Label emailError;
 
-
     @FXML
     private Label lastNameError;
-
-    @FXML
-    private Label matriculeError;
 
     @FXML
     private Label nameError;
@@ -55,22 +54,43 @@ public class updateController {
     private Label passwordError;
 
     @FXML
-    private Label roleError;
+    private TextField addAssurance;
 
     @FXML
-    private ComboBox<String> updateRoles;
+    private TextField addAssuranceNum;
+
+
+    @FXML
+    private TextField addMatricule;
+
+    @FXML
+    private TextField addMedical;
+
+    @FXML
+    private TextField addMedicalNum;
 
     @FXML
     private TextField addName;
 
     @FXML
-    private TextField addPassword;
+    private PasswordField addPassword;
     @FXML
-    private ComboBox<String> addRole;
+    private ComboBox<String> updateRoles;
+    @FXML
+    private SplitMenuButton addRole;
+    @FXML
+    private MenuItem doctorRole;
+    @FXML
+    private MenuItem patientRole;
+    @FXML
+    private MenuItem radiologistRole;
+
     @FXML
     private ComboBox<String> updateGender;
     @FXML
     private DatePicker updateDate;
+
+
     private final UserService ps = new UserService();
     private User user = new User();
 
@@ -79,12 +99,43 @@ public class updateController {
         fxName.setText(user.getName());
         fxLastName.setText(user.getLastName());
         fxEmail.setText(user.getEmail());
-        fxPassword.setText(user.getPassword());
+        updateGender.setValue(user.getGender());
+        updateRoles.setValue(user.getRole()[0].substring(7, user.getRole()[0].length() - 2).toLowerCase());
+        updateDate.setValue(user.getBirth_date());
     }
 
 
+    public void initialize() {
+        doctorRole.setOnAction(event -> {
+            addRole.setText("Doctor");
+            addMatricule.setVisible(true);
+            addMedical.setVisible(false);
+            addMedicalNum.setVisible(false);
+            addAssurance.setVisible(false);
+            addAssuranceNum.setVisible(false);
+        });
+
+        patientRole.setOnAction(event -> {
+            addRole.setText("Patient");
+            addMedical.setVisible(true);
+            addMedicalNum.setVisible(true);
+            addAssurance.setVisible(true);
+            addAssuranceNum.setVisible(true);
+            addMatricule.setVisible(false);
+        });
+
+        radiologistRole.setOnAction(event -> {
+            addRole.setText("Radiologist");
+            addMatricule.setVisible(true);
+            addMedical.setVisible(false);
+            addMedicalNum.setVisible(false);
+            addAssurance.setVisible(false);
+            addAssuranceNum.setVisible(false);
+        });
+    }
+
     @FXML
-    void addAction(ActionEvent event) {
+    void addAction(ActionEvent event) throws SQLException {
 
         String name = addName.getText();
         String lastname = addLastName.getText();
@@ -98,43 +149,61 @@ public class updateController {
         }
         String hashedPassword = sb.toString();
         String[] role;
-        if (addRole.getValue().equals("Radiologist")) {
+
+        if (addRole.getText().equals("Radiologist")) {
             role = new String[]{"ROLE_RADIOLOGIST"};
-        } else if (addRole.getValue().equals("Doctor")) {
+        } else if (addRole.getText().equals("Doctor")) {
             role = new String[]{"ROLE_DOCTOR"};
-        } else if (addRole.getValue().equals("Patient")) {
+        } else if (addRole.getText().equals("Patient")) {
             role = new String[]{"ROLE_PATIENT"};
         } else {
             role = new String[]{"ROLE_USER"};
-            System.out.println(addRole.getValue());
-        }
-        ;
+        };
         User addeduser = new User(email, hashedPassword, role, name, lastname, local, gender, "x");
 
-        try {
+        if (addRole.getText().equals("Radiologist")) {
+            RadiologistService rad_Serv = new RadiologistService();
+            Radiologist r = new Radiologist(addeduser,addMatricule.getText());
+            rad_Serv.add(r);
+            addAlert();
+        } else if (addRole.getText().equals("Doctor")) {
+            DoctorService doc_Serv = new DoctorService();
+            Doctor d = new Doctor(addeduser,addMatricule.getText());
+            doc_Serv.add(d);
+            addAlert();
+        } else if (addRole.getText().equals("Patient")) {
+            PatientService patient_Serv = new PatientService();
+            Patient p = new Patient(addeduser,addMedical.getText(),Integer.parseInt(addMedicalNum.getText()),Integer.parseInt(addAssuranceNum.getText()),addAssurance.getText());
+            patient_Serv.add(p);
+            addAlert();
+        } else {
             ps.add(addeduser);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Account Created");
-            alert.setHeaderText("Account has been created successfully");
-            alert.show();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            addAlert();
         }
+        ;
+
+
+
     }
 
+    public void addAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Account Created");
+        alert.setHeaderText("Account has been created successfully");
+        alert.show();
+    }
     @FXML
     void updateAction(ActionEvent event) {
         if (validateFields()) {
             String[] role;
             if (updateRoles.getValue().equals("Radiologist")) {
-                role = new String[]{"ROLE_RADIOLOGIST"};
+                role = new String[]{"[\"ROLE_RADIOLOGIST\"]"};
             } else if (updateRoles.getValue().equals("Doctor")) {
-                role = new String[]{"ROLE_DOCTOR"};
+                role = new String[]{"[\"ROLE_DOCTOR\"]"};
             } else if (updateRoles.getValue().equals("Patient")) {
-                role = new String[]{"ROLE_PATIENT"};
+                role = new String[]{"[\"ROLE_PATIENT\"]"};
             } else {
-                role = new String[]{"ROLE_USER"};
+                role = new String[]{"[\"ROLE_USER\"]"};
                 System.out.println(updateRoles.getValue());
             }
             User u = new User(fxEmail.getText(), user.getPassword(), role, fxName.getText(), fxLastName.getText(), updateDate.getValue(), updateGender.getValue(), "x");

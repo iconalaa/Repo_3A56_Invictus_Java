@@ -16,6 +16,12 @@ public class Patient extends User {
     this.n_cnam = n_cnam;
     this.num_assurance = num_assurance;
     this.assurance = assurance;
+  }  public Patient(User u, String cas_med, int n_cnam, int num_assurance, String assurance) {
+    super(u.email, u.password, u.role, u.name, u.lastName, u.birth_date, u.gender, u.brochure_filename);
+    this.cas_med = cas_med;
+    this.n_cnam = n_cnam;
+    this.num_assurance = num_assurance;
+    this.assurance = assurance;
   }
 
   public String getCas_med() {
