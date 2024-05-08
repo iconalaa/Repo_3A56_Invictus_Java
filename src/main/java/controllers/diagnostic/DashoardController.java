@@ -3,6 +3,7 @@ package controllers.diagnostic;
 
 import controllers.user.SessionManager;
 import entities.User;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,7 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import services.diagnostic.PrescriptionService;
 import services.diagnostic.ReportService;
-import tests.MachineLocation;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,7 +29,7 @@ public class DashoardController {
     @FXML
     public Label prescriptionList;
     @FXML
-    private Label reportsListLabel; // Add fx:id attribute here
+    private Label reportsListLabel;
     @FXML
     private Label historylabel;
     @FXML
@@ -50,7 +51,7 @@ public class DashoardController {
     private void initialize() {
         fetchAndDisplayCounts();
         updateCoronaLabel();
-        updateCityLabel();
+        updateCityLabelAsync();
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         historylabel.setOnMouseClicked(event -> openHistory(event));
         prescriptionList.setOnMouseClicked(this::openPrescriptions);
@@ -173,5 +174,34 @@ public class DashoardController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void updateCityLabelAsync() {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                org.json.JSONObject locationInfo = MachineLocation.getMachineLocation();
+                if (locationInfo != null) {
+                    try {
+                        String[] loc = locationInfo.getString("loc").split(",");
+                        double latitude = Double.parseDouble(loc[0]);
+                        double longitude = Double.parseDouble(loc[1]);
+                        String cityName = MachineLocation.getCityName(latitude, longitude);
+                        // Update UI on the JavaFX Application Thread
+                        javafx.application.Platform.runLater(() -> cityLabel.setText(cityName));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        // Handle JSON exception
+                    }
+                } else {
+                    // Handle locationInfo being null
+                }
+                return null;
+            }
+        };
+
+        // Start the task in a background thread
+        Thread thread = new Thread(task);
+        thread.setDaemon(true); // Set as daemon so it terminates with the application
+        thread.start();
     }
 }
