@@ -2,30 +2,30 @@ package entities;
 
 import java.util.Date;
 
-public class gratification {
+public class Gratification {
 
     private int id,id_donateur_id,montant;
 
-    private donateur Donor ;
+    private Donateur Donor ;
 
     private String titre_grat,desc_grat,type_grat;
 
     private Date date_grat;
 
 
-    public gratification(){
+    public Gratification(){
 
     }
 
-    public donateur getDonor() {
+    public Donateur getDonor() {
         return Donor;
     }
 
-    public void setDonor(donateur donor) {
+    public void setDonor(Donateur donor) {
         Donor = donor;
     }
 
-    public gratification(int montant, String titre_grat, String desc_grat, String type_grat) {
+    public Gratification(int montant, String titre_grat, String desc_grat, String type_grat) {
         //this.id = id;
         //this.id_donateur_id = id_donateur_id;
         this.montant = montant;

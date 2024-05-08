@@ -4,13 +4,13 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import entities.gratification;
+import entities.Gratification;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class PDFGeneration {
-    public static void generatePdfReport(gratification grat) {
+    public static void generatePdfReport(Gratification grat) {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.home") + "/Desktop/" + grat.getDonor().getPrenom_donateur() + "_Report.pdf"));

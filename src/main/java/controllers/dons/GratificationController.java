@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import entities.gratification;
+import entities.Gratification;
 import services.ServiceGratification;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,31 +27,31 @@ import javafx.stage.Stage;
 public class GratificationController implements Initializable {
 
     @FXML
-    private TableView<gratification> tableGrats;
+    private TableView<Gratification> tableGrats;
 
     @FXML
-    private TableColumn<gratification, Integer> idColumn;
+    private TableColumn<Gratification, Integer> idColumn;
 
     @FXML
     private Button statsbutton;
 
     @FXML
-    private TableColumn<gratification, Integer> donorIDColumn;
+    private TableColumn<Gratification, Integer> donorIDColumn;
 
     @FXML
-    private TableColumn<gratification, Date> dateColumn;
+    private TableColumn<Gratification, Date> dateColumn;
 
     @FXML
-    private TableColumn<gratification, String> titreColumn;
+    private TableColumn<Gratification, String> titreColumn;
 
     @FXML
-    private TableColumn<gratification, String> typeColumn;
+    private TableColumn<Gratification, String> typeColumn;
 
     @FXML
-    private TableColumn<gratification, String> descColumn;
+    private TableColumn<Gratification, String> descColumn;
 
     @FXML
-    private TableColumn<gratification, Integer> montantColumn;
+    private TableColumn<Gratification, Integer> montantColumn;
 
     @FXML
     private TextField titre ;
@@ -109,13 +109,13 @@ public class GratificationController implements Initializable {
     private final int itemsPerPage = 5;
 
     @FXML
-    private ObservableList<gratification> gratssList = FXCollections.observableArrayList();
+    private ObservableList<Gratification> gratssList = FXCollections.observableArrayList();
 
 
     private void loadGratificationData() {
         try {
             ServiceGratification service  = new ServiceGratification();
-            List<gratification> gratss = service.afficher();
+            List<Gratification> gratss = service.afficher();
             gratssList.clear();
             gratssList.addAll(gratss);
             tableGrats.setItems(gratssList);
@@ -131,7 +131,7 @@ public class GratificationController implements Initializable {
 
     @FXML
     private void modifygrat(ActionEvent event) throws IOException {
-        gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
+        Gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
         if (selectedGratification != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/updateGratification.fxml"));
             Parent root = loader.load();
@@ -154,7 +154,7 @@ public class GratificationController implements Initializable {
 
     @FXML
     private void deleteGrat(ActionEvent event) {
-        gratification selectedGrat = tableGrats.getSelectionModel().getSelectedItem();
+        Gratification selectedGrat = tableGrats.getSelectionModel().getSelectedItem();
         if (selectedGrat != null) {
             try {
                 ServiceGratification service = new ServiceGratification();
@@ -214,7 +214,7 @@ public class GratificationController implements Initializable {
         if (query.isEmpty()) {
             tableGrats.setItems(gratssList);
         } else {
-            ObservableList<gratification> filteredList = FXCollections.observableArrayList(
+            ObservableList<Gratification> filteredList = FXCollections.observableArrayList(
                     gratssList.stream()
                             .filter(g -> g.getTitre_grat().toLowerCase().contains(query) ||
                                     g.getType_grat().toLowerCase().contains(query) ||

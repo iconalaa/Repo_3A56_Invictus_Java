@@ -1,6 +1,6 @@
 package controllers.dons;
 
-import entities.donateur;
+import entities.Donateur;
 import services.ServiceDonateur;
 
 import com.twilio.Twilio;
@@ -60,7 +60,7 @@ public class DonateurFrontController {
             if (validateFields()) {
                 int  tel = Integer.parseInt(telephone.getText());
                 String recipientNumber = "+216" + tel;
-                donateur d = new donateur(tel, nom.getText(), prenom.getText(), email.getText(), Type.getText());
+                Donateur d = new Donateur(tel, nom.getText(), prenom.getText(), email.getText(), Type.getText());
                 ServiceDonateur service = new ServiceDonateur();
                 try {
                     service.ajouter(d);

@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import entities.gratification;
+import entities.Gratification;
 import services.ServiceGratification;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -51,7 +51,7 @@ public class GratificationFrontController {
     public void addGrat(ActionEvent event) throws IOException {
         if (validateFields()) {
             int mont = Integer.parseInt(montant.getText());
-            gratification g = new gratification(mont, titre.getText(), desc.getText(), type.getText());
+            Gratification g = new Gratification(mont, titre.getText(), desc.getText(), type.getText());
             ServiceGratification service = new ServiceGratification();
             try {
                 service.ajouter(g);

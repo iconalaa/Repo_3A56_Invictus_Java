@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.stream.Collectors;
-import entities.donateur;
+import entities.Donateur;
 import services.ServiceDonateur;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -28,25 +28,25 @@ import javafx.stage.Stage;
 public class DonateurController implements Initializable {
 
     @FXML
-    private TableView<donateur> tableDonors;
+    private TableView<Donateur> tableDonors;
 
     @FXML
-    private TableColumn<donateur, Integer> idColumn;
+    private TableColumn<Donateur, Integer> idColumn;
 
     @FXML
-    private TableColumn<donateur, String> nomColumn;
+    private TableColumn<Donateur, String> nomColumn;
 
     @FXML
-    private TableColumn<donateur, String> prenomColumn;
+    private TableColumn<Donateur, String> prenomColumn;
 
     @FXML
-    private TableColumn<donateur, String> emailColumn;
+    private TableColumn<Donateur, String> emailColumn;
 
     @FXML
-    private TableColumn<donateur, Integer> telephoneColumn;
+    private TableColumn<Donateur, Integer> telephoneColumn;
 
     @FXML
-    private TableColumn<donateur, String> typeColumn;
+    private TableColumn<Donateur, String> typeColumn;
 
     @FXML
     private TextField nom;
@@ -91,7 +91,7 @@ public class DonateurController implements Initializable {
     private MenuItem pggratifications;
 
     @FXML
-    private ObservableList<donateur> donateursList = FXCollections.observableArrayList();
+    private ObservableList<Donateur> donateursList = FXCollections.observableArrayList();
 
     /*public void addDonor(ActionEvent event) throws IOException {
 
@@ -121,7 +121,7 @@ public class DonateurController implements Initializable {
     private void loadDonateurData() {
         try {
             ServiceDonateur service  = new ServiceDonateur();
-            List<donateur> donateurs = service.afficher();
+            List<Donateur> donateurs = service.afficher();
             donateursList.clear(); // Clear the existing data
             donateursList.addAll(donateurs); // Add new data
             tableDonors.setItems(donateursList);
@@ -132,7 +132,7 @@ public class DonateurController implements Initializable {
 
     @FXML
     private void deleteDonor(ActionEvent event) {
-        donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
+        Donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
         if (selectedDonateur != null) {
             try {
                 ServiceDonateur service = new ServiceDonateur();
@@ -150,7 +150,7 @@ public class DonateurController implements Initializable {
 
     @FXML
     private void modifyDonor(ActionEvent event) throws IOException {
-        donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
+        Donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
         if (selectedDonateur != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/updateDonateur.fxml"));
             Parent root = loader.load();
@@ -288,7 +288,7 @@ public class DonateurController implements Initializable {
         if (query.isEmpty()) {
             tableDonors.setItems(donateursList);
         } else {
-            ObservableList<donateur> filteredList = FXCollections.observableArrayList(
+            ObservableList<Donateur> filteredList = FXCollections.observableArrayList(
                     donateursList.stream()
                             .filter(d -> d.getNom_donateur().toLowerCase().contains(query) ||
                                     d.getPrenom_donateur().toLowerCase().contains(query) ||

@@ -23,8 +23,8 @@ public class Main {
             System.out.println("error de connection.");
         }
 
-        gratification g1 = new gratification(500,"Sub","hello","Monnaitaire");
-        donateur d1  = new donateur(28475145,"Bairem","Walid","WB@hotmail.fr","Particulier");
+        Gratification g1 = new Gratification(500,"Sub","hello","Monnaitaire");
+        Donateur d1  = new Donateur(28475145,"Bairem","Walid","WB@hotmail.fr","Particulier");
 
             /*try {
              serviceDonateur.ajouter(d1);

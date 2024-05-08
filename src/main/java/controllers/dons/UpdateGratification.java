@@ -1,6 +1,6 @@
 package controllers.dons;
 
-import entities.gratification;
+import entities.Gratification;
 import services.ServiceGratification;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,10 +38,10 @@ public class UpdateGratification implements Initializable {
     @FXML
     private Label ertype;
 
-    private gratification selectedGrtification;
+    private Gratification selectedGrtification;
 
 
-    public void setSelectedDonor(gratification grat) {
+    public void setSelectedDonor(Gratification grat) {
         selectedGrtification = grat;
         if (selectedGrtification != null) {
             // Populate the fields with donor's information

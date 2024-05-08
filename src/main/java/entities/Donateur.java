@@ -1,13 +1,13 @@
 package entities;
 
-public class donateur {
+public class Donateur {
 
     private int id,telephone;
 
     private String nom_donateur,prenom_donateur,email,type_donateur;
 
 
-    public donateur( int telephone, String nom_donateur, String prenom_donateur, String email, String type_donateur) {
+    public Donateur(int telephone, String nom_donateur, String prenom_donateur, String email, String type_donateur) {
         //this.id = id;
         this.telephone = telephone;
         this.nom_donateur = nom_donateur;
@@ -16,7 +16,7 @@ public class donateur {
         this.type_donateur = type_donateur;
     }
 
-    public donateur() {
+    public Donateur() {
 
     }
 

@@ -1,7 +1,7 @@
 package services;
 
-import entities.donateur;
-import entities.gratification;
+import entities.Donateur;
+import entities.Gratification;
 import utils.MyDataBase;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class ServiceGratification implements IServices<gratification> {
+public class ServiceGratification implements IServices<Gratification> {
 
     Connection connection;
 
@@ -54,13 +54,13 @@ public class ServiceGratification implements IServices<gratification> {
 
      */
     @Override
-    public void ajouter(gratification gratification) throws SQLException {
+    public void ajouter(Gratification gratification) throws SQLException {
         LocalDate currentDate = LocalDate.now();
         Date sqlDate = Date.valueOf(currentDate);
 
         int donorId = getLastdonorDB();
         // Fetch the donor from the database
-        donateur donor = getDonorById(donorId);
+        Donateur donor = getDonorById(donorId);
         gratification.setDonor(donor); // Set the donor in the gratification object
 
         String req = "INSERT INTO gratification (id_donateur_id, titre_grat, desc_grat, date_grat, type_grat, montant) " +
@@ -85,7 +85,7 @@ public class ServiceGratification implements IServices<gratification> {
 
 
     @Override
-    public void modifier(gratification gratification) throws SQLException {
+    public void modifier(Gratification gratification) throws SQLException {
         String sql = "update gratification set titre_grat=?,desc_grat=?,type_grat=?,montant=?  where id=?";
         Statement statement = connection.createStatement();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -115,14 +115,14 @@ public class ServiceGratification implements IServices<gratification> {
     }
 
     @Override
-    public List<gratification> afficher() throws SQLException {
-        List<gratification> grats = new ArrayList<>();
+    public List<Gratification> afficher() throws SQLException {
+        List<Gratification> grats = new ArrayList<>();
         String req = "select * from gratification";
         Statement statement = connection.createStatement();
 
         ResultSet rs = statement.executeQuery(req);
         while (rs.next()) {
-            gratification grat = new gratification();
+            Gratification grat = new Gratification();
             grat.setId(rs.getInt("id"));
             //grat.setId_donateur_id(rs.getInt("Id_donateur_id"));
             grat.setDate_grat(rs.getDate("date_grat"));
@@ -157,13 +157,13 @@ public class ServiceGratification implements IServices<gratification> {
         return donorId;
     }
 
-    public donateur getDonorById(int donorId) {
+    public Donateur getDonorById(int donorId) {
         String query = "SELECT * FROM donateur WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, donorId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                donateur donor = new donateur();
+                Donateur donor = new Donateur();
                 donor.setId(resultSet.getInt("id"));
                 donor.setNom_donateur(resultSet.getString("nom_donateur"));
                 donor.setPrenom_donateur(resultSet.getString("prenom_donateur"));

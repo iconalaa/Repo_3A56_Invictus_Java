@@ -1,6 +1,6 @@
 package controllers.dons;
 
-import entities.donateur;
+import entities.Donateur;
 import services.ServiceDonateur;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,10 +46,10 @@ public class UpdateDonateur implements Initializable {
     private Label ertype;
 
 
-    private donateur selectedDonateur;
+    private Donateur selectedDonateur;
 
 
-    public void setSelectedDonor(donateur donor) {
+    public void setSelectedDonor(Donateur donor) {
         selectedDonateur = donor;
         if (selectedDonateur != null) {
             // Populate the fields with donor's information
