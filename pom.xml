@@ -132,6 +132,23 @@
             <version>3.3.7</version>
             <scope>compile</scope>
         </dependency>
+         <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.20.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.73.0</version> <!-- Make sure to use the latest version -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>16</version>
+        </dependency>
 
     </dependencies>
     <repositories>
