@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="396.0" spacing="7.0" styleClass="root" stylesheets="@../../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportDetailsController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="410.0" spacing="7.0" styleClass="root" stylesheets="@../../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportDetailsController">
     <children>
       <Label styleClass="title-label" stylesheets="@../../../style/prescription.css" text="MEDICAL REPORT" />
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="5.0">
          <children>
-            <Label text="Patient">
+            <Label contentDisplay="CENTER" text="Patient">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-              <Label fx:id="patientLabel" styleClass="info-label" stylesheets="@../../../style/prescription.css">
+              <Label fx:id="patientLabel" alignment="CENTER" styleClass="info-label" stylesheets="@../../../style/prescription.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -28,7 +28,7 @@
       </HBox>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="5.0">
          <children>
-            <Label text="Doctor">
+            <Label alignment="CENTER" text="Doctor">
                <font>
                   <Font size="14.0" />
                </font>
@@ -40,13 +40,13 @@
             </Label>
          </children>
       </HBox>
-        <Label text="Interpretation (Doctor):" />
+        <Label stylesheets="@../../../style/doctor-space.css" text="Interpretation (Doctor):" />
         <TextField fx:id="interpretationMedField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="199.0" />
         <Label text="Interpretation (Radiology):" />
         <TextField fx:id="interpretationRadField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="198.0" />
         <ImageView fx:id="reportImageView" fitHeight="164.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
         <Label text="Date:" />
-        <DatePicker fx:id="datePicker" />
+        <DatePicker fx:id="datePicker" styleClass="date-picker" stylesheets="@../../../style/prescription.css" />
         <Button fx:id="updateBtn" onAction="#updateReport" text="Update" />
     </children>
 </VBox>

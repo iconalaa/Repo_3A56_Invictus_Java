@@ -251,18 +251,20 @@ public class DashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/admin/reports-admin.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene currentScene = mainVBox.getScene();
+            currentScene.setRoot(root);
+            Stage stage = (Stage) currentScene.getWindow();
+            stage.setTitle("Reports Admin");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
             stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-            stage.setTitle("Reports Admin");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
     public void setUser(User u) {
         this.user=u;
