@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -79,6 +78,6 @@
           </TitledPane>
         </panes>
       </Accordion>
-      <Pagination fx:id="pagination" layoutX="456.0" layoutY="600.0" prefHeight="0.0" prefWidth="200.0" />
+      <Button fx:id="statsbutton" layoutX="530.0" layoutY="612.0" mnemonicParsing="false" onAction="#navigateToStats" styleClass="btn" stylesheets="@../style/doctor.css" text="Show  Stats" />
    </children>
 </AnchorPane>

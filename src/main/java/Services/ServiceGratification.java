@@ -5,9 +5,18 @@ import Entities.gratification;
 import Utils.MyDataBase;
 
 import java.sql.*;
+import Utils.MyDataBase;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 public class ServiceGratification implements IServices<gratification> {
 
     Connection connection;
@@ -171,4 +180,29 @@ public class ServiceGratification implements IServices<gratification> {
         }
         return null;
     }
-}
+
+    public Map<LocalDate, Integer> getGratificationsPerDay() throws SQLException {
+        Map<LocalDate, Integer> gratificationsPerDay = new HashMap<>();
+
+        String query = "SELECT date_grat, COUNT(*) AS count FROM gratification GROUP BY date_grat";
+
+        try{
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                LocalDate date = rs.getDate("date_grat").toLocalDate();
+                int count = rs.getInt("count");
+                gratificationsPerDay.put(date, count);
+            }
+
+
+    }catch (SQLException s){
+            System.out.println(s.getMessage());
+        }        return gratificationsPerDay;
+    }
+
+
+
+
+    }

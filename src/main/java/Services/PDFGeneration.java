@@ -25,7 +25,7 @@ public class PDFGeneration {
             // Add hospital logo
             Image logo = Image.getInstance(PDFGeneration.class.getResource("/img/logo/logo-row.png"));
             logo.setAlignment(Element.ALIGN_CENTER);
-            logo.scaleAbsolute(150, 70);
+            logo.scaleAbsolute(180, 100);
             document.add(logo);
 
             // Add professional title
@@ -55,8 +55,6 @@ public class PDFGeneration {
             document.add(new Paragraph("Description: " + grat.getDesc_grat()));
             document.add(new Paragraph("Amount: " + grat.getMontant()));
             document.add(new Paragraph("Paiment method: Card"));
-
-
 
 
             // Add a separator line

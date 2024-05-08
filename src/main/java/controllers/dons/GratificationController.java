@@ -39,10 +39,11 @@ public class GratificationController implements Initializable {
     @FXML
     private TableView<gratification> tableGrats;
 
-
-
     @FXML
     private TableColumn<gratification, Integer> idColumn;
+
+    @FXML
+    private Button statsbutton;
 
     @FXML
     private TableColumn<gratification, Integer> donorIDColumn;
@@ -110,8 +111,10 @@ public class GratificationController implements Initializable {
     @FXML
     private MenuItem pggratifications;
 
-    @FXML
+    /*@FXML
     private Pagination pagination;
+
+     */
 
     private final int itemsPerPage = 5;
 
@@ -126,8 +129,8 @@ public class GratificationController implements Initializable {
             gratssList.clear();
             gratssList.addAll(gratss);
             tableGrats.setItems(gratssList);
-            pagination.setPageCount((int) Math.ceil((double) gratssList.size() / itemsPerPage));
-            pagination.setCurrentPageIndex(0); // Reset to first page
+            //pagination.setPageCount((int) Math.ceil((double) gratssList.size() / itemsPerPage));
+            //pagination.setCurrentPageIndex(0); // Reset to first page
             //pagination.setPageFactory(this::createPage); // Update the page factory
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -200,8 +203,8 @@ public class GratificationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTable();
-        pagination.setPageCount(1); // Initially set to 1 page
-        pagination.setCurrentPageIndex(0); // Initially set to the first page
+        //pagination.setPageCount(1); // Initially set to 1 page
+        //pagination.setCurrentPageIndex(0); // Initially set to the first page
         //pagination.setPageFactory(this::createPage);
         loadGratificationData();
 
@@ -211,6 +214,7 @@ public class GratificationController implements Initializable {
 
         pgdonations.setOnAction(this::navigateToDonations);
         pggratifications.setOnAction(this::navigateToGratifications);
+        statsbutton.setOnAction(this::navigateToStats);
 
     }
 
@@ -247,6 +251,19 @@ public class GratificationController implements Initializable {
     private void navigateToGratifications(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Gratifications.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) menu.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    @FXML
+    private void navigateToStats(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stats.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));
