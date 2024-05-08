@@ -1,6 +1,5 @@
 package controllers.user;
 
-import com.sun.javafx.stage.StageHelper;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,9 +28,11 @@ public class ProfileController {
 
     @FXML
     private Label profileName;
+    private User user;
 
 
     void initialise(User u) {
+        user=u;
         profileName.setText(u.getName()+" "+u.getLastName());
         profileEmail.setText(u.getEmail());
         profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+u.getBrochure_filename()).toURI().toString()));
@@ -41,6 +42,8 @@ public class ProfileController {
     void settingsAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/settings.fxml"));
         Parent root = loader.load();
+        SettingsController controller = loader.getController();
+        controller.setUser(user);
         stage = new Stage();
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));

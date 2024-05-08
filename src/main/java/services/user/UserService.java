@@ -8,6 +8,7 @@ import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -43,7 +44,8 @@ public class UserService implements ICrud<User> {
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             Gson gson = new Gson();
-            String roles = gson.toJson(el.getRole());
+            String s = el.getRole()[0].substring(2, el.getRole()[0].length() - 2);
+            String role = gson.toJson(new String[]{s});
             ps.setString(1, el.getName());
             ps.setString(2, el.getLastName());
             ps.setString(3, el.getEmail());
@@ -51,7 +53,7 @@ public class UserService implements ICrud<User> {
             ps.setString(5, el.getBrochure_filename());
             ps.setString(6, el.getBirth_date().toString());
             ps.setString(7, el.getGender());
-            ps.setString(8, roles);
+            ps.setString(8, role);
             ps.setInt(9, id);
             ps.executeUpdate();
             System.out.println("Modified");
@@ -106,6 +108,7 @@ public class UserService implements ICrud<User> {
                 user.setRole(rs.getString("roles").split(","));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
+                user.setGender(rs.getString("gender"));
                 user.setPassword(rs.getString("password"));
                 user.setLastName(rs.getString("lastname"));
                 user.setBirth_date(rs.getDate("date_birth").toLocalDate());
@@ -128,6 +131,7 @@ public class UserService implements ICrud<User> {
                 user.setUser_id(rs.getInt("id"));
                 user.setRole(rs.getString("roles").split(","));
                 user.setName(rs.getString("name"));
+                user.setGender(rs.getString("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setLastName(rs.getString("lastname"));
@@ -159,6 +163,22 @@ public class UserService implements ICrud<User> {
         return count;
     }
 
+    public String matriculeUser(String email) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "SELECT matricule FROM user WHERE email=?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("matricule");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public List<User> getToApproveUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         PreparedStatement statement = null;

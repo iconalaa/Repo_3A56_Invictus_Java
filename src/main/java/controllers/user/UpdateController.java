@@ -5,13 +5,12 @@ import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import services.user.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class updateController {
+public class UpdateController {
     @FXML
     private TextField fxEmail;
 
@@ -25,7 +24,7 @@ public class updateController {
     private TextField fxName;
 
     @FXML
-    private TextField fxPassword;
+    private PasswordField fxPassword;
 
     @FXML
     private DatePicker addDate;
@@ -71,6 +70,7 @@ public class updateController {
     private ComboBox<String> updateGender;
     @FXML
     private DatePicker updateDate;
+
     private final UserService ps = new UserService();
     private User user = new User();
 
@@ -79,7 +79,14 @@ public class updateController {
         fxName.setText(user.getName());
         fxLastName.setText(user.getLastName());
         fxEmail.setText(user.getEmail());
-        fxPassword.setText(user.getPassword());
+        updateGender.setValue(user.getGender());
+        updateRoles.setValue(user.getRole()[0].substring(7,user.getRole()[0].length()-2).toLowerCase());
+        updateDate.setValue(user.getBirth_date());
+    }
+
+    @FXML
+    void changeRole(ActionEvent event) {
+
     }
 
 
@@ -128,13 +135,13 @@ public class updateController {
         if (validateFields()) {
             String[] role;
             if (updateRoles.getValue().equals("Radiologist")) {
-                role = new String[]{"ROLE_RADIOLOGIST"};
+                role = new String[]{"[\"ROLE_RADIOLOGIST\"]"};
             } else if (updateRoles.getValue().equals("Doctor")) {
-                role = new String[]{"ROLE_DOCTOR"};
+                role = new String[]{"[\"ROLE_DOCTOR\"]"};
             } else if (updateRoles.getValue().equals("Patient")) {
-                role = new String[]{"ROLE_PATIENT"};
+                role = new String[]{"[\"ROLE_PATIENT\"]"};
             } else {
-                role = new String[]{"ROLE_USER"};
+                role = new String[]{"[\"ROLE_USER\"]"};
                 System.out.println(updateRoles.getValue());
             }
             User u = new User(fxEmail.getText(), user.getPassword(), role, fxName.getText(), fxLastName.getText(), updateDate.getValue(), updateGender.getValue(), "x");

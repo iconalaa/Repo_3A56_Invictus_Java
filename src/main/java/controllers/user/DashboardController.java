@@ -44,9 +44,9 @@ public class DashboardController {
         try {
             List<User> allUsers = ps.showAll();
             if (ps.getToApproveUsers().isEmpty()) {
-                notifCircle.setRadius(0);
+                notifCircle.setVisible(false);
             } else {
-                notifCircle.setRadius(3);
+                notifCircle.setVisible(true);
             }
             displayUsers(allUsers); // Display all users initially
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -167,7 +167,7 @@ public class DashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/admin/update.fxml"));
             Parent root = loader.load();
-            updateController controller = loader.getController();
+            UpdateController controller = loader.getController();
             controller.setModifyUser(userToUpdate);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -216,6 +216,7 @@ public class DashboardController {
 
     @FXML
     void fxNotification(MouseEvent event) throws IOException, SQLException {
+        notifCircle.setVisible(false);
         if (ps.getToApproveUsers().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");

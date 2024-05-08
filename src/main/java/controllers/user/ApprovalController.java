@@ -38,7 +38,7 @@ public class ApprovalController {
         }
     }
 
-    private void displayNotifications(List<User> users) {
+    private void displayNotifications(List<User> users) throws SQLException {
         notifVbox.getChildren().clear();
         notifVbox.setSpacing(10);
         int maxColumns = 1;
@@ -53,12 +53,12 @@ public class ApprovalController {
         }
     }
 
-    private AnchorPane createNotification(User user) {
+    private AnchorPane createNotification(User user) throws SQLException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/approvalCard.fxml"));
             AnchorPane stackPane = loader.load();
             Label Email = (Label) stackPane.lookup("#Email");
-            Email.setText(user.getEmail() + " | " + user.getGender());
+            Email.setText(user.getEmail() + " | " + ps.matriculeUser(user.getEmail()));
             ImageView approve = (ImageView) stackPane.lookup("#approve");
             ImageView decline = (ImageView) stackPane.lookup("#decline");
             ImageView pdf = (ImageView) stackPane.lookup("#pdfBtn");

@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.updateController">
+<AnchorPane prefHeight="575.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.UpdateController">
     <children>
         <VBox layoutX="176.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
             <children>
@@ -36,9 +37,9 @@
                           </cursor>
                           <items>
                               <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="Doctor" />
-                                  <String fx:value="Patient" />
-                                  <String fx:value="Radiologist" />
+                                  <String fx:id="doctorOption" fx:value="Doctor" />
+                                  <String fx:id="patientOption" fx:value="Patient" />
+                                  <String fx:id="radiologistOption" fx:value="Radiologist" />
                               </FXCollections>
                           </items>
                       </ComboBox>
@@ -99,16 +100,30 @@
                   </VBox>
                   <VBox spacing="5.0">
                      <children>
-                              <TextField fx:id="fxPassword" prefHeight="35.0" prefWidth="364.0" promptText="Password" styleClass="input" stylesheets="@../../../style/doctor.css">
-                                  <font>
-                                      <Font size="16.0" />
-                                  </font>
-                              </TextField>
+                        <PasswordField fx:id="fxPassword" prefHeight="35.0" prefWidth="372.0" promptText="Password" styleClass="input" stylesheets="@../../../style/doctor.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
                         <Label fx:id="passwordError" textFill="RED" />
                      </children>
                   </VBox>
                     </children>
                 </HBox>
+            <HBox layoutX="10.0" layoutY="319.0" spacing="10.0">
+               <children>
+                  <VBox fx:id="matriculeVbox" spacing="5.0" visible="false">
+                     <children>
+                        <TextField fx:id="fxMatricul" prefHeight="35.0" prefWidth="593.0" promptText="Matrcule" styleClass="input" stylesheets="@../../../style/doctor.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="matriculeError" textFill="RED" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="327.0" prefHeight="0.0" prefWidth="540.0" spacing="50.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#updateAction" styleClass="btn" stylesheets="@../../../style/signUp.css" text="Update">

@@ -13,11 +13,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.user.RadiologistService;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -51,6 +56,7 @@ public class RadiologistController {
     private Label dateError;
     @FXML
     private Label matError;
+    private File selectedImageFile;
 
     @FXML
     public void addRadiologist(ActionEvent event) throws IOException {
@@ -63,7 +69,9 @@ public class RadiologistController {
                 sb.append(c);
             }
             String hashedPassword = sb.toString();
-            Radiologist R = new Radiologist(email.getText(), hashedPassword, new String[]{"ROLE_WAITING_RADIOLOGIST"}, name.getText(), lastname.getText(), date, gender.getValue(), "x", mat_cnom.getText());
+            String imageName = selectedImageFile != null ? selectedImageFile.getName() : "x";
+
+            Radiologist R = new Radiologist(email.getText(), hashedPassword, new String[]{"ROLE_WAITING_RADIOLOGIST"}, name.getText(), lastname.getText(), date, gender.getValue(), imageName, mat_cnom.getText());
             RadiologistService service = new RadiologistService();
             try {
                 service.add(R);
@@ -75,6 +83,35 @@ public class RadiologistController {
                 System.out.println(e.getMessage());
             }
         } else System.out.println("Invalid Inputs");
+    }
+    @FXML
+    public void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Upload Image");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        selectedImageFile = fileChooser.showOpenDialog(((Stage) ((Button) event.getSource()).getScene().getWindow()));
+        if (selectedImageFile != null) {
+            System.out.println("Selected Image: " + selectedImageFile.getName());
+            File destination = new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + selectedImageFile.getName());
+            try {
+                copyFile(selectedImageFile, destination);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private void copyFile(File source, File dest) throws IOException {
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try (FileInputStream fis = new FileInputStream(source);
+             FileOutputStream fos = new FileOutputStream(dest);
+             FileChannel sourceChannel = fis.getChannel();
+             FileChannel destChannel = fos.getChannel()) {
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        }
     }
 
     @FXML

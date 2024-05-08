@@ -1,20 +1,16 @@
 package controllers.user;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+
+import javafx.scene.layout.VBox;
 import services.user.UserService;
 
 import java.io.IOException;
@@ -33,77 +29,64 @@ public class ForgetPassword {
     private PasswordField passwordField;
     @FXML
     private Label passwordError;
+    @FXML
+    private VBox newPassVbox;
+
     private String randomNumber;
 
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXY0123456789";
     private static final UserService ps = new UserService();
     private static final SecureRandom RANDOM = new SecureRandom();
     private User user;
 
 
-
     @FXML
     void sendMail(ActionEvent event) throws Exception {
         GMailerController mail = new GMailerController();
-        if (ps.getUserByEmail(resetMail.getText()) == null){
+        if (ps.getUserByEmail(resetMail.getText()) == null) {
             emailError.setText("Email Doesn't Exist in the DataBase");
             return;
         }
         user = ps.getUserByEmail(resetMail.getText());
         mail.reciever = resetMail.getText();
         randomNumber = generateCode(8);
-        mail.sendMail("Password Reset Request", """
-        <html>
-          <body>
-              <h1 style="color: #007bff;text-align:center;font-size:48px;">RESET PASSWORD</h1>
-              <hr><br>
-              <p style="font-size:20px;">This is the <strong>Verification Code :</strong></p>
-              <p
-                style="border-radius:5px;
-                width:50%;
-                margin:0 auto;
-                display:flex;
-                justify-content:center;
-                text-align:center;
-                letter-spacing:2px;
-                background-color:#222;
-                color:white;
-                padding:10px 30px;"
-                 >
-                 """ + randomNumber + """
-                 </p>
-              <p style="font-style: italic;">Best regards,<br><strong>RadioHub Team</strong></p>
-          </body>
-          </html>
-        """);
+        mail.sendMail("Password Reset Request",
+                "<html>" +
+                        "<body>" +
+                        "<div style=\"width: 90%; margin: 20px auto;box-shadow: 0 0 5px grey;padding: 16px;\">" +
+                        "<div style=\"background-color: #1997ff; padding: 10px 0;\">" +
+                        "<h1 style=\"text-align: center; color: white;\">RESET PASSWORD</h1>" +
+                        "</div>" +
+                        "<div style=\"background-color: #FFF; padding: 10px 5px;\">" +
+                        "<p style=\"font-size:20px;\">This is the <strong>Verification Code :</strong></p>" +
+                        "</div>" +
+                        "<div style=\"background-color: #1997ff; padding: 5px 0; width: 50%;margin: 0 auto;\">" +
+                        "<h3 style=\"text-align: center; color: #FFF;\">" +
+                        randomNumber +
+                        "</h3>" +
+                        "</div>" +
+                        "<br>" +
+                        "<p>Best Regards,</p>" +
+                        "<i>RadioHub Team</i>" +
+                        "</div>" +
+                        "</body>" +
+                        "</html>"
+        );
+
 
     }
 
     @FXML
     void submit(ActionEvent event) throws IOException {
 
-        if(randomNumber.equals(verifCode.getText())){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/newPassword.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle("New Password");
-            stage.show();
-            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-
-        }else{
+        if (randomNumber.equals(verifCode.getText())) {
+            newPassVbox.setVisible(true);
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("The Code is Wrong");
             alert.showAndWait();
         }
-
     }
 
     public static String generateCode(int length) {
@@ -114,21 +97,25 @@ public class ForgetPassword {
         }
         return code.toString();
     }
+
     @FXML
-    void submitNewPassword(ActionEvent event) throws SQLException {
+    void confirm(ActionEvent event) throws SQLException {
         String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         if (!passwordField.getText().matches(passwordPattern)) {
-            passwordError.setText("Invalid Password Minimum 6 Characters !");
+            passwordError.setVisible(true);
             return;
         }
+        passwordError.setVisible(false);
         char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(13, passwordField.getText().toCharArray());
         StringBuilder sb = new StringBuilder();
         for (char c : bcryptChars) {
             sb.append(c);
         }
         String hashedPassword = sb.toString();
+        user = ps.getUserByEmail(resetMail.getText());
+        System.out.println(user.toString());
         user.setPassword(hashedPassword);
-        ps.update(user,user.getUser_id());
+        ps.update(user, user.getUser_id());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("reset");
