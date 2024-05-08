@@ -13,16 +13,16 @@
    <children>
       <ImageView fitHeight="54.0" fitWidth="328.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Gradiant-bg.png" />
+            <Image url="@../../img/Gradiant-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="46.0" fitWidth="152.0" layoutX="90.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo/logo-row.png" />
+            <Image url="@../../img/logo/logo-row.png" />
          </image>
       </ImageView>
-      <Button layoutX="76.0" layoutY="407.0" mnemonicParsing="false" onAction="#updateDonor" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../style/login.css" text="Update" />
-      <VBox layoutX="47.0" layoutY="76.0" prefHeight="314.0" prefWidth="237.0" styleClass="vbox-card" stylesheets="@../style/card.css">
+      <Button layoutX="76.0" layoutY="407.0" mnemonicParsing="false" onAction="#updateDonor" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../../style/login.css" text="Update" />
+      <VBox layoutX="47.0" layoutY="76.0" prefHeight="314.0" prefWidth="237.0" styleClass="vbox-card" stylesheets="@../../style/card.css">
          <children>
             <TextField fx:id="updnom" promptText="Nom">
                <VBox.margin>

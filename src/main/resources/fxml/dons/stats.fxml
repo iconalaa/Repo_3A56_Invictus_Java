@@ -22,12 +22,12 @@
       </LineChart>
       <ImageView fitHeight="76.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Gradiant-bg.png" />
+            <Image url="@../../img/Gradiant-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="98.0" fitWidth="238.0" layoutX="106.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo/logo-row.png" />
+            <Image url="@../../img/logo/logo-row.png" />
          </image>
       </ImageView>
       <Text layoutX="85.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donationn Frequency Per Day" wrappingWidth="276.947265625">

@@ -1,13 +1,10 @@
 package controllers.dons;
 
-import Entities.donateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
@@ -18,20 +15,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import Entities.gratification;
-import Services.ServiceGratification;
+import entities.gratification;
+import services.ServiceGratification;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GratificationController implements Initializable {
@@ -143,7 +133,7 @@ public class GratificationController implements Initializable {
     private void modifygrat(ActionEvent event) throws IOException {
         gratification selectedGratification = tableGrats.getSelectionModel().getSelectedItem();
         if (selectedGratification != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateGratification.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/updateGratification.fxml"));
             Parent root = loader.load();
 
             UpdateGratification updategrat = loader.getController();
@@ -239,7 +229,7 @@ public class GratificationController implements Initializable {
 
     private void navigateToDonations(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Donateurs.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/Donateurs.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -250,7 +240,7 @@ public class GratificationController implements Initializable {
 
     private void navigateToGratifications(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Gratifications.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/Gratifications.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -263,7 +253,7 @@ public class GratificationController implements Initializable {
     @FXML
     private void navigateToStats(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stats.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/stats.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));

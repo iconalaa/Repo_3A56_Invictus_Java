@@ -19,12 +19,12 @@
    <children>
       <ImageView fitHeight="186.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Gradiant-bg.png" />
+            <Image url="@../../img/Gradiant-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo/logo-row.png" />
+            <Image url="@../../img/logo/logo-row.png" />
          </image>
       </ImageView>
       <MenuButton fx:id="menu" layoutX="803.0" layoutY="70.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Select">
@@ -33,7 +33,7 @@
             <MenuItem fx:id="pggratifications" mnemonicParsing="false" text="Gratifications" />
         </items>
       </MenuButton>
-       <TableView fx:id="tableGrats" layoutX="203.0" layoutY="145.0" prefHeight="455.0" prefWidth="742.0" style="-fx-border-radius: 20;" stylesheets="@../style/table.css">
+       <TableView fx:id="tableGrats" layoutX="203.0" layoutY="145.0" prefHeight="455.0" prefWidth="742.0" style="-fx-border-radius: 20;" stylesheets="@../../style/table.css">
            <columns>
                <TableColumn fx:id="idColumn" text="ID" />
                <!--TableColumn fx:id="donorIDColumn" text="DonorID" /-->
@@ -49,11 +49,11 @@
        </TableView>
       <ButtonBar layoutX="374.0" layoutY="103.0" prefHeight="42.0" prefWidth="170.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#modifygrat" styleClass="vbox-button" stylesheets="@../style/card.css" text="Update" />
-            <Button fx:id="delButton" layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteGrat" styleClass="vbox-button" stylesheets="@../style/card.css" text="Delete" />
+          <Button mnemonicParsing="false" onAction="#modifygrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Update" />
+            <Button fx:id="delButton" layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteGrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Delete" />
         </buttons>
       </ButtonBar>
-      <TextField fx:id="searchField" layoutX="736.0" layoutY="111.0" onAction="#searchGratification" prefHeight="26.0" prefWidth="200.0" promptText="Search..." styleClass="search-container" stylesheets="@../style/doctor-space.css" />
+      <TextField fx:id="searchField" layoutX="736.0" layoutY="111.0" onAction="#searchGratification" prefHeight="26.0" prefWidth="200.0" promptText="Search..." styleClass="search-container" stylesheets="@../../style/doctor-space.css" />
       <Text layoutX="271.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Our Grants">
          <font>
             <Font size="18.0" />
@@ -78,6 +78,6 @@
           </TitledPane>
         </panes>
       </Accordion>
-      <Button fx:id="statsbutton" layoutX="530.0" layoutY="612.0" mnemonicParsing="false" onAction="#navigateToStats" styleClass="btn" stylesheets="@../style/doctor.css" text="Show  Stats" />
+      <Button fx:id="statsbutton" layoutX="530.0" layoutY="612.0" mnemonicParsing="false" onAction="#navigateToStats" styleClass="btn" stylesheets="@../../style/doctor.css" text="Show  Stats" />
    </children>
 </AnchorPane>

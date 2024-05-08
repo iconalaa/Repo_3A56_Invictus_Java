@@ -1,13 +1,10 @@
-package Tests;
+package tests;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
@@ -15,7 +12,7 @@ import javafx.scene.image.Image;
 public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/Gratifications.fxml"));
+        FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/dons/Gratifications.fxml"));
         Parent root = load.load();
         Scene scene = new Scene(root, Color.WHITE) ;
         Stage stage = new Stage() ;

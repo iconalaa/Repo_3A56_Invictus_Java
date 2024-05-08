@@ -1,32 +1,25 @@
 package controllers.dons;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
-import Entities.gratification;
-import Services.ServiceGratification;
+
+import entities.gratification;
+import services.ServiceGratification;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import Services.PDFGeneration;
+import services.PDFGeneration;
 
 public class GratificationFrontController {
 
@@ -96,7 +89,7 @@ public class GratificationFrontController {
                 String checkoutUrl = session.getUrl();
                 //System.out.println("Checkout URL: " + checkoutUrl);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PaimentInterface.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/PaimentInterface.fxml"));
                 Parent root = loader.load();
                 PaiementInterfaceController controller = loader.getController();
 

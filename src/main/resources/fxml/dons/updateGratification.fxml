@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="320.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dons.UpdateGratification">
    <children>
-      <VBox layoutX="41.0" layoutY="100.0" prefHeight="290.0" prefWidth="238.0" styleClass="vbox-card" stylesheets="@../style/card.css">
+      <VBox layoutX="41.0" layoutY="100.0" prefHeight="290.0" prefWidth="238.0" styleClass="vbox-card" stylesheets="@../../style/card.css">
          <children>
             <TextField fx:id="updtitle" promptText="Title">
                <VBox.margin>
@@ -41,14 +41,14 @@
       </VBox>
       <ImageView fitHeight="88.0" fitWidth="320.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Gradiant-bg.png" />
+            <Image url="@../../img/Gradiant-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="46.0" fitWidth="152.0" layoutX="84.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo/logo-row.png" />
+            <Image url="@../../img/logo/logo-row.png" />
          </image>
       </ImageView>
-      <Button layoutX="77.0" layoutY="412.0" mnemonicParsing="false" onAction="#updategrat" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../style/login.css" text="Update" />
+      <Button layoutX="77.0" layoutY="412.0" mnemonicParsing="false" onAction="#updategrat" prefHeight="46.0" prefWidth="166.0" styleClass="btn" stylesheets="@../../style/login.css" text="Update" />
    </children>
 </AnchorPane>

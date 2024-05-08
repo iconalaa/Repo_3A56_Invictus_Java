@@ -1,11 +1,9 @@
-package Services;
+package services;
 
-import Entities.donateur;
-import Entities.gratification;
-import Utils.MyDataBase;
+import entities.donateur;
+import utils.MyDataBase;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +90,7 @@ public class ServiceDonateur implements IServices<donateur>  {
 
         ResultSet rs = statement.executeQuery(req);
         while (rs.next()) {
-            donateur personne = new Entities.donateur();
+            donateur personne = new entities.donateur();
             personne.setId(rs.getInt("id"));
             personne.setNom_donateur(rs.getString("nom_donateur"));
             personne.setPrenom_donateur(rs.getString("prenom_donateur"));

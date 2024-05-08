@@ -19,12 +19,12 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="37.0" layoutY="281.0" stroke="DODGERBLUE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="20.0" width="317.0" />
       <ImageView fitHeight="268.0" fitWidth="834.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/Gradiant-bg.png" />
+            <Image url="@../../img/Gradiant-bg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="313.0" fitWidth="423.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/6901910-collecte-de-fonds-et-don-d-argent-illustration-gratuit-vectoriel-removebg-preview.png" />
+            <Image url="@../../img/6901910-collecte-de-fonds-et-don-d-argent-illustration-gratuit-vectoriel-removebg-preview.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="37.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Become a Donor !">
@@ -34,7 +34,7 @@
       </Text>
       <ImageView fitHeight="53.0" fitWidth="317.0" layoutX="478.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo/logo-row.png" />
+            <Image url="@../../img/logo/logo-row.png" />
          </image>
       </ImageView>
       <Line endX="-100.0" endY="263.39996337890625" layoutX="491.0" layoutY="271.0" startX="-100.0" startY="-270.20001220703125" stroke="#5f7fd7" />
@@ -49,13 +49,13 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="180.0">
                      <children>
-                        <TextField fx:id="nom" prefHeight="42.0" prefWidth="178.0" promptText="Nom" styleClass="input" stylesheets="@../style/login.css" />
+                        <TextField fx:id="nom" prefHeight="42.0" prefWidth="178.0" promptText="Nom" styleClass="input" stylesheets="@../../style/login.css" />
                         <Label fx:id="nomErreur" textFill="RED" />
                      </children>
                   </VBox>
                   <VBox prefHeight="100.0" prefWidth="214.0">
                      <children>
-                        <TextField fx:id="prenom" prefHeight="42.0" prefWidth="180.0" promptText="Prénom" styleClass="input" stylesheets="@../style/login.css" />
+                        <TextField fx:id="prenom" prefHeight="42.0" prefWidth="180.0" promptText="Prénom" styleClass="input" stylesheets="@../../style/login.css" />
                         <Label fx:id="prenomError" textFill="RED" />
                      </children>
                      <padding>
@@ -71,13 +71,13 @@
                <children>
                   <VBox prefHeight="120.0" prefWidth="182.0">
                      <children>
-                        <TextField fx:id="email" prefHeight="42.0" prefWidth="194.0" promptText="Email" styleClass="input" stylesheets="@../style/login.css" />
+                        <TextField fx:id="email" prefHeight="42.0" prefWidth="194.0" promptText="Email" styleClass="input" stylesheets="@../../style/login.css" />
                         <Label fx:id="emailError" textFill="RED" />
                      </children>
                   </VBox>
                   <VBox prefHeight="120.0" prefWidth="182.0">
                      <children>
-                        <TextField fx:id="telephone" prefHeight="42.0" prefWidth="169.0" promptText="Téléphone" styleClass="input" stylesheets="@../style/login.css" />
+                        <TextField fx:id="telephone" prefHeight="42.0" prefWidth="169.0" promptText="Téléphone" styleClass="input" stylesheets="@../../style/login.css" />
                         <Label fx:id="telephoneError" textFill="RED" />
                      </children>
                      <padding>
@@ -91,7 +91,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="130.0" prefHeight="23.0" prefWidth="391.0">
                <children>
-                  <TextField fx:id="Type" prefHeight="42.0" prefWidth="186.0" promptText="Type(Particulier,Associa..)" styleClass="input" stylesheets="@../style/login.css">
+                  <TextField fx:id="Type" prefHeight="42.0" prefWidth="186.0" promptText="Type(Particulier,Associa..)" styleClass="input" stylesheets="@../../style/login.css">
                      <HBox.margin>
                         <Insets left="90.0" top="-20.0" />
                      </HBox.margin>
@@ -104,6 +104,6 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="register" layoutX="533.0" layoutY="441.0" mnemonicParsing="false" onAction="#addDonor" styleClass="btn" stylesheets="@../style/login.css" text="Donate" />
+      <Button fx:id="register" layoutX="533.0" layoutY="441.0" mnemonicParsing="false" onAction="#addDonor" styleClass="btn" stylesheets="@../../style/login.css" text="Donate" />
    </children>
 </AnchorPane>

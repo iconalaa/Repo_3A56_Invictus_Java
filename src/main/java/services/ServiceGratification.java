@@ -1,11 +1,10 @@
-package Services;
+package services;
 
-import Entities.donateur;
-import Entities.gratification;
-import Utils.MyDataBase;
+import entities.donateur;
+import entities.gratification;
+import utils.MyDataBase;
 
 import java.sql.*;
-import Utils.MyDataBase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

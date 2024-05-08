@@ -1,7 +1,7 @@
 package controllers.dons;
 
-import Entities.donateur;
-import Services.ServiceDonateur;
+import entities.donateur;
+import services.ServiceDonateur;
 
 import com.twilio.Twilio;
 import javafx.event.ActionEvent;
@@ -14,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Label;
@@ -129,7 +128,7 @@ public class DonateurFrontController {
 
     private void navigateTonewgrat() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newGratification.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/newGratification.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage(); // Create a new stage
             stage.setScene(new  Scene(root));

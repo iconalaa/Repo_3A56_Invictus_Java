@@ -16,8 +16,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.stream.Collectors;
-import Entities.donateur;
-import Services.ServiceDonateur;
+import entities.donateur;
+import services.ServiceDonateur;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -152,7 +152,7 @@ public class DonateurController implements Initializable {
     private void modifyDonor(ActionEvent event) throws IOException {
         donateur selectedDonateur = tableDonors.getSelectionModel().getSelectedItem();
         if (selectedDonateur != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateDonateur.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/updateDonateur.fxml"));
             Parent root = loader.load();
 
             UpdateDonateur updateDonateurController = loader.getController();
@@ -303,7 +303,7 @@ public class DonateurController implements Initializable {
 
     private void navigateToDonations(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Donateurs.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/Donateurs.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -315,7 +315,7 @@ public class DonateurController implements Initializable {
 
     private void navigateToGratifications(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Gratifications.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/Gratifications.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menu.getScene().getWindow();
             stage.setScene(new Scene(root));

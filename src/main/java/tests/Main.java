@@ -1,8 +1,8 @@
-package Tests;
+package tests;
 
-import Utils.MyDataBase;
-import Entities.*;
-import Services.*;
+import utils.MyDataBase;
+import entities.*;
+import services.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
