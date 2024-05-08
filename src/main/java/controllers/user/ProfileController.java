@@ -31,7 +31,7 @@ public class ProfileController {
     private User user;
 
 
-    void initialise(User u) {
+    public void initialise(User u) {
         user=u;
         profileName.setText(u.getName()+" "+u.getLastName());
         profileEmail.setText(u.getEmail());
