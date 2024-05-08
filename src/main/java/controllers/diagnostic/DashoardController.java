@@ -1,14 +1,20 @@
 package controllers.diagnostic;
 
 
+import controllers.user.ProfileController;
 import controllers.user.SessionManager;
 import entities.User;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -16,8 +22,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import services.diagnostic.PrescriptionService;
 import services.diagnostic.ReportService;
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -29,7 +35,7 @@ public class DashoardController {
     @FXML
     public Label prescriptionList;
     @FXML
-    private Label reportsListLabel;
+    private Label reportsListLabel; // Add fx:id attribute here
     @FXML
     private Label historylabel;
     @FXML
@@ -43,15 +49,26 @@ public class DashoardController {
     private Label coranaLabel;
     @FXML
     private Label cityLabel;
+    @FXML
+    private ImageView profileImg;
+    @FXML
+    private Label nameLabel;
+
 
     User loggedInUser = SessionManager.getLoggedInUser();
 
 
     @FXML
     private void initialize() {
+        System.out.println(loggedInUser);
+        nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         fetchAndDisplayCounts();
         updateCoronaLabel();
-        updateCityLabelAsync();
+        updateCityLabel();
         reportsListLabel.setOnMouseClicked(event -> openReports(event));
         historylabel.setOnMouseClicked(event -> openHistory(event));
         prescriptionList.setOnMouseClicked(this::openPrescriptions);
@@ -175,33 +192,20 @@ public class DashoardController {
             e.printStackTrace();
         }
     }
-    private void updateCityLabelAsync() {
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                org.json.JSONObject locationInfo = MachineLocation.getMachineLocation();
-                if (locationInfo != null) {
-                    try {
-                        String[] loc = locationInfo.getString("loc").split(",");
-                        double latitude = Double.parseDouble(loc[0]);
-                        double longitude = Double.parseDouble(loc[1]);
-                        String cityName = MachineLocation.getCityName(latitude, longitude);
-                        // Update UI on the JavaFX Application Thread
-                        javafx.application.Platform.runLater(() -> cityLabel.setText(cityName));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        // Handle JSON exception
-                    }
-                } else {
-                    // Handle locationInfo being null
-                }
-                return null;
-            }
-        };
-
-        // Start the task in a background thread
-        Thread thread = new Thread(task);
-        thread.setDaemon(true); // Set as daemon so it terminates with the application
-        thread.start();
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(loggedInUser);
+        Stage stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 }
