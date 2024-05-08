@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.consult">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0">
+         <left>
+            <VBox fx:id="sidebar" alignment="CENTER" prefHeight="607.0" prefWidth="198.0" style="-fx-background-position: absolute;" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="right-side-border" />
+                  <String fx:value="white-background" />
+               </styleClass>
+               <children>
+                  <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
+                     <children>
+                        <ButtonBar>
+                           <buttons>
+                              <ImageView fitHeight="25.0" fitWidth="35.0" onMouseClicked="#returnToIm" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/return.png" />
+                                 </image>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#addInterpreataion" text="INTERPPRET" />
+                           </buttons>
+                        </ButtonBar>
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="147.0" prefWidth="158.0" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
+                  <ListView fx:id="container" prefHeight="753.0" prefWidth="157.0" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="55.0" prefWidth="687.0" spacing="5.0" styleClass="white-background" stylesheets="@css/style.css">
+                     <children>
+                        <Pane maxHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="627.0">
+                           <children>
+                              <ButtonBar layoutX="-3.0" layoutY="-6.0" prefHeight="40.0" prefWidth="556.0">
+                                <buttons>
+                                    <Button mnemonicParsing="false" onAction="#zoom" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button minWidth="62.0" mnemonicParsing="false" prefHeight="26.0" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                </buttons>
+                              </ButtonBar>
+                           </children>
+                        </Pane>
+                        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="0.0" />
+                     </children>
+                  </HBox>
+                  <AnchorPane fx:id="zone" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

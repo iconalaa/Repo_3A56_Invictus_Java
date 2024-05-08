@@ -22,10 +22,7 @@ import java.util.List;
 public class ApprovalController {
     @FXML
     private VBox notifVbox;
-
-
     private final UserService ps = new UserService();
-
     public void initialize() {
         try {
             List<User> allUsers = ps.getToApproveUsers();
@@ -71,7 +68,7 @@ public class ApprovalController {
                     alert.setContentText("This action cannot be undone.");
                     alert.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.OK) {
-                            user.setRole(new String[]{"ROLE_USER"});
+                            user.setRole(new String[]{"[\"ROLE_USER\"]"});
                             try {
                                 ps.update(user, user.getUser_id());
                                 displayNotifications(ps.getToApproveUsers());
@@ -94,9 +91,9 @@ public class ApprovalController {
                         if (response == ButtonType.OK) {
                             String role = user.getRole()[0];
                             if (role.contains("ROLE_WAITING_DOCTOR")){
-                                user.setRole(new String[]{"ROLE_DOCTOR"});
+                                user.setRole(new String[]{"[\"ROLE_DOCTOR\"]"});
                             } else {
-                                user.setRole(new String[]{"ROLE_RADIOLOGIST"});
+                                user.setRole(new String[]{"[\"ROLE_RADIOLOGIST\"]"});
                             }
                             try {
                                 ps.update(user, user.getUser_id());

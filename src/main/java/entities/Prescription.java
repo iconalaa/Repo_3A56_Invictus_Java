@@ -2,12 +2,12 @@ package entities;
 
 import java.util.Date;
 
-public class Prescription {
-    private Report report;
-    private int id;
-    private String contenu;
-    private Date date;
-    private String signature_filename;
+    public class Prescription {
+        private Report report;
+        private int id;
+        private String contenu;
+        private Date date;
+        private String signature_filename;
 
     public Prescription( String contenu, String signature_filename) {
         this.contenu = contenu;

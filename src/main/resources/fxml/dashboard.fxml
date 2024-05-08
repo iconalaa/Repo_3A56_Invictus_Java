@@ -99,14 +99,14 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#GoReports" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
                         <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/claim-icon.png" />
+                              <Image url="@../img/icon/diagnosis.png" />
                            </image>
                         </ImageView>
-                        <Label text="Claims" />
+                        <Label text="Diagnostic" />
                      </children>
                      <VBox.margin>
                         <Insets top="30.0" />

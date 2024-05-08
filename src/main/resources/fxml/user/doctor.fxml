@@ -19,29 +19,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.DoctorController">
     <children>
-      <ImageView fitWidth="30.0" layoutX="69.0" layoutY="24.0" onMouseClicked="#returnSignUp" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="50.0">
-         <image>
-            <Image url="@../../img/icon/Line%201.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fitHeight="77.0" fitWidth="70.0" layoutX="810.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <image>
-            <Image url="@../../img/logo/logo%202.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="924.0" layoutX="30.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
-         <image>
-            <Image url="@../../img/plantShadow.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="425.0" fitWidth="162.0" layoutX="742.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
-         <image>
-            <Image url="@../../img/Character.png" />
-         </image>
-      </ImageView>
+        <ImageView fitWidth="30.0" layoutX="69.0" layoutY="24.0" onMouseClicked="#returnSignUp" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="50.0">
+            <image>
+                <Image url="@../../img/icon/Line%201.png" />
+            </image>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </ImageView>
+        <ImageView fitHeight="77.0" fitWidth="70.0" layoutX="810.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <image>
+                <Image url="@../../img/logo/logo%202.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="120.0" fitWidth="924.0" layoutX="30.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0">
+            <image>
+                <Image url="@../../img/plantShadow.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="425.0" fitWidth="162.0" layoutX="742.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
+            <image>
+                <Image url="@../../img/Character.png" />
+            </image>
+        </ImageView>
         <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="81.0" prefHeight="541.0" prefWidth="560.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="60.0">
             <children>
                 <ImageView fitHeight="77.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
@@ -54,88 +54,88 @@
                 </ImageView>
                 <HBox alignment="CENTER" spacing="10.0">
                     <children>
-                  <VBox prefHeight="25.0" prefWidth="262.0" spacing="5.0">
-                     <children>
-                              <TextField fx:id="name" prefHeight="25.0" prefWidth="262.0" promptText="Name" styleClass="input" stylesheets="@../../style/doctor.css">
-                           <font>
-                              <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-                           </font>
-                        </TextField>
-                        <Label fx:id="nameError" textFill="FF6060" />
-                     </children>
-                  </VBox>
-                  <VBox spacing="5.0">
-                     <children>
-                              <TextField fx:id="lastname" prefHeight="25.0" prefWidth="262.0" promptText="Last Name" styleClass="input" stylesheets="@../../style/doctor.css">
-                           <font>
-                              <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-                           </font>
-                        </TextField>
-                        <Label fx:id="lastnameError" textFill="FF6060" />
-                     </children>
-                  </VBox>
+                        <VBox prefHeight="25.0" prefWidth="262.0" spacing="5.0">
+                            <children>
+                                <TextField fx:id="name" prefHeight="25.0" prefWidth="262.0" promptText="Name" styleClass="input" stylesheets="@../../style/doctor.css">
+                                    <font>
+                                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="nameError" textFill="FF6060" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <children>
+                                <TextField fx:id="lastname" prefHeight="25.0" prefWidth="262.0" promptText="Last Name" styleClass="input" stylesheets="@../../style/doctor.css">
+                                    <font>
+                                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="lastnameError" textFill="FF6060" />
+                            </children>
+                        </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10.0">
                     <children>
-                  <VBox spacing="5.0">
-                     <children>
-                              <TextField fx:id="email" prefHeight="25.0" prefWidth="262.0" promptText="Email" styleClass="input" stylesheets="@../../style/doctor.css">
-                           <font>
-                              <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-                           </font>
-                        </TextField>
-                        <Label fx:id="emailError" textFill="FF6060" />
-                     </children>
-                  </VBox>
-                  <VBox spacing="5.0">
-                     <children>
-                              <PasswordField fx:id="password" prefHeight="25.0" prefWidth="262.0" promptText="Password" styleClass="input" stylesheets="@../../style/doctor.css">
-                           <font>
-                              <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-                           </font>
-                        </PasswordField>
-                        <Label fx:id="passwordError" textFill="FF6060" />
-                     </children>
-                  </VBox>
+                        <VBox spacing="5.0">
+                            <children>
+                                <TextField fx:id="email" prefHeight="25.0" prefWidth="262.0" promptText="Email" styleClass="input" stylesheets="@../../style/doctor.css">
+                                    <font>
+                                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="emailError" textFill="FF6060" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <children>
+                                <PasswordField fx:id="password" prefHeight="25.0" prefWidth="262.0" promptText="Password" styleClass="input" stylesheets="@../../style/doctor.css">
+                                    <font>
+                                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                                    </font>
+                                </PasswordField>
+                                <Label fx:id="passwordError" textFill="FF6060" />
+                            </children>
+                        </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" layoutX="10.0" layoutY="193.0" spacing="10.0">
                     <children>
-                  <VBox spacing="5.0">
-                     <children>
-                              <ComboBox fx:id="gender" prefHeight="25.0" prefWidth="262.0" promptText="Select Gender">
-                                  <cursor>
-                                      <Cursor fx:constant="HAND" />
-                                  </cursor>
-                                  <items>
-                                      <FXCollections fx:factory="observableArrayList">
-                                          <String fx:value="Male" />
-                                          <String fx:value="Female" />
-                                      </FXCollections>
-                                  </items>
-                              </ComboBox>
-                        <Label fx:id="genderError" textFill="FF6060" />
-                     </children>
-                  </VBox>
-                  <VBox spacing="5.0">
-                     <children>
-                              <DatePicker fx:id="datePicker" prefWidth="262.0" promptText="Your Birth Day" styleClass="date-picker" stylesheets="@../../style/doctor.css" />
-                        <Label fx:id="dateError" textFill="FF6060" />
-                     </children>
-                  </VBox>
+                        <VBox spacing="5.0">
+                            <children>
+                                <ComboBox fx:id="gender" prefHeight="25.0" prefWidth="262.0" promptText="Select Gender">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Male" />
+                                            <String fx:value="Female" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <Label fx:id="genderError" textFill="FF6060" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <children>
+                                <DatePicker fx:id="datePicker" prefWidth="262.0" promptText="Your Birth Day" styleClass="date-picker" stylesheets="@../../style/doctor.css" />
+                                <Label fx:id="dateError" textFill="FF6060" />
+                            </children>
+                        </VBox>
                     </children>
                 </HBox>
-            <VBox alignment="CENTER" spacing="5.0">
-               <children>
-                      <TextField fx:id="matricule" maxWidth="535.0" prefHeight="34.0" prefWidth="565.0" promptText="matricule" styleClass="input" stylesheets="@../../style/doctor.css">
-                     <font>
-                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="matriculeError" textFill="FF6060" />
-               </children>
-            </VBox>
+                <VBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <TextField fx:id="matricule" maxWidth="535.0" prefHeight="34.0" prefWidth="565.0" promptText="matricule" styleClass="input" stylesheets="@../../style/doctor.css">
+                            <font>
+                                <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                            </font>
+                        </TextField>
+                        <Label fx:id="matriculeError" textFill="FF6060" />
+                    </children>
+                </VBox>
                 <Button fx:id="uploadImg" contentDisplay="CENTER" mnemonicParsing="false" onAction="#uploadImage" prefHeight="33.0" prefWidth="222.0" style="-fx-background-color: #FFCC00; -fx-background-radius: 8;" text="Upload Profile Image" textFill="#333333">
                     <font>
                         <Font name="HelveticaNowDisplay-Regular" size="15.0" />
@@ -143,24 +143,24 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="-15.0" />
-               </VBox.margin>
+                    <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets top="-15.0" />
+                    </VBox.margin>
                 </Button>
-            <Button fx:id="signup" layoutX="223.0" layoutY="397.0" mnemonicParsing="false" onAction="#addDoctor" styleClass="btn" stylesheets="@../../style/doctor.css" text="Sign Up">
-               <font>
-                  <Font name="HelveticaNowDisplay-Regular" size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets bottom="12.0" left="40.0" right="40.0" top="12.0" />
-               </padding>
-            </Button>
+                <Button fx:id="signup" layoutX="223.0" layoutY="397.0" mnemonicParsing="false" onAction="#addDoctor" styleClass="btn" stylesheets="@../../style/doctor.css" text="Sign Up">
+                    <font>
+                        <Font name="HelveticaNowDisplay-Regular" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <padding>
+                        <Insets bottom="12.0" left="40.0" right="40.0" top="12.0" />
+                    </padding>
+                </Button>
             </children>
         </VBox>
     </children>

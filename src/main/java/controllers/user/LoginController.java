@@ -57,27 +57,32 @@
                         BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                         if (result.verified) {
                             User u =service.getUserById(rs.getInt("id"));
+                            // Inside your login method after successful authentication
+                            User loggedInUser = service.getUserById(rs.getInt("id"));
+                            SessionManager.setLoggedInUser(loggedInUser);
+
                             String[] userRoles = rs.getString("roles").split(",");
                             for (String role : userRoles) {
                                 if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
                                     showScene(event,"dashboard.fxml","Dashboard");
                                     return;
                                 }
-//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
-//
-//                                    return;
-//                                }
-//                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
-//
-//                                    return;
-//                                }
+                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
+                                    showScene(event, "diagnostic/reports.fxml", "Diagnostic");
+
+                                    return;
+                                }
+                                if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
+                                    showScene(event, "image/dashboard.fxml", "Diagnostic");
+                                    return;
+                                }
                             }
 
                             try {
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
                                 Parent root = loader.load();
-                                HomeController controller = loader.getController();
-                                controller.setHome(u);
+//                            HomeController controller = loader.getController();
+//                            controller.setHome(u);
                                 Scene scene = new Scene(root);
                                 Stage stage = new Stage();
                                 stage.setResizable(false);

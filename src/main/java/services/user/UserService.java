@@ -222,5 +222,93 @@ public class UserService implements ICrud<User> {
         return users;
     }
 
+    public User findUserById(int userId) throws SQLException {
 
+
+
+        ArrayList<User> users = new ArrayList<>();
+        String req = "SELECT * FROM user where id = "+userId;
+        Statement st = connection.createStatement();
+        ResultSet rs =  st.executeQuery(req);
+        User user = new User();
+
+        while (rs.next()){
+            user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+            user.setUser_id(rs.getInt("id"));
+            user.setEmail(rs.getString("email"));
+            user.setGender(rs.getString("gender"));
+            user.setPassword(rs.getString("password"));
+            user.setName(rs.getString("name"));
+            user.setLastName(rs.getString("lastname"));
+            String[] x = new String[]{rs.getString("roles")};
+            user.setRole(x);
+            break;
+        }
+        return user;
+
+
+    }
+
+    // Retrieve all patients from the database
+    public ArrayList<User> showAllp() throws SQLException {
+        ArrayList<User> patients = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE roles = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "[\"ROLE_PATIENT\"]");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Retrieve patient data from the ResultSet and create a Patient object
+
+                    // Assuming Patient has a User object
+                    // Populate other attributes of the patient object as per your database schema
+
+                    //retriving user information
+                    User user = new User();
+                    user.setUser_id(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setLastName(rs.getString("lastName"));
+                    user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+                    user.setGender(rs.getString("gender"));
+                    // Associate the user with the patient
+                    // Add the patient object to the list
+                    patients.add(user);
+                }
+            }
+        }
+        System.out.println("liste des patient {"+patients+"}}}}}");
+        return patients;
+    }
+
+    public ArrayList<User> showAlld() throws SQLException {
+        ArrayList<User> patients = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE roles = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "[\"ROLE_DOCTOR\"]");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Retrieve patient data from the ResultSet and create a Patient object
+
+                    // Assuming Patient has a User object
+                    // Populate other attributes of the patient object as per your database schema
+
+                    //retriving user information
+                    User user = new User();
+                    user.setUser_id(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setLastName(rs.getString("lastName"));
+                    user.setBirth_date(rs.getDate("date_birth").toLocalDate());
+                    user.setGender(rs.getString("gender"));
+                    // Associate the user with the patient
+                    // Add the patient object to the list
+                    patients.add(user);
+                }
+            }
+        }
+        System.out.println("liste des patient {"+patients+"}}}}}");
+        return patients;
+    }
 }

@@ -116,8 +116,8 @@ public class RadiologistController {
 
     @FXML
     public boolean validateFields() {
-        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
+        /*String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+       // String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         String namePattern = "^[A-Za-z]{3,}(?:['-][A-Za-z]+)*$";
         String mat_cnomPattern = "^[A-Za-z0-9]{6,}$";
         boolean test = true;
@@ -133,7 +133,7 @@ public class RadiologistController {
             emailError.setText("Invalid Email !");
             test = false;
         }
-        if (!password.getText().matches(passwordPattern)) {
+        if (!password.getText().isEmpty()) {
             passwordError.setText("Invalid Password Minimum 6 Characters !");
             test = false;
         }
@@ -149,7 +149,8 @@ public class RadiologistController {
             matError.setText("Invalid Matricule !");
             test = false;
         }
-        return test;
+        return test;*/
+        return true;
     }
 
     @FXML

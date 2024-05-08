@@ -10,14 +10,15 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
 
-public class MainFX extends Application {
+public class  MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        primaryStage.setFullScreen(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-        primaryStage.setTitle("Login | RadioHub");
+        primaryStage.setTitle("RadioHub");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

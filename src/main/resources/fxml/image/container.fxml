@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="fx" prefHeight="585.0" prefWidth="891.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="playground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="907.0" style="-fx-background-color: black;" StackPane.alignment="TOP_LEFT">
+         <children>
+            <ImageView fx:id="op" fitHeight="419.0" fitWidth="411.0" layoutX="353.0" layoutY="174.0" pickOnBounds="true" smooth="false" />
+            <Pane layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="242.0" style="-fx-background-color: #1e1f27;">
+               <children>
+                  <ScrollPane prefHeight="697.0" prefWidth="241.0" style="-fx-background-color: #1e1f27;">
+                     <content>
+                        <FlowPane fx:id="inter_con" prefHeight="682.0" prefWidth="252.0" style="-fx-background-color: #1e1f27; -fx-border-color: #27282fa8; -fx-border-width: 2;">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </FlowPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="908.0" style="-fx-background-color: #5c61ed;" StackPane.alignment="TOP_LEFT">
+         <children>
+            <Button fx:id="zoombutton" layoutX="254.0" mnemonicParsing="false" onMouseClicked="#zoom" prefHeight="52.0" prefWidth="69.0" styleClass="Share-button" stylesheets="@css/style.css" text="Zoom" />
+            <Button layoutX="363.0" layoutY="-2.0" mnemonicParsing="false" onMouseClicked="#span" prefHeight="52.0" prefWidth="78.0" styleClass="Share-button" stylesheets="@css/style.css" text="Span" />
+            <Button layoutX="175.0" layoutY="-2.0" mnemonicParsing="false" onMouseClicked="#affect" prefHeight="52.0" prefWidth="78.0" styleClass="Share-button" stylesheets="@css/style.css" text="Doctor" />
+            <ImageView fitHeight="40.0" fitWidth="69.0" layoutX="14.0" layoutY="4.0" onMouseClicked="#returnToIm" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/return-57.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="97.0" layoutY="6.0" mnemonicParsing="false" onAction="#addInterpreataion" prefHeight="40.0" prefWidth="78.0" styleClass="hover-grow" stylesheets="@css/style.css" text="Interpret" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button layoutX="476.0" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#rotate" prefHeight="52.0" prefWidth="78.0" styleClass="Share-button" stylesheets="@css/style.css" text="Rotate" />
+            <Button layoutX="598.0" layoutY="-2.0" mnemonicParsing="false" onAction="#addContrast" prefHeight="52.0" prefWidth="112.0" styleClass="Share-button" stylesheets="@css/style.css" text="Add Contrast " />
+            <Button layoutX="732.0" layoutY="-2.0" mnemonicParsing="false" onAction="#reduceContrast" prefHeight="52.0" prefWidth="124.0" styleClass="Share-button" stylesheets="@css/style.css" text="reduce Contrast" />
+         </children>
+      </Pane>
+   </children>
+</StackPane>

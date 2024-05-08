@@ -35,6 +35,7 @@ public class DashboardController {
     TextField searchText;
 
     private final UserService ps = new UserService();
+    private User user = new User();
     private User userToUpdate;
     @FXML
     private Circle notifCircle;
@@ -246,6 +247,29 @@ public class DashboardController {
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setTitle("Notifications");
     }
+    @FXML
+    void GoReports(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/admin/reports-admin.fxml"));
+            Parent root = loader.load();
+            Scene currentScene = mainVBox.getScene();
+            currentScene.setRoot(root);
+            Stage stage = (Stage) currentScene.getWindow();
+            stage.setTitle("Reports Admin");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
+
+    public void setUser(User u) {
+        this.user=u;
+        System.out.println(u.getUser_id());
+
+    }
 }
