@@ -42,17 +42,19 @@ public class ShowArticleController implements Initializable {
     public Label content;
     public Label titre;
     public ImageView backbtn;
-    private Article article;
+
 
 
     @FXML
     public ImageView selectedImageview;
     @FXML
     private Label createdAtLabel; // Ajout de l'annotation @FXML
+    private Article article;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Laissez ce code vide ou ajoutez toute logique d'initialisation si nécessaire
+        System.out.println(article);
+
     }
 
     public void initArticleDetails(Article article) {
@@ -77,7 +79,9 @@ public class ShowArticleController implements Initializable {
     }
 
     public void setArticle(Article article) {
+        // Set the article received from ListArticleController
         this.article = article;
+        initArticleDetails(article); // Initialize article details
     }
 
 
@@ -188,4 +192,4 @@ public class ShowArticleController implements Initializable {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
     }
-    }
+}

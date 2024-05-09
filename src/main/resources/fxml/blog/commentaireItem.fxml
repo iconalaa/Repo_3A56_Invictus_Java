@@ -7,37 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.CommentaireItem">
-        <VBox alignment="CENTER" layoutX="152.0" layoutY="-33.0" prefHeight="94.0" prefWidth="292.0" translateX="-50.0" AnchorPane.topAnchor="0.0" />
-    <HBox fx:id="commenterHbox" alignment="CENTER" layoutX="18.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="355.0">
-        <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="337.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="400.0" styleClass="root" stylesheets="@../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.CommentaireItem">
+   <HBox layoutX="1.0" layoutY="6.0" prefHeight="46.0" prefWidth="438.0" spacing="60.0">
+      <children>
+                <ImageView fx:id="userimg" fitHeight="45.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/user.png" />
+                    </image>
+                </ImageView>
+         <VBox spacing="10.0">
             <children>
-                      <ImageView fx:id="userimg" fitHeight="59.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@../../img/user.png" />
-                          </image>
-                      </ImageView>
-               <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.53674697875977">
-                  <HBox.margin>
-                     <Insets bottom="20.0" left="20.0" />
-                  </HBox.margin>
-               </Text>
-               <Label fx:id="createdAtLabelLocal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="143.0" text="Label">
-                  <HBox.margin>
-                     <Insets bottom="10.0" top="70.0" />
-                  </HBox.margin>
-               </Label>
-               <Text fx:id="userComment" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" translateX="-250.0" wrappingWidth="240.5367465019226">
-                  <HBox.margin>
-                     <Insets top="30.0" />
-                  </HBox.margin>
-               </Text>
+               <Text fx:id="userComment" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" translateX="1.0" wrappingWidth="137.33674573898315" />
+               <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.53674697875977" />
             </children>
-            </HBox>
-        </children>
-    </HBox>
+            <HBox.margin>
+               <Insets top="5.0" />
+            </HBox.margin>
+         </VBox>
+         <VBox alignment="CENTER">
+            <children>
+               <Label fx:id="createdAtLabelLocal" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="88.0" text="Label">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+            </children>
+         </VBox>
+      </children>
+   </HBox>
 
 </AnchorPane>

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -141,4 +142,12 @@ public class BlogController {
         }
     }
 
+    public void fxBlog(MouseEvent mouseEvent) {
+    }
+
+    public void GoReports(MouseEvent mouseEvent) {
+    }
+
+    public void fxDonor(MouseEvent mouseEvent) {
+    }
 }

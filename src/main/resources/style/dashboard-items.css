@@ -1,0 +1,12 @@
+.dash-first-item{
+    -fx-background-color: #1679AB;
+    -fx-background-radius: 20;
+}
+.dash-second-item{
+    -fx-background-color: #5DEBD7;
+    -fx-background-radius: 20;
+}
+.dash-third-item{
+    -fx-background-color: #496989;
+    -fx-background-radius: 20;
+}

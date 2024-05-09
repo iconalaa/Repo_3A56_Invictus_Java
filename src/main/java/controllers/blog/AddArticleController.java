@@ -163,4 +163,10 @@ public class AddArticleController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    public void profileAction(MouseEvent mouseEvent) {
+    }
+
+    public void GoReports(MouseEvent mouseEvent) {
+    }
 }

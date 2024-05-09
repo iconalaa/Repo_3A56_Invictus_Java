@@ -2,11 +2,9 @@ package services.blog;
 
 import entities.Article;
 import entities.Comment;
-import entities.User;
 import utils.MyDataBase;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

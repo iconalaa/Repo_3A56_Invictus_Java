@@ -120,7 +120,7 @@ public class ListArticleController {
                             buttonsContainer.getChildren().addAll(editButton, deleteButton);
 
                             // Créez un conteneur global pour combiner les deux parties de la cellule
-                            HBox cellContainer = new HBox(450); // Espace de 10 pixels entre les parties de la cellule
+                            HBox cellContainer = new HBox(250); // Espace de 10 pixels entre les parties de la cellule
                             cellContainer.getChildren().addAll(imageTextContainer, buttonsContainer);
 
                             // Définissez le conteneur global comme contenu graphique de la cellule
@@ -174,17 +174,23 @@ public class ListArticleController {
     }
 
     private void handle(MouseEvent mouseEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
+        // Get the selected article from the ListView
+        Article selectedArticle = articleListView.getSelectionModel().getSelectedItem();
 
-        Parent root = null;
+        // Navigate to the ShowArticle scene and pass the selected article
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/ShowArticle.fxml"));
+        Parent root;
         try {
             root = loader.load();
+            ShowArticleController showArticleController = loader.getController();
+            showArticleController.setArticle(selectedArticle); // Pass the selected article
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
     }
+
 
     void refreshArticleList() {
         articleListView.getItems().clear();
@@ -235,4 +241,9 @@ public class ListArticleController {
     }
 
 
+    public void profileAction(MouseEvent mouseEvent) {
+    }
+
+    public void GoReports(MouseEvent mouseEvent) {
+    }
 }

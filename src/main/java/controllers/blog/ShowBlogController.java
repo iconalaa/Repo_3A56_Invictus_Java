@@ -1,29 +1,27 @@
 package controllers.blog;
-
 import controllers.user.SessionManager;
 import entities.Article;
 import entities.Comment;
-import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import services.blog.ArticleService;
 import services.blog.CommentService;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +30,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowBlogController implements Initializable {
+    User loggedInUser = SessionManager.getLoggedInUser();
+    private static final String LIKE_FILE_PATH = "C:\\Users\\friaa\\OneDrive - ESPRIT\\Bureau\\java_v1\\src\\main\\resources\\likes.txt";
+
     private static final List<String> BAD_WORDS = Arrays.asList("fuck", "shut-up", "stupid", "monkey");
     public ScrollPane commentslist;
     public ImageView backbtn;
@@ -76,92 +77,49 @@ public class ShowBlogController implements Initializable {
     private CommentService commentService;
     private Article article;
     private ArticleService articleService = new ArticleService();
-    User loggedInUser = SessionManager.getLoggedInUser();
     private boolean isLiked = false;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        commentService = new CommentService();
+
+        if (article != null) {
+            try {
+                initArticleDetails(article);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        loadComments(); // Call loadComments() here to load comments when the controller is initialized
+    }
+
     public void setArticle(Article article) {
         this.article = article;
     }
+
     public void initArticleDetails(Article article) throws SQLException {
         this.article = article;
-        System.out.println(articleService.getArticleLikes(article.getId()));
 
         titre.setText(article.getTitle());
-        likesLabel.setText("Likes: " + article.getLikes());
         content.setText(article.getContent());
 
-        // Load and display the image associated with the article
         if (article.getImage() != null && !article.getImage().isEmpty()) {
             Image image = new Image(article.getImage());
             imageView.setImage(image);
         }
 
-        // Format and display the creation date of the article
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
         String formattedDate = article.getCreated_at().format(formatter);
         createdAtLabel.setText(formattedDate);
-    }
-    private void loadComments() {
-        if (article != null) {
-            try {
-                // Récupérez les commentaires associés à l'article
-                List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
-                System.out.println("Nombre de commentaires récupérés : " + comments.size());
 
-                // Créez un conteneur pour les commentaires
-                VBox commentContainer = new VBox();
-
-                // Ajoutez chaque commentaire au conteneur
-                for (Comment comment : comments) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/commentaireItem.fxml"));
-                        Parent commentaireItem = loader.load();
-
-                        // Récupérez les éléments graphiques du commentaireItem.fxml
-                        Text username = (Text) commentaireItem.lookup("#username");
-                        Text userComment = (Text) commentaireItem.lookup("#userComment");
-                        Label createdAtLabelLocal = (Label) commentaireItem.lookup("#createdAtLabelLocal");
-
-
-                        // Définissez les valeurs appropriées pour chaque élément graphique
-                        username.setText(comment.getUser().getName());
-                        userComment.setText(comment.getContent());
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        createdAtLabelLocal.setText(comment.getCreated_at().format(formatter));
-
-                        // Ajoutez le commentaireItem au conteneur de commentaires
-                        commentContainer.getChildren().add(commentaireItem);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                // Ajoutez le conteneur de commentaires à votre ScrollPane
-                commentslist.setContent(commentContainer);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("Initialize method called");
-        commentService = new CommentService();
-        // Assurez-vous que l'article est initialisé avant d'accéder à son ID
-        if (article != null) {
-            try {
-                // Initialisez l'article
-                initArticleDetails(article);
-
-                // Chargez les commentaires associés à l'article
-                loadComments();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        // Show current likes when the page loads
+        updateLikesLabel();
         loadComments();
-
     }
+
+
+
+
     @FXML
     private void addCommentButtonClicked(ActionEvent event) throws SQLException {
         String content = commentTextArea.getText().trim();
@@ -175,10 +133,8 @@ public class ShowBlogController implements Initializable {
                         commentService.addComment(comment, user, article);
                     } catch (SQLException e) {
                         e.printStackTrace();
-                        // Handle the exception
                     }
                     commentTextArea.clear();
-                    // Reload comments after adding a new comment
                     initialize(null, null);
                 } else {
                     errorLabel.setText("The article is null. Make sure the initArticleDetails() method is called to initialize the article before adding a comment.");
@@ -189,6 +145,7 @@ public class ShowBlogController implements Initializable {
             }
         }
     }
+
     private boolean containsBadWords(String content) {
         for (String word : BAD_WORDS) {
             if (content.toLowerCase().contains(word)) {
@@ -197,18 +154,9 @@ public class ShowBlogController implements Initializable {
         }
         return false;
     }
-    @FXML
-    public void backbtn(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/Blog.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
-    }
+
+
+
     @FXML
     private void likeButtonClicked(ActionEvent event) {
         try {
@@ -216,9 +164,11 @@ public class ShowBlogController implements Initializable {
                 int likes = articleService.getArticleLikes(article.getId()); // Retrieve current likes from the database
                 if (!isLiked) {
                     likes++; // Increment likes
+                    recordLike(); // Record the like action in the text file
                     isLiked = true;
                 } else {
                     likes = Math.max(0, likes - 1); // Decrement likes, ensuring it's non-negative
+                    removeLike(); // Remove the like action from the text file
                     isLiked = false;
                 }
                 articleService.updateArticleLikes(article.getId(), likes); // Update likes in the database
@@ -227,10 +177,107 @@ public class ShowBlogController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception
         }
     }
-    private void updateLikesLabel() throws SQLException {
-        likesLabel.setText("Likes: " + articleService.getArticleLikes(article.getId()));
+
+    private void updateLikesLabel() {
+        try {
+            int likes = articleService.getArticleLikes(article.getId());
+            likesLabel.setText("Likes: " + likes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void recordLike() {
+        try {
+            String userId = String.valueOf(loggedInUser.getUser_id());
+            String articleId = String.valueOf(article.getId());
+            String likeRecord = userId + "," + articleId;
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(LIKE_FILE_PATH, true));
+            writer.write(likeRecord);
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeLike() {
+        try {
+            String userId = String.valueOf(loggedInUser.getUser_id());
+            String articleId = String.valueOf(article.getId());
+            String likeRecord = userId + "," + articleId;
+
+            Path path = Paths.get(LIKE_FILE_PATH);
+            if (Files.exists(path)) {
+                List<String> lines = Files.readAllLines(path);
+                lines.remove(likeRecord);
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(LIKE_FILE_PATH));
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+                writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadComments() {
+        if (article != null) {
+            try {
+                // Retrieve comments associated with the article
+                List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
+
+                // Create a container for comments
+                VBox commentContainer = new VBox();
+
+                // Add each comment to the container
+                for (Comment comment : comments) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/commentaireItem.fxml"));
+                        Parent commentaireItem = loader.load();
+
+                        // Get graphical elements from commentaireItem.fxml
+                        Text username = (Text) commentaireItem.lookup("#username");
+                        Text userComment = (Text) commentaireItem.lookup("#userComment");
+                        Label createdAtLabelLocal = (Label) commentaireItem.lookup("#createdAtLabelLocal");
+
+                        // Set values for each graphical element
+                        username.setText(comment.getUser().getName());
+                        userComment.setText(comment.getContent());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
+                        createdAtLabelLocal.setText(comment.getCreated_at().format(formatter));
+
+                        // Add the commentaireItem to the comment container
+                        commentContainer.getChildren().add(commentaireItem);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Add the comment container to the ScrollPane
+                commentslist.setContent(commentContainer);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void fxUser(MouseEvent mouseEvent) {
+    }
+
+    public void GoReports(MouseEvent mouseEvent) {
+    }
+
+    public void fxDonor(MouseEvent mouseEvent) {
+    }
+
+    public void fxBlog(MouseEvent mouseEvent) {
     }
 }
