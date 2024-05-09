@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -50,7 +50,6 @@
          </Button>
       </children>
    </HBox>
-    <ListView fx:id="commentsListView" layoutX="504.0" layoutY="193.0" prefHeight="382.0" prefWidth="384.0" />
     <HBox fx:id="likesContainer" layoutX="491.0" layoutY="228.0" prefHeight="55.0" prefWidth="216.0" spacing="10.0" />
    <HBox alignment="CENTER" layoutX="304.0" layoutY="556.0" spacing="15.0">
       <children>
@@ -72,4 +71,5 @@
             <Font size="14.0" />
         </font>
     </Label>
+   <ScrollPane fx:id="commentslist" layoutX="500.0" layoutY="169.0" prefHeight="390.0" prefWidth="383.0" />
 </AnchorPane>

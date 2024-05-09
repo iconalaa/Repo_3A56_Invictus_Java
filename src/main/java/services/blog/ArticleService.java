@@ -23,12 +23,14 @@ public class ArticleService implements IArticleService<Article> {
 
     @Override
     public void addArticle(Article article) {
-        String query = "INSERT INTO article (title, content, image, created_at) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO article (title, content, image,likes, created_at) VALUES (?, ?, ?,?, ?)";
+
         try (PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setString(1, article.getTitle());
             pst.setString(2, article.getContent());
             pst.setString(3, article.getImage());
-            pst.setObject(4,article.getCreated_at());
+            pst.setInt(4, article.getLikes());
+            pst.setObject(5, article.getCreated_at());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,5 +129,3 @@ public class ArticleService implements IArticleService<Article> {
 
 
 }
-
-

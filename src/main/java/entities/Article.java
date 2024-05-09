@@ -8,6 +8,15 @@ public class Article {
     private String title, content, image;
     private LocalDateTime created_at;
 
+    public Article(String title, String content, String imagePath, int likes, LocalDateTime createdAt) {
+        this.title=title;
+        this.content=content;
+        this.image=imagePath;
+        this.likes=likes;
+        this.created_at=createdAt;
+
+    }
+
     public int getLikes() {
         return likes;
     }
@@ -16,14 +25,6 @@ public class Article {
         this.likes = likes;
     }
 
-    public Article() {
-
-    }
-
-
-
-
-
     public Article(int id, String title, String content, String image, LocalDateTime created_at) {
         this.id = id;
         this.title = title;
@@ -31,26 +32,12 @@ public class Article {
         this.image = image;
         this.created_at = created_at;
     }
-
     public Article(String title, String content, String image, LocalDateTime created_at) {
         this.title = title;
         this.content = content;
         this.image = image;
         this.created_at = created_at;
     }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", likes=" + likes +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
-                ", created_at=" + created_at +
-                '}';
-    }
-
     public Article(int id, int likes, String title, String content, String image, LocalDateTime created_at) {
         this.id = id;
         this.likes = likes;
@@ -100,5 +87,15 @@ public class Article {
         this.created_at = created_at;
     }
 
-
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", likes=" + likes +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
 }

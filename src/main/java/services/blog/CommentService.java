@@ -22,7 +22,7 @@ public class CommentService {
 
     public void addComment(Comment comment, User user, Article article) throws SQLException {
         String sql = "INSERT INTO comment (article_id, id_user_id, content, created_at) VALUES (?, ?, ?, ?)";
-        int usertest=1;
+        int usertest=2;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, article.getId());
             statement.setInt(2, usertest);

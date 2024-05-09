@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="94.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.CommentaireItem">
-    <HBox fx:id="commenterHbox" alignment="CENTER" layoutX="-7.0" prefHeight="110.0" prefWidth="507.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.CommentaireItem">
+        <VBox alignment="CENTER" layoutX="152.0" layoutY="-33.0" prefHeight="94.0" prefWidth="292.0" translateX="-50.0" AnchorPane.topAnchor="0.0" />
+    <HBox fx:id="commenterHbox" alignment="CENTER" layoutX="18.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="355.0">
         <children>
-            <HBox prefHeight="79.0" prefWidth="130.0">
-                <children>
-                    <VBox alignment="CENTER" prefHeight="93.0" prefWidth="137.0">
-                        <children>
-                            <ImageView fx:id="userimg" fitHeight="59.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../../img/user.png" />
-                                </image>
-                            </ImageView>
-                     <TextField fx:id="username" prefHeight="28.0" prefWidth="131.0" />
-                        </children>
-                    </VBox>
-                </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="97.0" prefWidth="314.0">
-                <children>
-                    <TextField fx:id="userComment" prefHeight="30.0" prefWidth="287.0" promptText="Vous pouvez commenter ici" translateX="15.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="337.0">
+            <children>
+                      <ImageView fx:id="userimg" fitHeight="59.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../img/user.png" />
+                          </image>
+                      </ImageView>
+               <Text fx:id="username" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.53674697875977">
                   <HBox.margin>
-                     <Insets top="55.0" />
-                  </HBox.margin></TextField>
-                </children>
+                     <Insets bottom="20.0" left="20.0" />
+                  </HBox.margin>
+               </Text>
+               <Label fx:id="createdAtLabelLocal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="143.0" text="Label">
+                  <HBox.margin>
+                     <Insets bottom="10.0" top="70.0" />
+                  </HBox.margin>
+               </Label>
+               <Text fx:id="userComment" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" translateX="-250.0" wrappingWidth="240.5367465019226">
+                  <HBox.margin>
+                     <Insets top="30.0" />
+                  </HBox.margin>
+               </Text>
+            </children>
             </HBox>
-            <ImageView fx:id="commenterArt" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#commenterArt" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../img/ic_share.png" />
-                </image>
-            <HBox.margin>
-               <Insets top="50.0" />
-            </HBox.margin>
-            </ImageView>
         </children>
     </HBox>
 

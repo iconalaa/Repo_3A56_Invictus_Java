@@ -73,6 +73,7 @@ public class AddArticleController implements Initializable {
         String title = titleField.getText();
         String content = contentArea.getText();
         LocalDateTime created_at = LocalDateTime.now();
+        int likes = 0;
 
         // Vérifier si les champs requis sont vides
         boolean isError = false;
@@ -100,7 +101,9 @@ public class AddArticleController implements Initializable {
         if (isError) {
             return; // Ne pas continuer si une erreur est détectée
         }
-        Article newArticle = new Article(title, content, imagePath, created_at);
+
+        // Tous les champs requis sont remplis, ajouter l'article
+        Article newArticle = new Article(title, content, imagePath, likes, created_at);
         articleService.addArticle(newArticle);
         titleField.clear();
         contentArea.clear();
@@ -109,6 +112,8 @@ public class AddArticleController implements Initializable {
         showAlert("Blog Added", "The blog has been successfully added.");
         backToListArticle(mouseEvent);
     }
+
+
 
     @FXML
     public void selectImageButton(MouseEvent mouseEvent) {

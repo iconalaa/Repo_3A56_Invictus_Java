@@ -7,20 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.blog.ArticleService;
 import services.blog.CommentService;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -30,15 +30,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static java.lang.System.err;
-
 public class ShowBlogController implements Initializable {
     private static final List<String> BAD_WORDS = Arrays.asList("fuck", "shut-up", "stupid", "monkey");
+    public ScrollPane commentslist;
+    public ImageView backbtn;
 
     @FXML
     private TextArea commentTextArea;
-    @FXML
-    private ListView<Comment> commentsListView;
+
     @FXML
     private HBox likesContainer;
     @FXML
@@ -71,83 +70,96 @@ public class ShowBlogController implements Initializable {
     private ImageView userimg;
     @FXML
     private Label createdAtLabel;
-
+    @FXML
+    private Label createdAt;
     private CommentService commentService;
     private Article article;
     private ArticleService articleService = new ArticleService();
     private boolean isLiked = false;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        commentService = new CommentService();
-        commentsListView.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Comment comment, boolean empty) {
-                super.updateItem(comment, empty);
-                if (comment != null) {
-                    HBox commentLayout = new HBox();
-                    Label commentUsername = new Label(comment.getUser().getName());
-                    Label commentContent = new Label(comment.getContent());
-                    Label commentDate = new Label(comment.getCreated_at().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-
-                    commentUsername.getStyleClass().add("comment-username");
-                    commentDate.getStyleClass().add("comment-date");
-
-                    commentLayout.getChildren().addAll(commentUsername, commentContent, commentDate);
-                    setGraphic(commentLayout);
-                } else {
-                    setGraphic(null);
-                }
-            }
-        });
+    public void setArticle(Article article) {
+        this.article = article;
     }
-
     public void initArticleDetails(Article article) throws SQLException {
         this.article = article;
         System.out.println(articleService.getArticleLikes(article.getId()));
 
         titre.setText(article.getTitle());
-        likesLabel.setText("Likes: " + article.getLikes()); // No need to convert to String
-        System.out.println(article);
+        likesLabel.setText("Likes: " + article.getLikes());
         content.setText(article.getContent());
-        try {
-            // Retrieve the likes for the article from the database
-            isLiked = articleService.getArticleLikes(article.getId()) > 0;
-            updateLikesLabel(); // Update likes UI components based on retrieved likes
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
 
         // Load and display the image associated with the article
         if (article.getImage() != null && !article.getImage().isEmpty()) {
-            File imageFile = new File(article.getImage());
-            if (imageFile.exists()) {
-                Image image = new Image(imageFile.toURI().toString());
-                imageView.setImage(image);
-            }
+            Image image = new Image(article.getImage());
+            imageView.setImage(image);
         }
 
         // Format and display the creation date of the article
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = article.getCreated_at().format(formatter);
         createdAtLabel.setText(formattedDate);
-
-        // Load and display comments associated with the article
-        List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
-        commentsListView.getItems().setAll(comments);
     }
+    private void loadComments() {
+        if (article != null) {
+            try {
+                // Récupérez les commentaires associés à l'article
+                List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
+                System.out.println("Nombre de commentaires récupérés : " + comments.size());
+
+                // Créez un conteneur pour les commentaires
+                VBox commentContainer = new VBox();
+
+                // Ajoutez chaque commentaire au conteneur
+                for (Comment comment : comments) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/commentaireItem.fxml"));
+                        Parent commentaireItem = loader.load();
+
+                        // Récupérez les éléments graphiques du commentaireItem.fxml
+                        Text username = (Text) commentaireItem.lookup("#username");
+                        Text userComment = (Text) commentaireItem.lookup("#userComment");
+                        Label createdAtLabelLocal = (Label) commentaireItem.lookup("#createdAtLabelLocal");
 
 
-    private boolean containsBadWords(String content) {
-        for (String word : BAD_WORDS) {
-            if (content.toLowerCase().contains(word)) {
-                return true;
+                        // Définissez les valeurs appropriées pour chaque élément graphique
+                        username.setText(comment.getUser().getName());
+                        userComment.setText(comment.getContent());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        createdAtLabelLocal.setText(comment.getCreated_at().format(formatter));
+
+                        // Ajoutez le commentaireItem au conteneur de commentaires
+                        commentContainer.getChildren().add(commentaireItem);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Ajoutez le conteneur de commentaires à votre ScrollPane
+                commentslist.setContent(commentContainer);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
-        return false;
     }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("Initialize method called");
+        commentService = new CommentService();
+        // Assurez-vous que l'article est initialisé avant d'accéder à son ID
+        if (article != null) {
+            try {
+                // Initialisez l'article
+                initArticleDetails(article);
 
+                // Chargez les commentaires associés à l'article
+                loadComments();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        loadComments();
+
+    }
     @FXML
     private void addCommentButtonClicked(ActionEvent event) throws SQLException {
         String content = commentTextArea.getText().trim();
@@ -164,10 +176,10 @@ public class ShowBlogController implements Initializable {
                         // Handle the exception
                     }
                     commentTextArea.clear();
-                    List<Comment> comments = commentService.getCommentsByArticleId(article.getId());
-                    commentsListView.getItems().setAll(comments);
+                    // Reload comments after adding a new comment
+                    initialize(null, null);
                 } else {
-                    err.println("The article is null. Make sure the initArticleDetails() method is called to initialize the article before adding a comment.");
+                    errorLabel.setText("The article is null. Make sure the initArticleDetails() method is called to initialize the article before adding a comment.");
                 }
             } else {
                 errorLabel.setText("Your comment contains inappropriate words.");
@@ -175,12 +187,20 @@ public class ShowBlogController implements Initializable {
             }
         }
     }
-
+    private boolean containsBadWords(String content) {
+        for (String word : BAD_WORDS) {
+            if (content.toLowerCase().contains(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    @FXML
     public void backbtn(MouseEvent mouseEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/Blog.fxml"));
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/blog/Blog.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
