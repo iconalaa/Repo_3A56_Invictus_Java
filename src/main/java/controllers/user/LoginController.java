@@ -73,8 +73,8 @@ public class LoginController {
 
                                 return;
                             }
-                            if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
-                                showScene(event, "image/dashboard.fxml", "Diagnostic");
+                            if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_PATIENT\"")) {
+                                showScene(event, "blog/Blog.fxml", "Diagnostic");
                                 return;
                             }
                         }
