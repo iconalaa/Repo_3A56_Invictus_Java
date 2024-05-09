@@ -1,5 +1,6 @@
 package controllers.blog;
 
+import controllers.user.SessionManager;
 import entities.Article;
 import entities.Comment;
 import entities.User;
@@ -75,6 +76,7 @@ public class ShowBlogController implements Initializable {
     private CommentService commentService;
     private Article article;
     private ArticleService articleService = new ArticleService();
+    User loggedInUser = SessionManager.getLoggedInUser();
     private boolean isLiked = false;
     public void setArticle(Article article) {
         this.article = article;
@@ -207,7 +209,6 @@ public class ShowBlogController implements Initializable {
             // Handle the exception
         }
     }
-
     @FXML
     private void likeButtonClicked(ActionEvent event) {
         try {
@@ -229,8 +230,6 @@ public class ShowBlogController implements Initializable {
             // Handle the exception
         }
     }
-
-
     private void updateLikesLabel() throws SQLException {
         likesLabel.setText("Likes: " + articleService.getArticleLikes(article.getId()));
     }

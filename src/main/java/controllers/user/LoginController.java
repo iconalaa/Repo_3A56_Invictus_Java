@@ -1,6 +1,7 @@
 package controllers.user;
 
 
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,6 +39,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     private Connection connection;
+    User loggedInUser = SessionManager.getLoggedInUser();
 
 
     @FXML
@@ -55,6 +57,7 @@ public class LoginController {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+                    System.out.println(loggedInUser);
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
