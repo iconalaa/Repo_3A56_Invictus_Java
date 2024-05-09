@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportsController">
@@ -121,30 +123,44 @@
                                         <Image url="@../../img/search.png" />
                                     </image>
                                 </ImageView>
-                                <TextField prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" text="Search">
+                                <TextField prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" text="">
                                     <font>
                                         <Font size="11.0" />
                                     </font>
                                 </TextField>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="99.0" spacing="5.0">
-                            <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../img/user.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../img/settings.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                            <opaqueInsets>
-                                <Insets right="20.0" />
-                            </opaqueInsets>
-                        </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="149.0">
+                     <children>
+                        <Pane maxHeight="30.0" maxWidth="30.0" onMouseClicked="#profileAction" prefHeight="30.0" prefWidth="30.0">
+                           <children>
+                              <ImageView fx:id="profileImg" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/logo/contact.png" />
+                                 </image>
+                              </ImageView>
+                              <Circle fill="#31ff31" layoutX="27.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Label fx:id="nameLabel" text="Ayoub Dahmen">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="HelveticaNowDisplay-ExtraBold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                     </children>
                 </HBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" VBox.vgrow="ALWAYS">

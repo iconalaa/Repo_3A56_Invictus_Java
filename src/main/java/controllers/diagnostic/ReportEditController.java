@@ -119,11 +119,12 @@ public class ReportEditController {
     }
     private void setImageData() {
         if (selectedReport != null && selectedReport.getImage() != null) {
-            String filename = selectedReport.getImage().getFilename();
-            System.out.println(selectedReport.getDoctor().getName());
+            String filename = String.valueOf(selectedReport.getImage().getId());
+            System.out.println(filename);
             if (filename != null) {
-                File imageFile = new File("src/main/resources/img/testimage/" + filename + ".png");
+                File imageFile = new File("src/main/java/dicom/" + filename + ".png");
                 System.out.println("Image file exists: " + imageFile.exists());
+                System.out.println(imageFile);
                 Image image = new Image(imageFile.toURI().toString());
                 reportimage.setImage(image);
             } else {

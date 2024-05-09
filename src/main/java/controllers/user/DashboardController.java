@@ -33,21 +33,30 @@ public class DashboardController {
     private VBox mainVBox;
     @FXML
     TextField searchText;
+    @FXML
+    private ImageView profileImg;
 
     private final UserService ps = new UserService();
-    private User user = new User();
+    User user = SessionManager.getLoggedInUser();
+
     private User userToUpdate;
     @FXML
     private Circle notifCircle;
-
+    @FXML
+    private Label nameLabel;
 
     public void initialize() {
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         try {
             List<User> allUsers = ps.showAll();
             if (ps.getToApproveUsers().isEmpty()) {
-                notifCircle.setRadius(0);
+                notifCircle.setVisible(false);
             } else {
-                notifCircle.setRadius(3);
+                notifCircle.setVisible(true);
             }
             displayUsers(allUsers); // Display all users initially
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -168,7 +177,7 @@ public class DashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/admin/update.fxml"));
             Parent root = loader.load();
-            updateController controller = loader.getController();
+            UpdateController controller = loader.getController();
             controller.setModifyUser(userToUpdate);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -212,11 +221,11 @@ public class DashboardController {
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setTitle("User Statistics");
-
     }
 
     @FXML
     void fxNotification(MouseEvent event) throws IOException, SQLException {
+        notifCircle.setVisible(false);
         if (ps.getToApproveUsers().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
@@ -246,6 +255,40 @@ public class DashboardController {
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setTitle("Notifications");
     }
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
+    @FXML
+    void GoReports(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/admin/reports-admin.fxml"));
+            Parent root = loader.load();
+            Scene currentScene = mainVBox.getScene();
+            currentScene.setRoot(root);
+            Stage stage = (Stage) currentScene.getWindow();
+            stage.setTitle("Reports Admin");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public void setUser(User u) {

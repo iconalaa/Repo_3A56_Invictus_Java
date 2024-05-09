@@ -1,0 +1,49 @@
+/* Define header color */
+.table-view  {
+    -fx-border-radius: 15px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1180d5; /* Header background color */
+    -fx-text-fill: #FFFFFF; /* White for header text */
+    -fx-font-weight: bold; /* Bold text for header */
+    -fx-border-radius: 10;
+}
+
+.table-view .column-header-background . label{
+    -fx-text-fill: white;
+}
+
+.table-view .column-header-background{
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-border-width: 3;
+}
+
+/* Define alternating row colors */
+.table-view .row-even {
+    -fx-background-color: #f5f5f5; /* Light grey */
+}
+
+.table-view .row-odd {
+    -fx-background-color: #FFFFFF; /* White */
+}
+
+/* Define text color for cells */
+.table-view .table-cell {
+    -fx-text-fill: #464646; /* Feather grey */
+    -fx-font-size: 13px; /* Font size */
+    -fx-border-radius: 20; /* Rounded corners for cells */
+}
+
+/* Define border color for cells */
+.table-view .table-row-cell {
+    -fx-border-color: #e0e0e0; /* Light grey */
+}
+
+/* Tooltip style */
+.table-view .tooltip {
+    -fx-background-color: #f0f0f0; /* Light grey background color */
+    -fx-text-fill: #464646; /* Feather grey text color */
+    -fx-font-size: 12px; /* Font size */
+}

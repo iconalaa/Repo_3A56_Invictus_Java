@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportsAdminController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="248.0" layoutY="109.0" prefHeight="471.0" prefWidth="632.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="109.0">
+        <content>
+          <AnchorPane prefHeight="514.0" prefWidth="890.0">
+               <children>
+                  <VBox fx:id="mainVBox" layoutX="-1.0" prefHeight="512.0" prefWidth="609.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+        </content>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </ScrollPane>
+      <Button layoutX="740.0" layoutY="10.0" mnemonicParsing="false" onAction="#FxAdd" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: green;" styleClass="btn" stylesheets="@../../../style/doctor.css" text="Transform to Excel">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox prefHeight="600.0" prefWidth="233.0" style="-fx-background-color: #F2F2F2;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="607.0" prefWidth="213.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="53.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/home-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Home" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/blog-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Blogs" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/donation-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Donations" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/diagnosis.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Diagnostic" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="259.0" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/claim-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Claims" />
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="298.0" spacing="10.0" styleClass="link" stylesheets="@../../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/icon/claim-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Claims" />
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="30.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <TextField fx:id="searchText" layoutX="248.0" layoutY="65.0" prefHeight="25.0" prefWidth="632.0" promptText="Search">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </TextField>
+      <ImageView fitHeight="30.0" fitWidth="20.0" layoutX="248.0" layoutY="18.0" onMouseClicked="#fxNotification" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/icon/Ringing.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Circle fx:id="notifCircle" fill="#2a91fe" layoutX="270.0" layoutY="18.0" radius="3.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Circle>
+   </children>
+</AnchorPane>

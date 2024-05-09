@@ -60,7 +60,7 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
             statement.setInt(1, reportId);
             statement.setString(2, entity.getContenu());
             statement.setDate(3,sqlDate);
-            statement.setString(4, entity.getSignature_filename());
+            statement.setString(4, entity.getSignature_filename()+".png");
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -178,7 +178,6 @@ public class PrescriptionService implements PrescriptionCrud<Prescription> {
 
         return prescriptions;
     }
-
     public int getReportIdByInterpretation(String interpretation) throws SQLException {
         String sql = "SELECT id FROM report WHERE interpretation_med = ?";
 

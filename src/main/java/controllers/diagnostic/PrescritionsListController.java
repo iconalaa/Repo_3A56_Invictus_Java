@@ -1,5 +1,6 @@
 package controllers.diagnostic;
 
+import controllers.user.ProfileController;
 import controllers.user.SessionManager;
 import entities.Prescription;
 import entities.User;
@@ -8,24 +9,34 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.diagnostic.PdfPrescriptionGenerator;
 import services.diagnostic.PrescriptionService;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class PrescritionsListController {
 
-
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private ImageView profileImg;
     @FXML
     private Label dashboardLabel;
     @FXML
@@ -45,7 +56,11 @@ public class PrescritionsListController {
 
     @FXML
     private void initialize(){
-
+        nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         try {
 
 
@@ -140,6 +155,22 @@ public class PrescritionsListController {
             alert.setContentText("PDF Prescription has been generated and saved to your desktop.");
             alert.showAndWait();
         }
+    }
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(loggedInUser);
+        Stage stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
 }

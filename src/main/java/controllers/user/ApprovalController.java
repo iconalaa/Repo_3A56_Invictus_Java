@@ -22,10 +22,7 @@ import java.util.List;
 public class ApprovalController {
     @FXML
     private VBox notifVbox;
-
-
     private final UserService ps = new UserService();
-
     public void initialize() {
         try {
             List<User> allUsers = ps.getToApproveUsers();
@@ -38,7 +35,7 @@ public class ApprovalController {
         }
     }
 
-    private void displayNotifications(List<User> users) {
+    private void displayNotifications(List<User> users) throws SQLException {
         notifVbox.getChildren().clear();
         notifVbox.setSpacing(10);
         int maxColumns = 1;
@@ -53,12 +50,12 @@ public class ApprovalController {
         }
     }
 
-    private AnchorPane createNotification(User user) {
+    private AnchorPane createNotification(User user) throws SQLException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/approvalCard.fxml"));
             AnchorPane stackPane = loader.load();
             Label Email = (Label) stackPane.lookup("#Email");
-            Email.setText(user.getEmail() + " | " + user.getGender());
+            Email.setText(user.getEmail() + " | " + ps.matriculeUser(user.getEmail()));
             ImageView approve = (ImageView) stackPane.lookup("#approve");
             ImageView decline = (ImageView) stackPane.lookup("#decline");
             ImageView pdf = (ImageView) stackPane.lookup("#pdfBtn");
@@ -71,7 +68,7 @@ public class ApprovalController {
                     alert.setContentText("This action cannot be undone.");
                     alert.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.OK) {
-                            user.setRole(new String[]{"ROLE_USER"});
+                            user.setRole(new String[]{"[\"ROLE_USER\"]"});
                             try {
                                 ps.update(user, user.getUser_id());
                                 displayNotifications(ps.getToApproveUsers());
@@ -94,9 +91,9 @@ public class ApprovalController {
                         if (response == ButtonType.OK) {
                             String role = user.getRole()[0];
                             if (role.contains("ROLE_WAITING_DOCTOR")){
-                                user.setRole(new String[]{"ROLE_DOCTOR"});
+                                user.setRole(new String[]{"[\"ROLE_DOCTOR\"]"});
                             } else {
-                                user.setRole(new String[]{"ROLE_RADIOLOGIST"});
+                                user.setRole(new String[]{"[\"ROLE_RADIOLOGIST\"]"});
                             }
                             try {
                                 ps.update(user, user.getUser_id());

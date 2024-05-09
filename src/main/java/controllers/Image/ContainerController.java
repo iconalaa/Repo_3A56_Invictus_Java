@@ -250,6 +250,8 @@ public class ContainerController {
                 Stage newStage = new Stage();
                 // Set the scene with the loaded root node
                 newStage.setScene(new Scene(root));
+                newStage.setTitle("Report Affectation");
+                newStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
 
                 // Show the new window
                 newStage.show();

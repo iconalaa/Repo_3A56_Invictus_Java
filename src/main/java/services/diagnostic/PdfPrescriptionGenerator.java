@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import entities.Prescription;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,9 +68,13 @@ public class PdfPrescriptionGenerator {
 
 
             // Add the medical image at the bottom of the page
-            String imagePath = "/img/signatures/" + prescription.getSignature_filename() + ".png";
-            Image medicalImage = Image.getInstance(PdfPrescriptionGenerator.class.getResource(imagePath));
-            InputStream imageStream = PdfPrescriptionGenerator.class.getResourceAsStream(imagePath);
+            String imagePath = "C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony/public/uploads/signatures/" + prescription.getSignature_filename();
+            System.out.println(imagePath);
+//            Image medicalImage = Image.getInstance(PdfPrescriptionGenerator.class.getResource(imagePath));
+//            InputStream imageStream = PdfPrescriptionGenerator.class.getResourceAsStream(imagePath);
+            Image medicalImage = Image.getInstance(imagePath);
+            InputStream imageStream = new FileInputStream(imagePath);
+
             if (imageStream != null) {
             medicalImage.scaleToFit(150, 150);
             medicalImage.setAlignment(Element.ALIGN_CENTER);

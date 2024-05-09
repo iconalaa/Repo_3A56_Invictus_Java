@@ -34,6 +34,9 @@ public class Doctor extends User {
     public Doctor(String email, String password, String[] role, String name, String lastName, LocalDate birth_date, String gender, String brochure_filename, String matricule) {
         super(email, password, role, name, lastName, birth_date, gender, brochure_filename);
         this.matricule = matricule;
+    } public Doctor(User u, String matricule) {
+        super(u.email, u.password, u.role, u.name, u.lastName, u.birth_date, u.gender, u.brochure_filename);
+        this.matricule = matricule;
     }
 
     public String getMatricule() {
