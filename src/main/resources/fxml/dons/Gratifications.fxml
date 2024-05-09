@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="651.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dons.GratificationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dons.GratificationController">
    <children>
-      <ImageView fitHeight="186.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/Gradiant-bg.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/logo/logo-row.png" />
-         </image>
-      </ImageView>
-      <MenuButton fx:id="menu" layoutX="803.0" layoutY="70.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Select">
-        <items>
-          <MenuItem fx:id="pgdonations" mnemonicParsing="false" text="Donors" />
-            <MenuItem fx:id="pggratifications" mnemonicParsing="false" text="Gratifications" />
-        </items>
-      </MenuButton>
-       <TableView fx:id="tableGrats" layoutX="203.0" layoutY="145.0" prefHeight="455.0" prefWidth="742.0" style="-fx-border-radius: 20;" stylesheets="@../../style/table.css">
+       <TableView fx:id="tableGrats" layoutX="203.0" layoutY="145.0" prefHeight="455.0" prefWidth="742.0" style="-fx-border-radius: 20;" stylesheets="@../../style/table.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="180.0">
            <columns>
                <TableColumn fx:id="idColumn" text="ID" />
                <!--TableColumn fx:id="donorIDColumn" text="DonorID" /-->
@@ -47,37 +36,160 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
        </TableView>
-      <ButtonBar layoutX="374.0" layoutY="103.0" prefHeight="42.0" prefWidth="170.0">
-        <buttons>
-          <Button mnemonicParsing="false" onAction="#modifygrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Update" />
-            <Button fx:id="delButton" layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteGrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Delete" />
-        </buttons>
-      </ButtonBar>
-      <TextField fx:id="searchField" layoutX="736.0" layoutY="111.0" onAction="#searchGratification" prefHeight="26.0" prefWidth="200.0" promptText="Search..." styleClass="search-container" stylesheets="@../../style/doctor-space.css" />
-      <Text layoutX="271.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Our Grants">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Accordion layoutX="14.0" layoutY="178.0" prefHeight="77.0" prefWidth="182.0">
-        <panes>
-          <TitledPane animated="false" text="Placeholder1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Placeholder2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Placeholder3">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
-      <Button fx:id="statsbutton" layoutX="530.0" layoutY="612.0" mnemonicParsing="false" onAction="#navigateToStats" styleClass="btn" stylesheets="@../../style/doctor.css" text="Show  Stats" />
+      <HBox alignment="CENTER_RIGHT" layoutX="210.0" layoutY="21.0" spacing="15.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <ButtonBar prefHeight="42.0" prefWidth="100.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#modifygrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Update" />
+                  <Button fx:id="delButton" layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteGrat" styleClass="vbox-button" stylesheets="@../../style/card.css" text="Delete" />
+              </buttons>
+            </ButtonBar>
+            <MenuButton fx:id="menu" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Select">
+              <items>
+                <MenuItem fx:id="pgdonations" mnemonicParsing="false" text="Donors" />
+                  <MenuItem fx:id="pggratifications" mnemonicParsing="false" text="Gratifications" />
+              </items>
+            </MenuButton>
+            <Button fx:id="statsbutton" mnemonicParsing="false" onAction="#navigateToStats" prefHeight="25.0" prefWidth="84.0" styleClass="btn" stylesheets="@../../style/doctor.css" text="Statistics" />
+            <TextField fx:id="searchField" onAction="#searchGratification" prefHeight="26.0" prefWidth="219.0" promptText="Search..." styleClass="search-container" stylesheets="@../../style/doctor-space.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <Accordion layoutX="14.0" layoutY="178.0" prefHeight="77.0" prefWidth="182.0" />
+      <VBox layoutX="10.0" layoutY="24.0" prefHeight="651.0" prefWidth="211.0" style="-fx-background-color: #F2F2F2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="288.0">
+               <children>
+                  <Pane maxHeight="30.0" maxWidth="30.0" onMouseClicked="#profileAction" prefHeight="30.0" prefWidth="30.0">
+                     <children>
+                        <ImageView fx:id="profileImg" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/logo/contact.png" />
+                           </image>
+                        </ImageView>
+                        <Circle fill="#31ff31" layoutX="27.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Label fx:id="nameLabel" text="Ayoub Dahmen">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="HelveticaNowDisplay-ExtraBold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="548.0" prefWidth="184.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="238.0" spacing="10.0" styleClass="link" stylesheets="@../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="53.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icon/home-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Home" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icon/blog-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Blogs" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icon/donation-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Donations">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../../style/home.css">
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icon/claim-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Claims" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <ImageView fitHeight="150.0" fitWidth="160.0" layoutX="332.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <image>
+            <Image url="@../../img/logo/logo-row.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="240.0" layoutX="450.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="15.0">
+         <image>
+            <Image url="@../../img/Grants.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

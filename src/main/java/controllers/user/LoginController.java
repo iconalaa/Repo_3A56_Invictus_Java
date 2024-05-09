@@ -74,7 +74,7 @@
                                     return;
                                 }
                                 if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_RADIOLOGIST\"")) {
-                                    showScene(event, "image/dashboard.fxml", "Diagnostic");
+//                                    showScene(event, "image/dashboard.fxml", "Diagnostic");
                                     return;
                                 }
                             }

@@ -1,11 +1,16 @@
 package controllers.dons;
 
+import controllers.user.ProfileController;
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +22,9 @@ import java.util.ResourceBundle;
 import java.util.List;
 import java.util.stream.Collectors;
 import entities.Donateur;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 import services.dons.ServiceDonateur;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -26,6 +34,7 @@ import javafx.stage.Stage;
 
 
 public class DonateurController implements Initializable {
+    private Stage stage;
 
     @FXML
     private TableView<Donateur> tableDonors;
@@ -89,6 +98,30 @@ public class DonateurController implements Initializable {
 
     @FXML
     private MenuItem pggratifications;
+
+    User user = SessionManager.getLoggedInUser();
+    @FXML
+    void fxBlog(MouseEvent event) {
+    }
+
+    @FXML
+    void fxDashboard(MouseEvent event) {
+        showScene(event,"dashboard1.fxml","Dashboard");
+    }
+
+    @FXML
+    void fxDonor(MouseEvent event) {
+        showScene(event,"dashboard.fxml","Dashboard");
+
+    }
+
+    @FXML
+    void fxUser(MouseEvent event) {
+        showScene(event,"dashboard.fxml","Dashboard");
+    }  @FXML
+    void GoReports(MouseEvent event) {
+
+    }
 
     @FXML
     private ObservableList<Donateur> donateursList = FXCollections.observableArrayList();
@@ -324,8 +357,43 @@ public class DonateurController implements Initializable {
         }
     }
 
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
 
-
+    public void showScene(MouseEvent event, String path, String title) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            stage.setTitle(title+" | RadioHub");
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 
 }
