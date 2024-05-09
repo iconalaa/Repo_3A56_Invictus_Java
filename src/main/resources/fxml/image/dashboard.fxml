@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -15,12 +16,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="dash" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.ImageDashboard">
    <left>
-      <VBox fx:id="container" alignment="CENTER" prefHeight="700.0" prefWidth="197.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
+      <VBox fx:id="container" alignment="CENTER" prefHeight="700.0" prefWidth="175.0" style="-fx-background-color: F6F5F5;" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
          <children>
+            <Pane prefHeight="49.0" prefWidth="200.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -118,9 +121,22 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="1065.0" spacing="5.0" styleClass="white-background" stylesheets="@css/style.css">
+            <HBox alignment="CENTER" prefHeight="89.0" prefWidth="702.0" spacing="5.0" styleClass="white-background" stylesheets="@css/style.css">
                <children>
-                  <Pane maxHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Pane maxHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="75.0" prefWidth="374.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="753.0" layoutY="-26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/Gradiant-bg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="41.0" fitWidth="200.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/logo/logo-row.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="1.0" layoutY="12.0" prefHeight="18.0" prefWidth="26.0" />
+                     </children></Pane>
                   <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="237.0" styleClass="search-container" stylesheets="@css/style.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -134,65 +150,75 @@
                         <TextField prefHeight="26.0" prefWidth="172.0" promptText="search" styleClass="transparent" stylesheets="@css/style.css" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="26.0">
+                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="26.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="153.0">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/notify.png" />
-                           </image>
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                        </ImageView>
-                        <ImageView fitHeight="23.0" fitWidth="18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@assets/drop.png" />
-                           </image>
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                        </ImageView>
+                        <Pane maxHeight="30.0" maxWidth="30.0" onMouseClicked="#profileAction" prefHeight="30.0" prefWidth="30.0">
+                           <children>
+                              <ImageView fx:id="profileImg" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/logo/contact.png" />
+                                 </image>
+                              </ImageView>
+                              <Circle fill="#31ff31" layoutX="27.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Label fx:id="nameLabel" text="Ayoub Dahmen">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="HelveticaNowDisplay-ExtraBold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/user-128.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
                </children>
             </HBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="primary-color" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+            <VBox prefHeight="586.0" prefWidth="725.0" styleClass="primary-color" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="42.0" prefWidth="710.0">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="114.0">
                      <children>
-                        <Label text="Dashboard">
+                        <Label layoutX="19.0" layoutY="2.0" prefHeight="21.0" prefWidth="75.0" text="Dashboard">
                            <font>
                               <Font name="Agency FB" size="22.0" />
-                           </font></Label>
+                           </font>
+                        </Label>
                      </children>
+                  </Pane>
+                  <HBox prefHeight="42.0" prefWidth="710.0">
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
                      </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="693.0">
                      <children>
-                        <Button fx:id="delete" mnemonicParsing="false" onMouseClicked="#deleteRecord" styleClass="delete-button" stylesheets="@css/style.css" text="Delete">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Pane prefHeight="47.0" prefWidth="376.0">
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="693.0">
                            <children>
-                              <Button layoutX="181.0" layoutY="6.0" mnemonicParsing="false" onAction="#consult" styleClass="view-button" stylesheets="@css/style.css" text="Consult" />
-                              <Button fx:id="edit" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#EditRecord" prefHeight="35.0" prefWidth="61.0" styleClass="edit-button" stylesheets="@css/style.css" text="Edit" />
-                              <Button fx:id="addImageButton" layoutX="66.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleAddButtonClick" prefHeight="31.0" prefWidth="61.0" styleClass="add-button" stylesheets="@css/style.css" text="Add" />
-                           </children></Pane>
-                        <Button fx:id="share" mnemonicParsing="false" onAction="#share" styleClass="Share-button" stylesheets="@css/style.css" text="share" />
-                        <Pane prefHeight="12.0" prefWidth="34.0" />
-                        <Button fx:id="revoke" mnemonicParsing="false" onAction="#revokeAcess" prefHeight="35.0" prefWidth="78.0" styleClass="Revoke-button" stylesheets="@css/style.css" text="Revoke" />
+                              <Button fx:id="delete" mnemonicParsing="false" onMouseClicked="#deleteRecord" styleClass="delete-button" stylesheets="@css/style.css" text="Delete">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Pane prefHeight="47.0" prefWidth="376.0">
+                                 <children>
+                                    <Button layoutX="200.0" layoutY="1.0" mnemonicParsing="false" onAction="#consult" styleClass="view-button" stylesheets="@css/style.css" text="Consult" />
+                                    <Button fx:id="edit" mnemonicParsing="false" onMouseClicked="#EditRecord" prefHeight="35.0" prefWidth="64.0" styleClass="edit-button" stylesheets="@css/style.css" text="Edit" />
+                                    <Button fx:id="addImageButton" layoutX="74.0" mnemonicParsing="false" onAction="#handleAddButtonClick" prefHeight="31.0" prefWidth="61.0" styleClass="add-button" stylesheets="@css/style.css" text="Add" />
+                                 </children>
+                              </Pane>
+                              <Button fx:id="share" mnemonicParsing="false" onAction="#share" styleClass="Share-button" stylesheets="@css/style.css" text="share" />
+                              <Pane prefHeight="12.0" prefWidth="34.0" />
+                              <Button fx:id="revoke" mnemonicParsing="false" onAction="#revokeAcess" prefHeight="35.0" prefWidth="78.0" styleClass="Revoke-button" stylesheets="@css/style.css" text="Revoke" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <ListView fx:id="listview" prefHeight="0.0" prefWidth="702.0" />
