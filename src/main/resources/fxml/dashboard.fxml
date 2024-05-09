@@ -77,14 +77,14 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#fxHome" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
                         <ImageView fitHeight="53.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/icon/dashboard-icons/home-icon.png" />
                            </image>
                         </ImageView>
-                        <Label text="Home" />
+                        <Label text="Dashboard" />
                      </children>
                      <VBox.margin>
                         <Insets top="40.0" />
@@ -98,12 +98,15 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
-                        <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/icon/dashboard-icons/user-icon.png" />
                            </image>
                         </ImageView>
-                        <Label text="User Management" />
+                        <Label text="User Management">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -134,7 +137,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#fxDonor" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
                         <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -153,7 +156,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#fxBlog" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

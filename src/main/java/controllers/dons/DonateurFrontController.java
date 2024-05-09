@@ -1,6 +1,14 @@
 package controllers.dons;
 
+import controllers.user.HomeController;
+import controllers.user.SessionManager;
 import entities.Donateur;
+import entities.User;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 import services.dons.ServiceDonateur;
 
 import com.twilio.Twilio;
@@ -54,6 +62,9 @@ public class DonateurFrontController {
 
         @FXML
         private Label TypeError;
+
+        User user = SessionManager.getLoggedInUser();
+
 
         public void addDonor(ActionEvent event) throws IOException {
 
@@ -137,5 +148,29 @@ public class DonateurFrontController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void backToHome(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+            Parent root = loader.load();
+            HomeController controller = loader.getController();
+            controller.setHome(user);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            stage.setTitle("RadioHub | Home");
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+}
 

@@ -252,7 +252,7 @@ public class UserService implements ICrud<User> {
     // Retrieve all patients from the database
     public ArrayList<User> showAllp() throws SQLException {
         ArrayList<User> patients = new ArrayList<>();
-        String query = "SELECT * FROM user WHERE roles like  ?";
+        String query = "SELECT * FROM user WHERE roles like ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, "%[\"ROLE_PATIENT\"]%");

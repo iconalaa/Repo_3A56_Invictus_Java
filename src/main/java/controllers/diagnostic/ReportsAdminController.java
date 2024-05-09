@@ -1,18 +1,26 @@
 package controllers.diagnostic;
 
+import controllers.ShowSceen;
+import controllers.user.ProfileController;
+import controllers.user.SessionManager;
 import entities.Report;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -20,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.diagnostic.ReportService;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,22 +41,24 @@ public class ReportsAdminController {
     private Report report = new Report();
 
     @FXML
-    private VBox mainVBox;
+    private VBox mainVBox1;
+    @FXML
+    private Label nameLabel;
 
     @FXML
-    private Circle notifCircle;
-
+    private ImageView profileImg;
     @FXML
     private TextField searchText;
-
+    User user = SessionManager.getLoggedInUser();
+    Stage stage;
     public void initialize() {
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         try {
             List<Report> allReports = reportService.displayAll();
-            if (allReports.isEmpty()) {
-                notifCircle.setRadius(0);
-            } else {
-                notifCircle.setRadius(3);
-            }
             displayReports(allReports); // Display all reports initially
             searchText.textProperty().addListener((observable, oldValue, newValue) -> {
                 String searchTerm = newValue.trim();
@@ -67,8 +78,8 @@ public class ReportsAdminController {
     }
 
     private void displayReports(List<Report> reports) {
-        mainVBox.getChildren().clear(); // Clear existing report cards
-        mainVBox.setSpacing(10);
+        mainVBox1.getChildren().clear(); // Clear existing report cards
+        mainVBox1.setSpacing(10);
         int maxColumns = 1;
         for (int i = 0; i < reports.size(); i += maxColumns) {
             HBox rowHBox = new HBox();
@@ -77,8 +88,8 @@ public class ReportsAdminController {
                 StackPane reportCard = createReportCard(report);
                 rowHBox.getChildren().add(reportCard);
             }
-            mainVBox.getChildren().add(rowHBox);
-            mainVBox.setSpacing(20);
+            mainVBox1.getChildren().add(rowHBox);
+            mainVBox1.setSpacing(20);
         }
     }
 
@@ -251,5 +262,50 @@ public class ReportsAdminController {
             alert.setContentText("Error refreshing display: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    void GoReports(MouseEvent event) {
+        return;
+    }
+
+    @FXML
+    void fxBlog(MouseEvent event) {
+
+    }
+
+    @FXML
+    void fxDashboard(MouseEvent event) {
+        ShowSceen s= new ShowSceen();
+        s.open(event,"dashboardHome.fxml","Dashboard");
+    }
+
+    @FXML
+    void fxDonor(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"dons/Donateurs.fxml","Dashboard");
+
+    }
+    @FXML
+    void fxUser(MouseEvent event) {
+       ShowSceen s = new ShowSceen();
+       s.open(event,"dashboard.fxml","Dashboard");
+    }
+
+    @FXML
+    void profileAction(MouseEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 }
