@@ -85,8 +85,8 @@
                   <Image url="@assets/medical-report.png" />
                </image>
             </ImageView>
-            <Button layoutX="719.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#callBrain" prefHeight="35.0" prefWidth="45.0" style="-fx-background-color: white;" styleClass="Share-button" stylesheets="@css/style.css" />
-            <ImageView fitHeight="34.0" fitWidth="28.0" layoutX="728.0" layoutY="6.0" onMouseClicked="#callBrain" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="brain_btn" layoutX="719.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#callBrain" prefHeight="35.0" prefWidth="45.0" style="-fx-background-color: white;" styleClass="Share-button" stylesheets="@css/style.css" />
+            <ImageView fx:id="brain_img" fitHeight="34.0" fitWidth="28.0" layoutX="728.0" layoutY="6.0" onMouseClicked="#callBrain" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/neuro.png" />
                </image>

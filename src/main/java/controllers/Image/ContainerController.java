@@ -110,7 +110,11 @@ public class ContainerController {
     private boolean span=false;
     @FXML
     private ImageView op;
+    @FXML
+    private Button brain_btn;
 
+    @FXML
+    private ImageView brain_img;
     @FXML
     private StackPane fx;
     @FXML
@@ -125,6 +129,7 @@ public class ContainerController {
     void initialize() throws IOException {
 
         try {
+
 
             if (ImageDashboard.selectedImage.getRadiologist().getUser_id()!=iduser)
             {
@@ -185,7 +190,8 @@ public class ContainerController {
 
             // Add scroll event handler for zooming
             op.setOnScroll(this::handleScroll);
-
+            brain_img.setVisible(false);
+            brain_btn.setVisible(false);
 
             dicomStream.close();
         }
