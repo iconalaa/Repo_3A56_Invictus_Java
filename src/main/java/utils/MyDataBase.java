@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDataBase {
-    private final String URL = "jdbc:mysql://localhost:3306/radiohubdbt";
+    private final String URL = "jdbc:mysql://localhost:3306/radiohubdbtest3";
     private final String USER = "root";
     private final String PASSWORD = "";
     private Connection connection;
