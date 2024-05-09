@@ -74,7 +74,7 @@ public class LoginController {
                                 return;
                             }
                             if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_PATIENT\"")) {
-                                showScene(event, "blog/Blog.fxml", "Diagnostic");
+                                showScene(event, "home.fxml", "Home");
                                 return;
                             }
                         }
@@ -82,8 +82,6 @@ public class LoginController {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
                             Parent root = loader.load();
-                            HomeController controller = loader.getController();
-                            controller.setHome(u);
                             Scene scene = new Scene(root);
                             Stage stage = new Stage();
                             stage.setResizable(false);
@@ -117,8 +115,8 @@ public class LoginController {
 
     }
 
-    public void showScene(ActionEvent event, String x, String title) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
+    public void showScene(ActionEvent event, String path, String title) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);

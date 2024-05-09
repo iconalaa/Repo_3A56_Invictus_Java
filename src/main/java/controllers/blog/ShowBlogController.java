@@ -1,4 +1,6 @@
 package controllers.blog;
+import controllers.ShowSceen;
+import controllers.user.ProfileController;
 import controllers.user.SessionManager;
 import entities.Article;
 import entities.Comment;
@@ -7,7 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import services.blog.ArticleService;
 import services.blog.CommentService;
 
@@ -37,7 +43,7 @@ public class ShowBlogController implements Initializable {
     private static final List<String> BAD_WORDS = Arrays.asList("fuck", "shut-up", "stupid", "monkey");
     public ScrollPane commentslist;
     public ImageView backbtn;
-
+    Stage stage;
     @FXML
     private TextArea commentTextArea;
 
@@ -75,6 +81,11 @@ public class ShowBlogController implements Initializable {
     private Label createdAtLabel;
     @FXML
     private Label createdAt;
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private ImageView profileImg;
     private CommentService commentService;
     private Article article;
     private ArticleService articleService = new ArticleService();
@@ -83,7 +94,11 @@ public class ShowBlogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         commentService = new CommentService();
-
+        nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         if (article != null) {
             try {
                 initArticleDetails(article);
@@ -270,15 +285,38 @@ public class ShowBlogController implements Initializable {
         }
     }
 
-    public void fxUser(MouseEvent mouseEvent) {
-    }
 
     public void GoReports(MouseEvent mouseEvent) {
     }
 
-    public void fxDonor(MouseEvent mouseEvent) {
+    @FXML
+    public void fxDonor(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"dons/newDonateur.fxml","Donor");
+    }
+    @FXML
+    public void fxBlog(MouseEvent event) {
+        return;
+    } @FXML
+    public void fxHome(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"home.fxml","Home");
+    }
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(loggedInUser);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    public void fxBlog(MouseEvent mouseEvent) {
-    }
 }

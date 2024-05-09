@@ -29,11 +29,10 @@ public class HomeController {
     @FXML
     private ImageView profileImg;
 
-    private User user = new User();
+    User user = SessionManager.getLoggedInUser();
 
 
-    public void setHome(User u) {
-        this.user = u;
+    public void initialize() {
         nameLabel.setText(user.getName() + " " + user.getLastName());
         profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
@@ -57,10 +56,14 @@ public class HomeController {
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
+
     @FXML
     void fxDonor(MouseEvent event) {
-        showScene(event,"dons/newDonateur.fxml","Donor");
+        showScene(event, "dons/newDonateur.fxml", "Donor");
     }
+
+    @FXML
+    void fxBlog(MouseEvent event) {showScene(event, "blog/Blog.fxml", "Blog");}
 
     public void showScene(MouseEvent event, String path, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -71,7 +74,7 @@ public class HomeController {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle(title+" | RadioHub");
+            stage.setTitle(title + " | RadioHub");
             stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);

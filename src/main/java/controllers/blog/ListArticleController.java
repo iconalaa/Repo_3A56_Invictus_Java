@@ -1,5 +1,8 @@
 package controllers.blog;
-
+import controllers.user.ProfileController;
+import javafx.geometry.Rectangle2D;
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import entities.Article;
@@ -40,10 +44,16 @@ public class ListArticleController {
     private final ArticleService articleService;
     public Button btnAddArticle;
     public Button btnBlog;
+    private Stage stage;
 
     private List<Article> articles;
     private final ObservableList<Article> displayedArticles; // Déclaration de la variable displayedArticles
+    User user = SessionManager.getLoggedInUser();
+    @FXML
+    private Label nameLabel;
 
+    @FXML
+    private ImageView profileImg;
 
     public ListArticleController() {
         articleService = new ArticleService();
@@ -55,6 +65,11 @@ public class ListArticleController {
     private void initialize() {
         articles = articleService.readAllArticles();
         articleListView.getItems().addAll(articles);
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
 
         articleListView.setCellFactory(new Callback<ListView<Article>, ListCell<Article>>() {
             @Override
@@ -241,9 +256,62 @@ public class ListArticleController {
     }
 
 
-    public void profileAction(MouseEvent mouseEvent) {
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    public void GoReports(MouseEvent mouseEvent) {
+    @FXML
+    void GoReports(MouseEvent event) {
+        showScene(event,"diagnostic/admin/reports-admin.fxml","Dashboard");
+    }
+
+    @FXML
+    void fxDonor(MouseEvent event) {
+        showScene(event, "dons/Donateurs.fxml", "Donor");
+    }
+    @FXML
+    void fxBlog(MouseEvent event) {
+        return;
+    }
+
+    @FXML
+    void fxUser(MouseEvent event) {
+        showScene(event,"dashboard.fxml","User");
+    } @FXML
+    void fxDashboard(MouseEvent event) {
+        showScene(event,"dashboardHome.fxml","User");
+    }
+    public void showScene(MouseEvent event, String x, String title) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+            stage.setTitle(title + " | Dashboard");
+            stage.show();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

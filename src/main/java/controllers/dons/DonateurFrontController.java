@@ -153,8 +153,6 @@ public class DonateurFrontController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
             Parent root = loader.load();
-            HomeController controller = loader.getController();
-            controller.setHome(user);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setResizable(false);

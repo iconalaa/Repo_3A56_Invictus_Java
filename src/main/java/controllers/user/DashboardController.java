@@ -305,8 +305,7 @@ public class DashboardController {
 
     @FXML
     void fxBlog(MouseEvent event) {
-//        showScene(event, "dons/Donateurs.fxml", "Donor");
-        return;
+        showScene(event, "blog/ListArticle.fxml", "Blog");
     }
     @FXML
     void fxHome(MouseEvent event) {

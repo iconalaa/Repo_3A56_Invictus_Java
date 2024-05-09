@@ -1,7 +1,7 @@
 package controllers.user;
 
 import entities.User;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -27,12 +27,9 @@ public class HomeDash {
     @FXML
     private ImageView profileImg;
 
-
     private Stage stage;
     User user = SessionManager.getLoggedInUser();
 
-    @FXML
-    private VBox mainVBox1;
 
     public void initialize(){
         nameLabel.setText(user.getName() + " " + user.getLastName());
@@ -68,7 +65,15 @@ public class HomeDash {
     void fxDonor(MouseEvent event) {
         showScene(event, "dons/Donateurs.fxml", "Donor");
     }
+    @FXML
+    void fxBlog(MouseEvent event) {
+        showScene(event, "blog/ListArticle.fxml", "Blog");
+    }
 
+    @FXML
+    void fxUser(MouseEvent event) {
+        showScene(event,"dashboard.fxml","User");
+    }
     public void showScene(MouseEvent event, String x, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
         try {
@@ -78,7 +83,7 @@ public class HomeDash {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle(title + " | RadioHub");
+            stage.setTitle(title + " | Dashboard");
             stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
@@ -89,14 +94,6 @@ public class HomeDash {
             System.out.println(ex.getMessage());
         }
     }
-    @FXML
-    void fxBlog(MouseEvent event) {
-    return;
-    }
 
-    @FXML
-    void fxUser(MouseEvent event) {
-        showScene(event,"dashboard.fxml","Dashboard");
-    }
 
 }

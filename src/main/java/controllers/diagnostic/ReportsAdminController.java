@@ -271,7 +271,8 @@ public class ReportsAdminController {
 
     @FXML
     void fxBlog(MouseEvent event) {
-
+        ShowSceen s= new ShowSceen();
+        s.open(event, "blog/ListArticle.fxml", "Blog");
     }
 
     @FXML

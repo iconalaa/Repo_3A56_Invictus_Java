@@ -1,9 +1,14 @@
 package controllers.blog;
 
+import controllers.ShowSceen;
+import controllers.user.ProfileController;
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import entities.Article;
 import services.blog.ArticleService;
@@ -31,6 +37,13 @@ public class BlogController {
     private GridPane articleGridPane;
 
     private final ArticleService articleService;
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private ImageView profileImg;
+    User user = SessionManager.getLoggedInUser();
+    private Stage stage;
 
     public BlogController() {
         articleService = new ArticleService();
@@ -38,6 +51,11 @@ public class BlogController {
 
     @FXML
     private void initialize() {
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         List<Article> articles = articleService.readAllArticles();
         int row = 0;
         int column = 0;
@@ -113,6 +131,7 @@ public class BlogController {
         }
     }
 
+
     private Article getArticleByTitle(String title, List<Article> articles) {
         for (Article article : articles) {
             if (article.getTitle().equals(title)) {
@@ -142,12 +161,39 @@ public class BlogController {
         }
     }
 
-    public void fxBlog(MouseEvent mouseEvent) {
+
+    public void GoReports(MouseEvent event) {
     }
 
-    public void GoReports(MouseEvent mouseEvent) {
+    public void fxDonor(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event, "dons/newDonateur.fxml", "Donor");
     }
 
-    public void fxDonor(MouseEvent mouseEvent) {
+    public void fxBlog(MouseEvent event) {
+        return;
+    }
+
+    @FXML
+    void fxHome(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event, "home.fxml", "Home");
+    }
+
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 }

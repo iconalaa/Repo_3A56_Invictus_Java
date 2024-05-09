@@ -81,7 +81,7 @@ public class DonateurController implements Initializable {
     User user = SessionManager.getLoggedInUser();
     @FXML
     void fxBlog(MouseEvent event) {
-        return;
+        showScene(event, "blog/ListArticle.fxml", "Blog");
     }
 
     @FXML

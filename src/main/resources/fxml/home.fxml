@@ -71,7 +71,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#fxBlog" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
