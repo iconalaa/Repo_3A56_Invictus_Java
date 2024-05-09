@@ -1,23 +1,25 @@
 package controllers.Image;
 
+import controllers.user.ProfileController;
+import controllers.user.SessionManager;
 import entities.Image;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.diagnostic.ImageService;
 
@@ -51,11 +53,18 @@ public class ImageDashboard {
     public static  Image selectedImage;
     private boolean isSelected = false;
 static  FlowPane x;
+    @FXML
+    private Label nameLabel;
     private ImageService ps = new ImageService();
+    User loggedInUser = SessionManager.getLoggedInUser();
+
 
     @FXML
     void initialize() {
         try {
+
+            nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
+
             selectedImage=null;
             edit.setVisible(true);
             revoke.setVisible(true);
@@ -454,7 +463,22 @@ if(selectedImage != null)
 
     }
 
-
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(loggedInUser);
+        Stage stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
 
 
    }

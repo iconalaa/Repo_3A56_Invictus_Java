@@ -1,4 +1,5 @@
 package controllers.Image;
+import controllers.user.SessionManager;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -83,7 +84,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.net.URL;
+
 public class ContainerController {
+
+    @FXML
+    private Button btn_com;
+
+    @FXML
+    private ImageView icon_com;
+
+
+
     @FXML
     private Button zoombutton;
     @FXML
@@ -97,7 +110,11 @@ public class ContainerController {
     private boolean span=false;
     @FXML
     private ImageView op;
+    @FXML
+    private Button brain_btn;
 
+    @FXML
+    private ImageView brain_img;
     @FXML
     private StackPane fx;
     @FXML
@@ -106,11 +123,23 @@ public class ContainerController {
 
     private InterpreationServices interpreationServices = new InterpreationServices();
     private ReportService reportService = new ReportService();
+    private int iduser= SessionManager.getLoggedInUser().getUser_id();
 
     @FXML
     void initialize() throws IOException {
 
         try {
+
+
+            if (ImageDashboard.selectedImage.getRadiologist().getUser_id()!=iduser)
+            {
+
+
+                btn_com.setVisible(false);
+                icon_com.setVisible(false);
+
+            }
+
 
             List<entities.Interpretation> images = interpreationServices.getInterpretationsWithDetails(ImageDashboard.selectedImage.getId());
             for (entities.Interpretation image : images) {
@@ -161,7 +190,8 @@ public class ContainerController {
 
             // Add scroll event handler for zooming
             op.setOnScroll(this::handleScroll);
-
+            brain_img.setVisible(false);
+            brain_btn.setVisible(false);
 
             dicomStream.close();
         }
@@ -428,7 +458,62 @@ public class ContainerController {
 
 
 
+        public static String translate(String text, String targetLang, String sourceLang) throws IOException {
+            // Replace with your actual API key
+            String apiKey = "cd1f14b40bmsh215c85ca6704580p16812ajsn3c22ffd8126f";
+
+            URL url = new URL("https://google-translate1.p.rapidapi.com/language/translate/v2");
+
+            // Create URL encoded parameters
+            StringBuilder postData = new StringBuilder();
+            postData.append(URLEncoder.encode("q", "UTF-8"));
+            postData.append("=");
+            postData.append(URLEncoder.encode(text, "UTF-8"));
+            postData.append("&");
+            postData.append(URLEncoder.encode("target", "UTF-8"));
+            postData.append("=");
+            postData.append(URLEncoder.encode(targetLang, "UTF-8"));
+            postData.append("&");
+            postData.append(URLEncoder.encode("source", "UTF-8"));
+            postData.append("=");
+            postData.append(URLEncoder.encode(sourceLang, "UTF-8"));
+
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+            // Build request with headers
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Accept-Encoding", "application/gzip");
+            conn.setRequestProperty("X-RapidAPI-Key", apiKey);
+            conn.setRequestProperty("X-RapidAPI-Host", "google-translate1.p.rapidapi.com");
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
+
+            // Send request and get response
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                return response.toString();
+            } else {
+                throw new IOException("Request failed with code: " + responseCode);
+            }
+        }
+
+
+    }
 
 
 
-}
+
+
+
+
+

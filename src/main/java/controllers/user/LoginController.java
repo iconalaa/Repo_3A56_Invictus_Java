@@ -57,7 +57,7 @@ public class LoginController {
                 if (rs.next()) {
                     BCrypt.Result result = BCrypt.verifyer().verify(passwordField.getText().toCharArray(), rs.getString("password"));
                     if (result.verified) {
-                        User u =service.getUserById(rs.getInt("id"));
+                        User u = service.getUserById(rs.getInt("id"));
                         // Inside your login method after successful authentication
                         User loggedInUser = service.getUserById(rs.getInt("id"));
                         SessionManager.setLoggedInUser(loggedInUser);
@@ -65,7 +65,7 @@ public class LoginController {
                         String[] userRoles = rs.getString("roles").split(",");
                         for (String role : userRoles) {
                             if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_ADMIN\"")) {
-                                showScene(event,"dashboard.fxml","Dashboard");
+                                showScene(event, "dashboardHome.fxml", "Dashboard");
                                 return;
                             }
                             if (role.trim().replace("[", "").replace("]", "").equals("\"ROLE_DOCTOR\"")) {
@@ -117,7 +117,7 @@ public class LoginController {
 
     }
 
-    public void showScene(ActionEvent event, String x,String title) {
+    public void showScene(ActionEvent event, String x, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + x));
         try {
             Parent root = loader.load();
@@ -126,7 +126,7 @@ public class LoginController {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle(title+" | RadioHub");
+            stage.setTitle(title + " | RadioHub");
             stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
@@ -139,7 +139,7 @@ public class LoginController {
     }
 
     public boolean validateFields() {
-        /*String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
+        String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$";
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         boolean test = true;
         if (emailField.getText().length() == 0) {
@@ -156,8 +156,7 @@ public class LoginController {
             passwordError.setText("Invalid Password Minimum 6 Characters !");
             test = false;
         }
-        return test;*/
-        return true;
+        return test;
     }
 
     @FXML
@@ -176,6 +175,7 @@ public class LoginController {
             System.out.println(ex.getMessage());
         }
     }
+
     @FXML
     void redirect_passwordpage(ActionEvent event) throws IOException {
         try {

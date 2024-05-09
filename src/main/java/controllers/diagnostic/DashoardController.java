@@ -54,7 +54,6 @@ public class DashoardController {
     @FXML
     private Label nameLabel;
 
-
     User loggedInUser = SessionManager.getLoggedInUser();
 
 
