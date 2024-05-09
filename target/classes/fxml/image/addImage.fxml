@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="371.0" prefWidth="359.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.AddImage">
+   <children>
+      <ImageView fitHeight="56.0" fitWidth="100.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images%20(1).png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="fileName" layoutX="80.0" layoutY="65.0" promptText="fileName" styleClass="text-area" stylesheets="@css/style.css" />
+      <TextField fx:id="bodyPart" layoutX="80.0" layoutY="115.0" promptText="Bodypart" styleClass="text-area" stylesheets="@css/style.css" />
+      <DatePicker fx:id="aqDate" layoutX="80.0" layoutY="217.0" />
+      <ComboBox fx:id="patientCol" layoutX="79.0" layoutY="164.0" prefWidth="150.0" stylesheets="@css/style.css" />
+      <Button layoutX="135.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#addimage" styleClass="add-button" stylesheets="@css/style.css" text="ADD">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="106.0" layoutY="259.0" mnemonicParsing="false" onMouseClicked="#uploadImage" prefHeight="35.0" prefWidth="123.0" styleClass="view-button" stylesheets="@css/style.css" text="upload " />
+      <Text layoutX="168.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="128.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD IMAGE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

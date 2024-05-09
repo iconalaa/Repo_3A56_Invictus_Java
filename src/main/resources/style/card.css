@@ -1,0 +1,25 @@
+/* Styling for VBox */
+.vbox-card {
+    -fx-background-color: #1180d5;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+
+
+.vbox-button{
+    -fx-color: #1a76d1c9;
+    -fx-padding: 4px 10px;
+    -fx-font-size: 14px;
+    -fx-transition: 0.3s;
+    -fx-background-radius: 2px;
+}
+
+.vbox-button:hover{
+    -fx-color: rgb(62, 93, 151);
+
+}

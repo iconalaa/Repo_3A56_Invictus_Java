@@ -1,0 +1,9 @@
+#profilePic {
+  -fx-background-image: url("../img/homme-2.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: 50 50;
+  -fx-background-position: top center;
+}
+.link:hover {
+  -fx-background-color: #e6e6e6;
+}

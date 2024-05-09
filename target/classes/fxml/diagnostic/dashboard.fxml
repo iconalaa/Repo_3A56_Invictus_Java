@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.DashoardController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="181.0" spacing="5.0" stylesheets="@../../style/doctor-space.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/menu.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="26.0" prefWidth="161.0" text="Doctor's Space">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/patient.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="reportsListLabel" prefHeight="26.0" prefWidth="161.0" text="Reports List">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/done.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="historylabel" prefHeight="26.0" prefWidth="161.0" text="Reports History">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/prescription.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="prescriptionList" prefHeight="26.0" prefWidth="161.0" text="Prescriptions">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="white-background" />
+            <String fx:value="right-side-border" />
+         </styleClass>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="718.0" spacing="5.0" styleClass="white-background" stylesheets="@../../style/doctor-space.css">
+               <children>
+                  <Pane prefHeight="55.0" prefWidth="238.0" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="search-container" stylesheets="@../../style/doctor-space.css">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/search.png" />
+                           </image>
+                        </ImageView>
+                        <TextField prefHeight="26.0" prefWidth="204.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css" text="">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="149.0">
+                     <children>
+                        <Pane maxHeight="30.0" maxWidth="30.0" onMouseClicked="#profileAction" prefHeight="30.0" prefWidth="30.0">
+                           <children>
+                              <ImageView fx:id="profileImg" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/logo/contact.png" />
+                                 </image>
+                              </ImageView>
+                              <Circle fill="#31ff31" layoutX="27.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Label fx:id="nameLabel" text="Ayoub Dahmen">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="HelveticaNowDisplay-ExtraBold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="100.0" styleClass="primary-color" stylesheets="@../../style/doctor-space.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox spacing="40.0">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="658.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/arrow.png" />
+                                 </image>
+                              </ImageView>
+                              <Label styleClass="title-label" stylesheets="@../../style/prescription.css" text="Dashboard">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cityLabel" alignment="CENTER" text="LOCATION">
+                                 <HBox.margin>
+                                    <Insets left="400.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children></HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="108.0" prefWidth="658.0" spacing="20.0">
+                           <children>
+                              <VBox prefHeight="108.0" prefWidth="204.0" styleClass="dash-first-item" stylesheets="@../../style/dashboard-items.css">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <ImageView fitHeight="70.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../img/dash1.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="25.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                          <VBox spacing="10.0">
+                                             <children>
+                                                <Label text="Awaiting Reports" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold Italic" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="reportsLabel" alignment="CENTER" text="20" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold Italic" size="36.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="30.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="dash-second-item" stylesheets="@../../style/dashboard-items.css">
+                                 <children>
+                                    <ImageView fitHeight="70.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/folder.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="25.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <Label text="Reports Done" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="reportsdone" alignment="CENTER" text="20" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="dash-third-item" stylesheets="@../../style/dashboard-items.css">
+                                 <children>
+                                    <ImageView fitHeight="70.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/medical-prescription.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="25.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="122.0" text="Prescriptions done" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="prescriptionsLabel" alignment="CENTER" text="20" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold Italic" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="30.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="94.0" prefWidth="294.0" style="-fx-background-color: red;" styleClass="dash-second-item" stylesheets="@../../style/dashboard-items.css">
+                           <children>
+                              <ImageView fitHeight="70.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/coronavirus.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <VBox prefHeight="83.0" prefWidth="231.0" spacing="10.0">
+                                 <children>
+                                    <Label prefHeight="19.0" prefWidth="187.0" text="corona virus infected people" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="coranaLabel" alignment="CENTER" text="20" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold Italic" size="30.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="30.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

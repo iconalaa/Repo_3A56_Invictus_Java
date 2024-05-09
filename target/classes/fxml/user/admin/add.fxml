@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="498.0" prefWidth="600.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.UpdateController">
+   <children>
+      <VBox layoutX="176.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add USER">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <SplitMenuButton fx:id="addRole" mnemonicParsing="false" prefHeight="35.0" prefWidth="187.0" text="Chose a Role">
+                    <items>
+                      <MenuItem fx:id="doctorRole" mnemonicParsing="false" text="Doctor" />
+                      <MenuItem fx:id="patientRole" mnemonicParsing="false" text="Patient" />
+                        <MenuItem fx:id="radiologistRole" mnemonicParsing="false" text="Radiologist" />
+                    </items>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </SplitMenuButton>
+               </children>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <TextField fx:id="addName" prefHeight="35.0" prefWidth="301.0" promptText="Name" styleClass="input" stylesheets="@../../../style/doctor.css">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addLastName" prefHeight="35.0" prefWidth="295.0" promptText="Last Name" styleClass="input" stylesheets="@../../../style/doctor.css">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <TextField fx:id="addEmail" prefHeight="35.0" prefWidth="292.0" promptText="Email" styleClass="input" stylesheets="@../../../style/doctor.css">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="addPassword" prefHeight="35.0" prefWidth="302.0" promptText="Password" styleClass="input" stylesheets="@../../../style/doctor.css">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <ComboBox fx:id="addGender" prefHeight="25.0" prefWidth="262.0" promptText="Select Gender">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Male" />
+                           <String fx:value="Female" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <DatePicker fx:id="addDate" prefHeight="25.0" prefWidth="279.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="230.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="addMedical" prefHeight="35.0" prefWidth="292.0" promptText="Medical Case" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addMedicalNum" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="292.0" promptText="CNAM Num°" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="413.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="addAssurance" prefHeight="35.0" prefWidth="292.0" promptText="Assurance" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="addAssuranceNum" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="292.0" promptText="Assurance Num°" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <TextField fx:id="addMatricule" layoutX="10.0" layoutY="85.0" promptText="Matricule" styleClass="input" stylesheets="@../../../style/doctor.css" visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="540.0" spacing="50.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addAction" styleClass="btn" stylesheets="@../../../style/signUp.css" text="Add">
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button mnemonicParsing="false" styleClass="btn" stylesheets="@../../../style/signUp.css" text="Reset">
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

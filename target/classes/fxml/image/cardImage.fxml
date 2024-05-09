@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="cardPane" cache="true" cacheHint="QUALITY" onMouseClicked="#cardselect" prefHeight="235.0" prefWidth="199.0" style="-fx-background-color: white; -fx-border-radius: 100px;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Image.CardImageController">
+   <children>
+      <Label fx:id="titleLabel" layoutX="119.0" layoutY="112.0" text="Label" textFill="#868686">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="patient" layoutX="107.0" layoutY="143.0" text="houssem" textFill="#868686">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Text fx:id="bodypart" fill="#1f1f20" layoutX="20.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BodyPart">
+         <font>
+            <Font name="MS Reference Sans Serif" size="15.0" />
+         </font>
+      </Text>
+      <VBox fx:id="con" alignment="CENTER" prefHeight="90.0" prefWidth="199.0" stylesheets="@css/style.css">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="67.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <styleClass>
+            <String fx:value="black-background" />
+            <String fx:value="border-radius" />
+         </styleClass>
+      </VBox>
+      <ImageView fx:id="check" fitHeight="32.0" fitWidth="38.0" layoutX="87.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/download.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="pateintlabel" layoutX="20.0" layoutY="143.0" text="Patient">
+         <font>
+            <Font name="MS Reference Sans Serif" size="16.0" />
+         </font>
+      </Label>
+      <Pane layoutX="-1.0" layoutY="90.0" prefHeight="6.0" prefWidth="200.0" styleClass="green-background" stylesheets="@css/style.css" />
+   </children>
+   <styleClass>
+      <String fx:value="margin" />
+      <String fx:value="hover-red" />
+      <String fx:value="box-shadow" />
+      <String fx:value="border-radius" />
+   </styleClass>
+   <padding>
+      <Insets left="-10.0" right="-5.0" />
+   </padding>
+</AnchorPane>
