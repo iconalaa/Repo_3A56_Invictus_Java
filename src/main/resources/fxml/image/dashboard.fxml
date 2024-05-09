@@ -24,7 +24,7 @@
       <VBox fx:id="container" alignment="CENTER" prefHeight="700.0" prefWidth="175.0" style="-fx-background-color: F6F5F5;" stylesheets="@css/style.css" BorderPane.alignment="CENTER_LEFT">
          <children>
             <Pane prefHeight="49.0" prefWidth="200.0" />
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="134.0">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                   <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="Dashboard">
@@ -39,12 +39,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" onMouseClicked="#myImages" prefHeight="30.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="icon_mine" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/dashboard-76.png" />
+                        <Image url="@../../img/menu.png" />
                      </image>
                   </ImageView>
-                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="My Image">
+                  <Label fx:id="text_mine" contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="My Images">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -56,12 +56,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" onMouseClicked="#gatShared" prefHeight="30.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="shared_icon" fitHeight="56.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/dashboard-76.png" />
+                        <Image url="@../../img/logo/share.png" />
                      </image>
                   </ImageView>
-                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="Shared">
+                  <Label fx:id="shared_text" contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="Shared">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -70,40 +70,9 @@
                      </HBox.margin>
                   </Label>
                </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/dashboard-76.png" />
-                     </image>
-                  </ImageView>
-                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="Upload">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/dashboard-76.png" />
-                     </image>
-                  </ImageView>
-                  <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="183.0" text="Interpretaion">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
          <BorderPane.margin>

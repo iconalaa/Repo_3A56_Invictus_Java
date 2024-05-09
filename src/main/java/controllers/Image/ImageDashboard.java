@@ -14,11 +14,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.diagnostic.ImageService;
@@ -50,9 +52,21 @@ public class ImageDashboard {
     private Button addImageButton;
     @FXML
     private FlowPane flowpaneimages;
+    @FXML
+    private ImageView icon_mine;
+    @FXML
+    private Label text_mine;
     public static  Image selectedImage;
     private boolean isSelected = false;
-static  FlowPane x;
+    @FXML
+    private ImageView shared_icon;
+
+    @FXML
+    private Label shared_text;
+    private boolean hasMyImagesGrown = false; // Flag to track growth state
+    private boolean hasMysharedImagesGrown = false; // Flag to track growth state
+
+    static  FlowPane x;
     @FXML
     private Label nameLabel;
     private ImageService ps = new ImageService();
@@ -62,6 +76,18 @@ static  FlowPane x;
     @FXML
     void initialize() {
         try {
+
+                    if(hasMyImagesGrown==false)
+                    {  Scale scale = new Scale(1.05, 1.05, 0, 0); // Scale by 5% around the anchor point (0, 0)
+                    icon_mine.getTransforms().add(scale);
+                    text_mine.getTransforms().add(scale);
+                        hasMyImagesGrown=true;
+
+                    }
+
+
+
+
 
             nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
 
@@ -427,8 +453,26 @@ if(selectedImage != null)
     @FXML
     void gatShared(MouseEvent event) throws IOException, SQLException {
 
+        icon_mine.getTransforms().clear();
+
+        text_mine.getTransforms().clear();
+
+
+        hasMyImagesGrown=false;
+
+        if(hasMysharedImagesGrown==false)
+        {
+
+            Scale scale = new Scale(1.05, 1.05, 0, 0);
+            shared_text.getTransforms().add(scale);
+            shared_icon.getTransforms().add(scale);
+
+            hasMysharedImagesGrown=true;
+        }
+
 
         flowpaneimages.getChildren().clear();
+
 
 
         List<Image> images = ps.getSharedImageById(8);
@@ -459,6 +503,20 @@ if(selectedImage != null)
 
     @FXML
     void myImages(MouseEvent event) {
+        if (hasMyImagesGrown ==false)
+        {
+
+            Scale scale = new Scale(1.05, 1.05, 0, 0);
+            icon_mine.getTransforms().add(scale);
+            text_mine.getTransforms().add(scale);
+            hasMyImagesGrown=true;
+
+            shared_text.getTransforms().clear();
+            shared_icon.getTransforms().clear();
+            hasMysharedImagesGrown=false;
+
+        }
+
         initialize();
 
     }

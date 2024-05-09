@@ -29,12 +29,12 @@
             <Font name="SansSerif Regular" size="33.0" />
          </font>
       </Text>
-      <ImageView fx:id="translate" fitHeight="34.0" fitWidth="33.0" layoutX="543.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+      <TextArea fx:id="text" layoutX="343.0" layoutY="94.0" prefHeight="63.0" prefWidth="200.0" promptText="What would you like to translate?" />
+      <ImageView fx:id="translate" fitHeight="34.0" fitWidth="33.0" layoutX="527.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/Google_Translate_logo.svg.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="text" layoutX="343.0" layoutY="94.0" prefHeight="63.0" prefWidth="200.0" promptText="What would you like to translate?" />
       <ComboBox fx:id="source" layoutX="328.0" layoutY="173.0" maxWidth="86.0" prefHeight="43.0" prefWidth="86.0" style="-fx-max-width: 85;" stylesheets="@css/style.css" />
       <ComboBox fx:id="target" layoutX="470.0" layoutY="173.0" prefHeight="26.0" prefWidth="68.0" style="-fx-max-width: 85;" stylesheets="@css/style.css" />
       <Button layoutX="384.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#translate" styleClass="Share-button" stylesheets="@css/style.css" text="transalate" />
