@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
 
 public class DashboardController {
     private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private VBox mainVBox;
     @FXML
@@ -48,7 +46,7 @@ public class DashboardController {
 
 
     public void setUser(User u) {
-        this.user=u;
+        this.user = u;
     }
 
     public void initialize() {
@@ -261,6 +259,7 @@ public class DashboardController {
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setTitle("Notifications");
     }
+
     @FXML
     void profileAction(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
@@ -277,15 +276,18 @@ public class DashboardController {
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
+
     @FXML
     void GoReports(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/diagnostic/admin/reports-admin.fxml"));
             Parent root = loader.load();
-            Scene currentScene = mainVBox.getScene();
-            currentScene.setRoot(root);
-            Stage stage = (Stage) currentScene.getWindow();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
             stage.setTitle("Reports Admin");
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            stage.show();
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
@@ -298,9 +300,18 @@ public class DashboardController {
 
     @FXML
     void fxDonor(MouseEvent event) {
-        showScene(event,"dons/Donateurs.fxml","Donor");
+        showScene(event, "dons/Donateurs.fxml", "Donor");
     }
 
+    @FXML
+    void fxBlog(MouseEvent event) {
+//        showScene(event, "dons/Donateurs.fxml", "Donor");
+        return;
+    }
+    @FXML
+    void fxHome(MouseEvent event) {
+        showScene(event, "dashboardHome.fxml", "Dashboard");
+    }
 
     public void showScene(MouseEvent event, String path, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -311,7 +322,7 @@ public class DashboardController {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
-            stage.setTitle(title+" | RadioHub");
+            stage.setTitle(title + " | RadioHub");
             stage.show();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);

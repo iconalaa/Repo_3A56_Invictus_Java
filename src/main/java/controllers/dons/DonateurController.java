@@ -15,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import entities.Donateur;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import services.dons.ServiceDonateur;
@@ -34,6 +37,11 @@ import javafx.stage.Stage;
 
 
 public class DonateurController implements Initializable {
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private ImageView profileImg;
     private Stage stage;
 
     @FXML
@@ -57,35 +65,6 @@ public class DonateurController implements Initializable {
     @FXML
     private TableColumn<Donateur, String> typeColumn;
 
-    @FXML
-    private TextField nom;
-
-    @FXML
-    private Label nomErreur;
-
-    @FXML
-    private TextField prenom;
-
-    @FXML
-    private Label prenomError;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-    private Label emailError;
-
-    @FXML
-    private TextField telephone;
-
-    @FXML
-    private Label telephoneError;
-
-    @FXML
-    private TextField Type;
-
-    @FXML
-    private Label TypeError;
 
     @FXML
     private TextField searchField;
@@ -102,17 +81,17 @@ public class DonateurController implements Initializable {
     User user = SessionManager.getLoggedInUser();
     @FXML
     void fxBlog(MouseEvent event) {
+        return;
     }
 
     @FXML
     void fxDashboard(MouseEvent event) {
-        showScene(event,"dashboard1.fxml","Dashboard");
+        showScene(event,"dashboardHome.fxml","Dashboard");
     }
 
     @FXML
     void fxDonor(MouseEvent event) {
-        showScene(event,"dashboard.fxml","Dashboard");
-
+        return;
     }
 
     @FXML
@@ -120,7 +99,7 @@ public class DonateurController implements Initializable {
         showScene(event,"dashboard.fxml","Dashboard");
     }  @FXML
     void GoReports(MouseEvent event) {
-
+        showScene(event,"diagnostic/admin/reports-admin.fxml","Dashboard");
     }
 
     @FXML
@@ -284,6 +263,11 @@ public class DonateurController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         ServiceDonateur service = new ServiceDonateur();
         initializeTable();
         loadDonateurData();

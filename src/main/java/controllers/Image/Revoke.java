@@ -12,7 +12,7 @@ import services.Image.DroitServices;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class revoke {
+public class Revoke {
 
     private Image selectedImage;
     private final DroitServices droitServices = new DroitServices();

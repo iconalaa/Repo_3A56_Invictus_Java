@@ -1,12 +1,19 @@
 package controllers.dons;
 
+import controllers.ShowSceen;
+import controllers.user.ProfileController;
+import controllers.user.SessionManager;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -16,6 +23,10 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import entities.Gratification;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 import services.dons.ServiceGratification;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,6 +37,8 @@ import javafx.stage.Stage;
 
 public class GratificationController implements Initializable {
 
+    User user = SessionManager.getLoggedInUser();
+    Stage stage;
     @FXML
     private TableView<Gratification> tableGrats;
 
@@ -54,43 +67,8 @@ public class GratificationController implements Initializable {
     private TableColumn<Gratification, Integer> montantColumn;
 
     @FXML
-    private TextField titre ;
-
-    @FXML
-    private Label titreErreur ;
-
-    @FXML
-    private TextField desc ;
-
-    @FXML
-    private Label descErreur ;
-
-    @FXML
-    private TextField montant ;
-
-    @FXML
-    private Label montantErreur ;
-
-    @FXML
-    private TextField type ;
-
-    @FXML
-    private Label typeErreur ;
-
-    @FXML
     private TextField searchField;
 
-    @FXML
-    private TextField updtitle;
-
-    @FXML
-    private TextField updtype;
-
-    @FXML
-    private TextField upddesc;
-
-    @FXML
-    private TextField updmont;
 
     @FXML
     private MenuButton menu;
@@ -103,10 +81,59 @@ public class GratificationController implements Initializable {
 
     /*@FXML
     private Pagination pagination;
-
      */
 
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private ImageView profileImg;
+
     private final int itemsPerPage = 5;
+
+    @FXML
+    void GoReports(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"diagnostic/admin/reports-admin.fxml","Dashboard");
+    }
+    @FXML
+    void fxBlog(MouseEvent event) {
+    return;
+    }
+
+    @FXML
+    void fxDashboard(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"dashboardHome.fxml","Dashboard");
+    }
+
+    @FXML
+    void fxDonor(MouseEvent event) {
+    return;
+    }
+
+    @FXML
+    void fxUser(MouseEvent event) {
+        ShowSceen s = new ShowSceen();
+        s.open(event,"dashboard.fxml","Dashboard");
+    }
+
+    @FXML
+    void profileAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
+        Parent root = loader.load();
+        ProfileController controller = loader.getController();
+        controller.initialise(user);
+        stage = new Stage();
+        stage.setTitle("Profile | RadioHub");
+        stage.setScene(new Scene(root));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+        stage.setResizable(false);
+        stage.showAndWait();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+    }
 
     @FXML
     private ObservableList<Gratification> gratssList = FXCollections.observableArrayList();
@@ -192,6 +219,11 @@ public class GratificationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        nameLabel.setText(user.getName() + " " + user.getLastName());
+        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setFitWidth(30);
+        profileImg.setFitHeight(30);
+        profileImg.setPreserveRatio(false);
         initializeTable();
         //pagination.setPageCount(1); // Initially set to 1 page
         //pagination.setCurrentPageIndex(0); // Initially set to the first page
@@ -255,12 +287,44 @@ public class GratificationController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dons/stats.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) menu.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.setTitle("Stats");
+            newStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
     private ObservableList<gratification> createPage(int pageIndex) {

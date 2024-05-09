@@ -71,7 +71,7 @@ static  FlowPane x;
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/cardImage.fxml"));
                     AnchorPane pane = loader.load();
                     // Get the controller of the cardImage.fxml file
-                    cardImageController controller = loader.getController();
+                    CardImageController controller = loader.getController();
                     // Pass the image data to the controller
                     controller.setImageData(image);
                     // Add the pane to the flow pane
@@ -136,7 +136,7 @@ static  FlowPane x;
                     AnchorPane pane = loader.load();
 
                     // Get the controller of the cardImage.fxml file
-                    cardImageController controller = loader.getController();
+                    CardImageController controller = loader.getController();
 
                     // Pass the image data to the controller
                     controller.setImageData(image);
@@ -302,7 +302,7 @@ if(selectedImage != null)
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/image/revoke.fxml"));
             Parent root = fxmlLoader.load();
 
-            revoke shareController = fxmlLoader.getController();
+            Revoke shareController = fxmlLoader.getController();
             Image selectedImage = listview.getSelectionModel().getSelectedItem();
 
             selectedImage = this.selectedImage;
@@ -375,7 +375,7 @@ if(selectedImage != null)
 
         flowpaneimages.getChildren().removeIf(node -> {
             if (node instanceof AnchorPane) {
-                cardImageController cardController = (cardImageController) ((AnchorPane) node).getProperties().get("controller");
+                CardImageController cardController = (CardImageController) ((AnchorPane) node).getProperties().get("controller");
                 if (cardController != null && cardController.getImageData() == imageToDelete) {
                     return true; // Remove the node if it corresponds to the image to delete
                 }
@@ -428,7 +428,7 @@ if(selectedImage != null)
             AnchorPane pane = loader.load();
 
             // Get the controller of the cardImage.fxml file
-            cardImageController controller = loader.getController();
+            CardImageController controller = loader.getController();
 
             // Pass the image data to the controller
             controller.setImageData(image);
