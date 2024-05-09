@@ -17,7 +17,12 @@
             </Text>
             <ImageView fitHeight="21.0" fitWidth="39.0" layoutX="4.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/info-icon-2048x2048-tcgtx810.png" />
+                  <Image url="@assets/medical-report%20(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="-4.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/doctor.png" />
                </image>
             </ImageView>
          </children>

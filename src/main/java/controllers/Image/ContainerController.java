@@ -1,5 +1,18 @@
 package controllers.Image;
-
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import javafx.scene.web.*;
+import javafx.scene.web.WebView;
 import controllers.Image.ImageDashboard;
 import entities.Interpretation;
 import javafx.animation.PauseTransition;
@@ -24,21 +37,54 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.dcm4che3.imageio.plugins.dcm.DicomImageReader;
+import org.json.JSONObject;
 import services.diagnostic.ReportService;
 import services.interpretation.InterpreationServices;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-
+import java.net.URLEncoder;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.http.HttpRequest;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClients;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import javax.imageio.ImageIO;
 public class ContainerController {
     @FXML
     private Button zoombutton;
@@ -170,6 +216,7 @@ public class ContainerController {
 
 
     }
+
     @FXML
     void span(MouseEvent event) {
         zoom=false;
@@ -239,7 +286,7 @@ public class ContainerController {
 
 
     @FXML
-    void addInterpreataion(ActionEvent event) {
+    void addInterpreataion(MouseEvent event) {
         try {
             // Load AddInterpretation.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/image/AddInterpretation.fxml"));
@@ -320,12 +367,12 @@ public class ContainerController {
         return Math.min(Math.max(adjustedComponent, 0), 1);
     }
     @FXML
-    void addContrast(ActionEvent event) {
+    void addContrast(MouseEvent event) {
         contrastFactor += 0.1;
         adjustContrast();
     }
     @FXML
-    private void reduceContrast(ActionEvent event) {
+    private void reduceContrast(MouseEvent event ) {
         contrastFactor -= 0.1;
         adjustContrast();
     }
@@ -339,6 +386,49 @@ public class ContainerController {
         pause.setOnFinished(event -> scene.setCursor(Cursor.DEFAULT));
         pause.play();
     }*/
+
+
+
+
+
+
+
+
+    @FXML
+    private void callBrain(MouseEvent event) {
+        String imageUrl = "https://raw.githubusercontent.com/iconalaa/Repo_3A56_Invictus_Java/dev_merge/src/main/resources/fxml/image/assets/OIP.jpg";
+        String text = "ffezfezfez";
+        String apiUrl = "https://textoverimage.moesif.com/image?image_url=" + imageUrl + "&text=" + text;
+
+        try {
+            URL url = new URL(apiUrl);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+
+            // Open input stream to read data
+            try (InputStream inputStream = connection.getInputStream()) {
+                // Save the image to disk
+                Path outputPath = Paths.get("image_wirthoi_text.jpg");
+                Files.copy(inputStream, outputPath);
+                System.out.println("Image saved successfully: " + outputPath.toAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("Error while downloading image: " + e.getMessage());
+        }
+    }
+
+    private String getJavaScriptCode() {
+        // JavaScript code to make the API call and create a popup window
+        return "<script>console.log('hi');</script>";
+    }
+
+
+
+
+
+
+
+
 
 
 }
