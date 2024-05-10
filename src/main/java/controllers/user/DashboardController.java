@@ -166,7 +166,6 @@ public class DashboardController {
             });
             return stackPane;
         } catch (IOException e) {
-
             e.printStackTrace();
             return null;
         }
@@ -307,6 +306,7 @@ public class DashboardController {
     void fxBlog(MouseEvent event) {
         showScene(event, "blog/ListArticle.fxml", "Blog");
     }
+
     @FXML
     void fxHome(MouseEvent event) {
         showScene(event, "dashboardHome.fxml", "Dashboard");

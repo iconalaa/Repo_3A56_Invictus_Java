@@ -142,14 +142,15 @@ public class AddImage {
 
             if (selectedFile != null) {
 
-                String destFilePath = "src/main/java/dicom/" + newImage.getId()+".dcm";
+                String destFilePath = "C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + newImage.getId() + ".dcm";
+
                 File destFile = new File(destFilePath);
                 System.out.println(destFile);
 
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 
-                convertDicomToPng("src/main/java/dicom/" + newImage.getId()+".dcm", "src/main/java/dicom/" + newImage.getId()+".png");
+                convertDicomToPng("C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + newImage.getId()+".dcm", "C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + newImage.getId()+".png");
                 Stage stage = (Stage) fileName.getScene().getWindow();
                 stage.close();
 

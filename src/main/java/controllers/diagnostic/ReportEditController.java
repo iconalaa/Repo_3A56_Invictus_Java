@@ -122,6 +122,8 @@ public class ReportEditController {
             String filename = String.valueOf(selectedReport.getImage().getId());
             System.out.println(filename);
             if (filename != null) {
+//                C:\Users\Mega-Pc\Desktop\Repo_3A56_Invictus_Symfony-main\public uploads\images
+
                 File imageFile = new File("src/main/java/dicom/" + filename + ".png");
                 System.out.println("Image file exists: " + imageFile.exists());
                 System.out.println(imageFile);

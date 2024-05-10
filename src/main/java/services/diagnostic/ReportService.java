@@ -339,7 +339,6 @@ public class ReportService implements ReportCrud<Report> {
         return 0;
     }
 
-
     public boolean checkReportExists(int imageId) {
         try {
             // Execute a query to check if the image ID exists in the report table
@@ -359,6 +358,48 @@ public class ReportService implements ReportCrud<Report> {
         }
         // Return false by default if there's an error or no report exists
         return false;
+    }
+
+    public Report getReportWithImageId(int id) throws SQLException {
+
+        String sql = "SELECT * FROM report WHERE image_id = ? "; // Added condition for doctor_id
+        Report report = null;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); // Set the doctor's ID parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if(resultSet !=null) {
+                    while (resultSet.next()) {
+                        int reportId = resultSet.getInt("id");
+
+
+                        report = new Report();
+                        report.setId(reportId);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to display edited reports: " + e.getMessage());
+            throw e;
+        }
+
+        return report;
+    }
+    public void deleteReportByImage(int id) throws SQLException {
+        Report report = getReportWithImageId(id);
+        if (report != null) {
+            deletePrescriptionsByReportId(report.getId());
+
+            String sql = "DELETE FROM report WHERE image_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, id);
+                int rowsDeleted = statement.executeUpdate();
+                if (rowsDeleted > 0) {
+                    System.out.println("Report deleted successfully.");
+                } else {
+                    System.out.println("Report not found with ID: " + id);
+                }
+            }
+        }
     }
 }
 

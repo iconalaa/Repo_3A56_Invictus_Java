@@ -142,7 +142,7 @@ public class AddArticleController  {
             try {
                 Path sourcePath = selectedFile.toPath();
                 String fileName = selectedFile.getName();
-                Path targetPath = Path.of("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Java\\src\\main\\resources\\img\\ArticleUpload", fileName);
+                Path targetPath = Path.of("C:\\Users\\Mega-Pc\\Desktop\\Radiohub\\src\\main\\resources\\img\\ArticleUpload", fileName);
                 Path copy = Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
 
                 // Afficher l'image dans l'ImageView selectedImageview

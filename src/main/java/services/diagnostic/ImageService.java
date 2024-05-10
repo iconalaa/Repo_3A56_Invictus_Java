@@ -31,6 +31,7 @@ public class ImageService {
 private int iduser=SessionManager.getLoggedInUser().getUser_id();
 
     private Connection connection;
+    public ReportService reps=new ReportService();
 
     public ImageService(){
         connection = MyDataBase.getInstance().getConnection();
@@ -104,6 +105,8 @@ private int iduser=SessionManager.getLoggedInUser().getUser_id();
         droitServices.delete(imageId);
         InterpreationServices interpreationServices = new InterpreationServices();
         interpreationServices.deleteInterpretation(imageId);
+
+        reps.deleteReportByImage(imageId);
 
         String query = "DELETE FROM image WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {

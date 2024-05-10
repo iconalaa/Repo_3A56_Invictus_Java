@@ -53,7 +53,7 @@
                                     <Font name="HelveticaNowDisplay-Regular" size="30.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam!" wrappingWidth="178.76953125">
+                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create an account to access healthcare services, schedule appointments,and manage their medical information" wrappingWidth="178.76953125">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
@@ -92,7 +92,7 @@
                                     <Font name="HelveticaNowDisplay-Regular" size="30.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam!" wrappingWidth="177.76953125">
+                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="reate a profile to provide medical services, consult with patients, and collaborate with colleagues." wrappingWidth="177.76953125">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
@@ -128,7 +128,7 @@
                                     <Font name="HelveticaNowDisplay-Regular" size="30.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam!" wrappingWidth="178.76953125">
+                              <Text layoutX="55.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="create an account to review and interpret medical images, communicate with healthcare providers, and contribute to patient care." wrappingWidth="178.76953125">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>

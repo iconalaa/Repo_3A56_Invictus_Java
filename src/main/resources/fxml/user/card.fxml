@@ -33,10 +33,10 @@
          <children>
             <ImageView fx:id="imgCard" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <viewport>
-                  <Rectangle2D height="100.0" minX="8.0" minY="8.0" width="100.0" />
+                  <Rectangle2D />
                </viewport>
                <image>
-                  <Image url="@../../../../../../../../../Pictures/img/low-img/homme-2.png" />
+                  <Image url="@../../../../../../../Pictures/img/low-img/profile-pic-6.png" />
                </image>
             </ImageView>
             <VBox spacing="5.0">

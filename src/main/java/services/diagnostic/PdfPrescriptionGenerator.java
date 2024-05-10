@@ -68,7 +68,7 @@ public class PdfPrescriptionGenerator {
 
 
             // Add the medical image at the bottom of the page
-            String imagePath = "C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/signatures/" + prescription.getSignature_filename();
+            String imagePath = "C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\signatures\\" + prescription.getSignature_filename();
             System.out.println(imagePath);
 //            Image medicalImage = Image.getInstance(PdfPrescriptionGenerator.class.getResource(imagePath));
 //            InputStream imageStream = PdfPrescriptionGenerator.class.getResourceAsStream(imagePath);

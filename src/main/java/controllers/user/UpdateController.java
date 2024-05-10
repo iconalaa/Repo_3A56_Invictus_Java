@@ -74,8 +74,7 @@ public class UpdateController {
 
     @FXML
     private PasswordField addPassword;
-    @FXML
-    private ComboBox<String> updateRoles;
+
     @FXML
     private SplitMenuButton addRole;
     @FXML
@@ -100,12 +99,13 @@ public class UpdateController {
         fxLastName.setText(user.getLastName());
         fxEmail.setText(user.getEmail());
         updateGender.setValue(user.getGender());
-        updateRoles.setValue(user.getRole()[0].substring(7, user.getRole()[0].length() - 2).toLowerCase());
+        addRole.setText(user.getRole()[0].substring(7, user.getRole()[0].length() - 2).toLowerCase());
         updateDate.setValue(user.getBirth_date());
     }
 
 
     public void initialize() {
+
         doctorRole.setOnAction(event -> {
             addRole.setText("Doctor");
             addMatricule.setVisible(true);
@@ -196,15 +196,15 @@ public class UpdateController {
     void updateAction(ActionEvent event) {
         if (validateFields()) {
             String[] role;
-            if (updateRoles.getValue().equals("Radiologist")) {
+            if (addRole.getText().equals("Radiologist")) {
                 role = new String[]{"[\"ROLE_RADIOLOGIST\"]"};
-            } else if (updateRoles.getValue().equals("Doctor")) {
+            } else if (addRole.getText().equals("Doctor")) {
                 role = new String[]{"[\"ROLE_DOCTOR\"]"};
-            } else if (updateRoles.getValue().equals("Patient")) {
+            } else if (addRole.getText().equals("Patient")) {
                 role = new String[]{"[\"ROLE_PATIENT\"]"};
             } else {
                 role = new String[]{"[\"ROLE_USER\"]"};
-                System.out.println(updateRoles.getValue());
+                System.out.println(addRole.getText());
             }
             User u = new User(fxEmail.getText(), user.getPassword(), role, fxName.getText(), fxLastName.getText(), updateDate.getValue(), updateGender.getValue(), "x");
             try {

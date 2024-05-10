@@ -101,7 +101,7 @@ public class PrescriptionController {
         String filename = "signature_" + UUID.randomUUID() + ".png";
 
         // Specify the directory path within the resources folder
-        String directoryPath = "src/main/resources/img/signatures"; // Update with your desired path
+        String directoryPath = "C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\signatures"; // Update with your desired path
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs(); // Create the directory if it does not exist
