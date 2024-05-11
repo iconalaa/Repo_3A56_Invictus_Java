@@ -57,7 +57,7 @@ public class PrescritionsListController {
     @FXML
     private void initialize(){
         nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);

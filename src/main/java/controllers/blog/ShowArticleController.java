@@ -124,7 +124,7 @@ public class ShowArticleController implements Initializable {
                     }
 
                     // Ajouter le logo en haut à droite
-                    com.itextpdf.text.Image logo = com.itextpdf.text.Image.getInstance("C:\\Users\\friaa\\OneDrive - ESPRIT\\Bureau\\java_v1\\src\\main\\resources\\img\\logo\\logo 2.png");
+                    com.itextpdf.text.Image logo = com.itextpdf.text.Image.getInstance("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Java\\src\\main\\resources\\img\\logo\\logo 2.png");
                     logo.scaleToFit(50, 50); // Changer les dimensions selon vos besoins
                     logo.setAbsolutePosition(document.getPageSize().getWidth() - 70, document.getPageSize().getHeight() - 70);
                     document.add(logo);

@@ -85,7 +85,7 @@ public class CardImageController {
         setImageDatax(image);
         patient.setText(image.getPatient().getName());
 
-        File dicomFile = new File("C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\"+image.getId()+".dcm");
+        File dicomFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\"+image.getId()+".dcm");
         ImageInputStream dicomStream = ImageIO.createImageInputStream(dicomFile);
         DicomImageReader dicomReader = new DicomImageReader(null);
         dicomReader.setInput(dicomStream);

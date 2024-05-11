@@ -172,7 +172,7 @@ public class ContainerController {
             //zoombutton.setGraphic(iconView);
 
             // Load DICOM image
-            File dicomFile = new File("C:\\Users\\Mega-Pc\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + ImageDashboard.selectedImage.getId() + ".dcm");
+            File dicomFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + ImageDashboard.selectedImage.getId() + ".dcm");
             ImageInputStream dicomStream = ImageIO.createImageInputStream(dicomFile);
             DicomImageReader dicomReader = new DicomImageReader(null);
             dicomReader.setInput(dicomStream);

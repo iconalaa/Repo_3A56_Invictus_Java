@@ -33,7 +33,7 @@ public class HomeDash {
 
     public void initialize(){
         nameLabel.setText(user.getName() + " " + user.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);

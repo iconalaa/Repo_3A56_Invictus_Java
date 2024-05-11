@@ -14,11 +14,11 @@ import java.util.List;
 
 public class RendezVouService {
 
-   // private int iduser= SessionManager.getLoggedInUser().getUser_id();
+    private int iduser=SessionManager.getLoggedInUser().getUser_id();
 
     private Connection connection;
     public ReportService reps=new ReportService();
-public UserService userService = new UserService();
+    public UserService userService = new UserService();
     public RendezVouService(){
         connection = MyDataBase.getInstance().getConnection();
     }
@@ -32,7 +32,7 @@ public UserService userService = new UserService();
             st.setInt(1, rendezVous.getSalle().getId()); // Assuming getSalle() returns the Salle object
             st.setDate(2, java.sql.Date.valueOf(rendezVous.getDate_rv()));
             st.setString(3, rendezVous.getType_exam());
-            st.setInt(4,1); // Assuming getUser_id() returns the User object
+            st.setInt(4,iduser); // Assuming getUser_id() returns the User object
 
             System.out.println(sql);
             int rowsInserted = st.executeUpdate();

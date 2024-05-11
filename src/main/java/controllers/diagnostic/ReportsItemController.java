@@ -75,7 +75,7 @@ public class ReportsItemController {
             String filename = String.valueOf(report.getImage().getId());
             System.out.println(filename);
             if (filename != null) {
-                File imageFile = new File("src/main/java/dicom/" + filename + ".png");
+                File imageFile = new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/images/" + filename + ".png");
                 System.out.println("Image file exists: " + imageFile.exists());
                 System.out.println(imageFile);
                 Image image = new Image(imageFile.toURI().toString());

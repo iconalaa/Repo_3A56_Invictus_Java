@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.appointment.AppointmentController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <left>
+            <VBox prefHeight="553.0" prefWidth="234.0" styleClass="root" stylesheets="@../../style/prescription.css" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="213.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="200.0">
+                           <children>
+                              <Pane maxHeight="30.0" maxWidth="30.0" onMouseClicked="#profileAction" prefHeight="30.0" prefWidth="30.0">
+                                 <children>
+                                    <ImageView fx:id="profileImg" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/icon/doctorIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Circle fill="#31ff31" layoutX="27.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Pane>
+                              <Label fx:id="nameLabel" text="Ayoub Dahmen">
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="HelveticaNowDisplay-ExtraBold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" onMouseClicked="#fxHome" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                           <children>
+                              <ImageView fitHeight="53.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/icon/dashboard-icons/home-icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Home" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" onMouseClicked="#fxBlog" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/icon/dashboard-icons/blog-icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Blog" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="329.0" onMouseClicked="#fxDonor" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                           <children>
+                              <ImageView fitHeight="45.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/icon/dashboard-icons/donation-icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Donation" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="250.0" spacing="10.0" styleClass="link" stylesheets="@../style/home.css">
+                           <children>
+                              <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/appointment.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Appointment">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="700.0" styleClass="root" stylesheets="@../../style/prescription.css" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="691.0">
+                     <children>
+                        <ImageView fitHeight="385.0" fitWidth="376.0" layoutX="315.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/appointment-gf.gif" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <Button layoutX="151.0" layoutY="508.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#submitrdv" prefHeight="30.0" prefWidth="100.0" text="submit" />
+                        <ComboBox fx:id="exam" layoutX="100.0" layoutY="281.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="190.0" styleClass="combo-box" />
+                        <ImageView fitHeight="217.0" fitWidth="702.0" layoutX="-2.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/gradiand-bg-login.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="148.0" layoutY="319.0" text="choose room">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="213.0" layoutY="43.0" stylesheets="@../../style/prescription.css" text="Book Appointment" textFill="#fff6f6">
+                           <font>
+                              <Font name="Baskerville Old Face" size="34.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="daterdv" layoutX="104.0" layoutY="433.0" prefHeight="34.0" prefWidth="194.0" styleClass="date-picker" stylesheets="@../../style/prescription.css" />
+                        <ComboBox fx:id="room" layoutX="101.0" layoutY="350.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="190.0" styleClass="combo-box" />
+                        <Label layoutX="140.0" layoutY="239.0" prefHeight="30.0" prefWidth="158.0" text="choose exam">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="181.0" layoutY="400.0" text="Date">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

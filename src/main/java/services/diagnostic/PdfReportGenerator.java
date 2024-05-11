@@ -70,7 +70,8 @@ public class PdfReportGenerator {
 //            String imagePath = "/dicom/" + report.getImage().getId() + ".png";
 //            System.out.println(imagePath);
 //            Image medicalImage = Image.getInstance(PdfReportGenerator.class.getResource(imagePath));
-            String imagePath = "C:/Users/Mega-Pc/Desktop/Radiohub/src/main/java/dicom/" + report.getImage().getId() + ".png";
+            String imagePath = "C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/images/" + report.getImage().getId() + ".png";
+            System.out.println(imagePath);
             Image medicalImage = Image.getInstance(imagePath);
             InputStream imageStream = new FileInputStream(imagePath);
 

@@ -106,7 +106,7 @@ public class DoctorController {
         selectedImageFile = fileChooser.showOpenDialog(((Stage) ((Button) event.getSource()).getScene().getWindow()));
         if (selectedImageFile != null) {
             System.out.println("Selected Image: " + selectedImageFile.getName());
-            File destination = new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + selectedImageFile.getName());
+            File destination = new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + selectedImageFile.getName());
             try {
                 copyFile(selectedImageFile, destination);
             } catch (IOException ex) {

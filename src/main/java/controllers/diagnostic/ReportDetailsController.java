@@ -112,7 +112,7 @@ public class ReportDetailsController {
         if (report != null && report.getImage() != null) {
             String filename = String.valueOf(report.getImage().getId());
             if (filename != null) {
-                File imageFile = new File("src/main/java/dicom/" + filename + ".png");
+                File imageFile = new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/images/" + filename + ".png");
                 if (imageFile.exists()) {
                     Image image = new Image(imageFile.toURI().toString());
                     reportImageView.setImage(image);

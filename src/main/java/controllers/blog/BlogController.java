@@ -52,7 +52,7 @@ public class BlogController {
     @FXML
     private void initialize() {
         nameLabel.setText(user.getName() + " " + user.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);
@@ -73,7 +73,7 @@ public class BlogController {
 
             String imagePath = article.getImage();
             if (imagePath != null && !imagePath.isEmpty()) {
-                File imageFile = new File(imagePath);
+                File imageFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\articles\\"+imagePath);
                 if (imageFile.exists()) {
                     Image image = new Image(imageFile.toURI().toString());
                     imageView.setImage(image);

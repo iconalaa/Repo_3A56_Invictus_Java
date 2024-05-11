@@ -88,7 +88,7 @@ public class EditImage {
 
         if (selectedFile != null) {
 
-            String destFilePath = "src/main/java/dicom/" + image.getId()+".dcm";
+            String destFilePath = "C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\uploads\\images\\" + image.getId()+".dcm";
             File destFile = new File(destFilePath);
             System.out.println(destFile);
 

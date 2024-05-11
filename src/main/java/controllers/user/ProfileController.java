@@ -35,7 +35,7 @@ public class ProfileController {
         user=u;
         profileName.setText(u.getName()+" "+u.getLastName());
         profileEmail.setText(u.getEmail());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+u.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/"+u.getBrochure_filename()).toURI().toString()));
     }
 
     @FXML

@@ -66,7 +66,7 @@ public class ListArticleController {
         articles = articleService.readAllArticles();
         articleListView.getItems().addAll(articles);
         nameLabel.setText(user.getName() + " " + user.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);
@@ -96,9 +96,11 @@ public class ListArticleController {
 
                             String imagePath = article.getImage();
                             if (imagePath != null && !imagePath.isEmpty()) {
-                                File imageFile = new File(imagePath);
+                                File imageFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\articles\\"+imagePath);
+                                System.out.println(imageFile);
                                 if (imageFile.exists()) {
                                     Image image = new Image(imageFile.toURI().toString());
+                                    System.out.println(image);
                                     imageView.setImage(image); // Afficher l'image dans la cellule
                                 } else {
                                     err.println("L'image n'existe pas : " + imagePath);

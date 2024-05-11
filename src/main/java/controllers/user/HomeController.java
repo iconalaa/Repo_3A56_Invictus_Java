@@ -34,7 +34,7 @@ public class HomeController {
 
     public void initialize() {
         nameLabel.setText(user.getName() + " " + user.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);
@@ -63,7 +63,8 @@ public class HomeController {
     }
 
     @FXML
-    void fxBlog(MouseEvent event) {showScene(event, "blog/Blog.fxml", "Blog");}
+    void fxBlog(MouseEvent event) {
+        showScene(event, "blog/Blog.fxml", "Blog");}
 
     public void showScene(MouseEvent event, String path, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -84,6 +85,12 @@ public class HomeController {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    void goapp(MouseEvent event) {
+        showScene(event, "appointment/book-appointment.fxml", "Appointment");
+
     }
 
 }

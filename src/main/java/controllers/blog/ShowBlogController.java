@@ -35,10 +35,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShowBlogController implements Initializable {
     User loggedInUser = SessionManager.getLoggedInUser();
-    private static final String LIKE_FILE_PATH = "C:\\Users\\friaa\\OneDrive - ESPRIT\\Bureau\\java_v1\\src\\main\\resources\\likes.txt";
+    private static final String LIKE_FILE_PATH = "C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony\\src\\main\\resources\\likes.txt";
 
     private static final List<String> BAD_WORDS = Arrays.asList("fuck", "shut-up", "stupid", "monkey");
     public ScrollPane commentslist;
@@ -95,7 +97,7 @@ public class ShowBlogController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         commentService = new CommentService();
         nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
-        profileImg.setImage(new Image(new File("C:/Users/Mega-Pc/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
+        profileImg.setImage(new Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + loggedInUser.getBrochure_filename()).toURI().toString()));
         profileImg.setFitWidth(30);
         profileImg.setFitHeight(30);
         profileImg.setPreserveRatio(false);
@@ -119,9 +121,15 @@ public class ShowBlogController implements Initializable {
         titre.setText(article.getTitle());
         content.setText(article.getContent());
 
-        if (article.getImage() != null && !article.getImage().isEmpty()) {
-            Image image = new Image(article.getImage());
-            imageView.setImage(image);
+        String imagePath = article.getImage();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\articles\\"+imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                imageView.setImage(image);
+            } else {
+                Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Image does not exist: " + imagePath);
+            }
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
