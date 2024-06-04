@@ -140,10 +140,23 @@
             <Image url="@../img/logo/logo-row.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="312.0" fitWidth="450.0" layoutX="326.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/dash.png" />
-         </image>
-      </ImageView>
+      <Pane layoutX="193.0" layoutY="94.0" prefHeight="339.0" prefWidth="703.0">
+         <children>
+            <ImageView fitHeight="425.0" fitWidth="671.0" layoutX="24.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/slider3.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="277.0" layoutY="12.0" prefHeight="150.0" prefWidth="536.0">
+         <children>
+            <ImageView fitHeight="65.0" fitWidth="438.0" layoutX="93.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo/logo-row.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

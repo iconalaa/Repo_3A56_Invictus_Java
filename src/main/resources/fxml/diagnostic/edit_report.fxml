@@ -9,11 +9,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.ReportEditController">
+   <Pane layoutX="1.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
+      <children>
+         <ImageView fitHeight="607.0" fitWidth="1065.0" layoutX="-9.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../img/bgmed.jpg" />
+            </image>
+         </ImageView>
+      </children>
+   </Pane>
     <ImageView fx:id="backButton" fitWidth="30.0" layoutX="25.0" layoutY="38.0" onMouseClicked="#returnBack" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="38.0">
         <image>
             <Image url="@../../img/icon/Line 1.png" />
@@ -61,16 +71,20 @@
                </ImageView>
                <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="328.0" spacing="10.0">
                   <children>
-                     <Label prefHeight="20.0" prefWidth="175.0" text="Radiologist interpretation">
-                        <font>
-                           <Font name="System Bold Italic" size="14.0" />
-                        </font>
-                     </Label>
-                     <Text fx:id="textradio" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="Text" textAlignment="CENTER" wrappingWidth="283.4261974096298">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                     </Text>
+                     <Pane prefHeight="95.0" prefWidth="328.0">
+                        <children>
+                           <Label layoutX="39.0" layoutY="4.0" prefHeight="20.0" prefWidth="175.0" text="Radiologist interpretation">
+                              <font>
+                                 <Font name="System Bold Italic" size="14.0" />
+                              </font>
+                           </Label>
+                           <Text fx:id="textradio" layoutX="-25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="Text" textAlignment="CENTER" wrappingWidth="283.4261974096298">
+                              <font>
+                                 <Font name="System Bold Italic" size="14.0" />
+                              </font>
+                           </Text>
+                        </children>
+                     </Pane>
                   </children>
                </VBox>
             </children>

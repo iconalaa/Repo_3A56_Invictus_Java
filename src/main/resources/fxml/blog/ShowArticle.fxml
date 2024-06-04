@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowArticleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@../../style/prescription.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.blog.ShowArticleController">
 
-    <Pane layoutX="-4.0" prefHeight="55.0" prefWidth="907.0">
+    <Pane layoutX="-4.0" prefHeight="55.0" prefWidth="900.0" styleClass="root" stylesheets="@../../style/prescription.css">
         <children>
             <ImageView fitHeight="38.0" fitWidth="165.0" layoutX="728.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -24,33 +22,38 @@
                 </image>
             </ImageView>
         </children>
-        <styleClass>
-            <String fx:value="post-background" />
-            <String fx:value="top-border" />
-        </styleClass>
     </Pane>
-    <Line endX="424.199951171875" endY="86.69293212890625" layoutX="51.0" layoutY="475.0" startX="424.199951171875" startY="-401.1000061035156" stroke="#5f7fd7" />
-    <ImageView fx:id="imageView" fitHeight="215.0" fitWidth="398.0" layoutX="26.0" layoutY="77.0" preserveRatio="true" />
-    <Label fx:id="createdAtLabel" layoutX="29.0" layoutY="559.0" prefHeight="26.0" prefWidth="192.0" text="created_at">
-        <font>
-            <Font name="System Bold" size="12.0" />
-        </font></Label>
-   <Label fx:id="titre" layoutX="51.0" layoutY="313.0" prefHeight="26.0" prefWidth="207.0" text="titre">
-      <font>
-         <Font name="Arial Bold" size="18.0" />
-      </font>
-   </Label>
-   <Label fx:id="content" layoutX="51.0" layoutY="357.0" prefHeight="192.0" prefWidth="334.0" text="content">
-      <font>
-         <Font name="Arial" size="14.0" />
-      </font>
-   </Label>
-   <ImageView fitHeight="192.0" fitWidth="248.0" layoutX="594.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../../img/pdf.png" />
-      </image>
-   </ImageView>
-   <Button layoutX="641.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#btnPDF" text="Telecharge PDF" />
+   <Pane layoutX="-2.0" layoutY="77.0" prefHeight="524.0" prefWidth="900.0" styleClass="root" stylesheets="@../../style/prescription.css">
+      <children>
+         <ImageView fitHeight="594.0" fitWidth="1007.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../img/bgblog.jpg" />
+            </image>
+         </ImageView>
+          <ImageView fx:id="imageView" fitHeight="221.0" fitWidth="472.0" layoutX="26.0" layoutY="14.0" preserveRatio="true" />
+          <Label fx:id="createdAtLabel" layoutX="402.0" layoutY="264.0" prefHeight="26.0" prefWidth="244.0" text="created_at">
+              <font>
+                  <Font name="System Bold" size="12.0" />
+              </font>
+         </Label>
+         <Label fx:id="titre" layoutX="70.0" layoutY="271.0" prefHeight="26.0" prefWidth="304.0" text="titre">
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label fx:id="content" alignment="TOP_LEFT" layoutX="54.0" layoutY="304.0" prefHeight="206.0" prefWidth="542.0" text="content">
+            <font>
+               <Font name="Arial" size="14.0" />
+            </font>
+         </Label>
+         <ImageView fitHeight="72.0" fitWidth="79.0" layoutX="722.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../img/pdf.png" />
+            </image>
+         </ImageView>
+         <Button layoutX="708.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#btnPDF" stylesheets="@../../style/prescription.css" text="Telecharge PDF" />
+      </children>
+   </Pane>
 
 
 </AnchorPane>

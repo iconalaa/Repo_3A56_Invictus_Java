@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.PrescritionsListController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.diagnostic.PrescritionsListController">
     <left>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="181.0" spacing="5.0" stylesheets="@../../style/doctor-space.css" BorderPane.alignment="CENTER">
             <children>
@@ -166,7 +166,7 @@
                 </HBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" styleClass="primary-color" stylesheets="@../../style/doctor-space.css" VBox.vgrow="ALWAYS">
                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                        <Insets bottom="30.0" top="30.0" />
                     </padding>
                <children>
                   <VBox prefHeight="557.0" prefWidth="664.0" styleClass="primary-color" stylesheets="@../../style/doctor-space.css">
@@ -189,21 +189,14 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <ScrollPane prefHeight="390.0" prefWidth="590.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
+                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="635.0" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
                            <content>
-                              <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="640.0" spacing="10" styleClass="transparent" stylesheets="@../../style/doctor-space.css">
-                                 <children>
-                                    <ListView fx:id="PrescriptionsView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="600.0" stylesheets="@../../style/doctor-space.css">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                       <styleClass>
-                                          <String fx:value="transparent" />
-                                          <String fx:value="primary-color" />
-                                       </styleClass>
-                                    </ListView>
-                                 </children>
-                              </VBox>
+                              <ListView fx:id="PrescriptionsView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="598.0" stylesheets="@../../style/doctor-space.css">
+                                 <styleClass>
+                                    <String fx:value="transparent" />
+                                    <String fx:value="primary-color" />
+                                 </styleClass>
+                              </ListView>
                            </content>
                         </ScrollPane>
                      </children>

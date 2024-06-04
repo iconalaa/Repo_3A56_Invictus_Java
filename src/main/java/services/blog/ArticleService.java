@@ -37,18 +37,34 @@ public class ArticleService implements IArticleService<Article> {
         }
     }
 
-    @Override
     public void deleteArticle(int id) {
         String query = "DELETE FROM article WHERE id = ?";
         try {
+            // Delete related comments first
+            deleteCommentsByArticleId(id);
+
+            // Now delete the article
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setInt(1, id);
             pst.executeUpdate();
-
+            System.out.println("Article deleted successfully.");
         } catch (SQLException ex) {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void deleteCommentsByArticleId(int articleId) throws SQLException {
+        String query = "DELETE FROM comment WHERE article_id = ?";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, articleId);
+            pst.executeUpdate();
+            System.out.println("Comments related to article with ID " + articleId + " deleted successfully.");
+        } catch (SQLException ex) {
+            Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, "Error while deleting comments related to article ID " + articleId, ex);
+            throw ex;
+        }
+    }
+
 
     @Override
     public void updateArticle(Article article) {

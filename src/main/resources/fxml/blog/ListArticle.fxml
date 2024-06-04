@@ -23,7 +23,7 @@
             <children>
                <HBox prefHeight="57.0" prefWidth="900.0" styleClass="post-background">
                   <children>
-                       <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="222.0" text="Liste des Articles" textFill="#093d91">
+                       <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="222.0" text="Articles List" textFill="#093d91">
                            <font>
                                <Font name="Arial Bold" size="24.0" />
                            </font>
@@ -48,7 +48,7 @@
                </HBox>
                <HBox prefHeight="428.0" prefWidth="850.0">
                   <children>
-                       <ListView fx:id="articleListView" prefHeight="428.0" prefWidth="850.0">
+                       <ListView fx:id="articleListView" prefHeight="428.0" prefWidth="850.0" HBox.hgrow="NEVER">
                         <HBox.margin>
                            <Insets left="10.0" right="10.0" />
                         </HBox.margin>

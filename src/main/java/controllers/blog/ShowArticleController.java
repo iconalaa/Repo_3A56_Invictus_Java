@@ -31,6 +31,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.System.err;
 
@@ -63,19 +65,23 @@ public class ShowArticleController implements Initializable {
         // Afficher les détails de l'article
         titre.setText(article.getTitle());
         content.setText(article.getContent());
+        String imagePath = article.getImage();
+        System.out.println(imagePath);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\articles\\"+imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                imageView.setImage(image);
+            } else {
+                Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Image does not exist: " + imagePath);
+            }
+        }
+
 
         // Convertir la date en chaîne formatée
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         createdAtLabel.setText(article.getCreated_at().format(formatter)); // Ici, l'erreur se produit
 
-        // Charger l'image de l'article
-        if (article.getImage() != null && !article.getImage().isEmpty()) {
-            File imageFile = new File(article.getImage());
-            if (imageFile.exists()) {
-                Image image = new Image(imageFile.toURI().toString());
-                imageView.setImage(image);
-            }
-        }
     }
 
     public void setArticle(Article article) {
@@ -110,8 +116,9 @@ public class ShowArticleController implements Initializable {
 
                     // Ajouter l'image à partir du chemin spécifié dans l'article
                     if (article.getImage() != null && !article.getImage().isEmpty()) {
+                        String imagePath = article.getImage();
                         try {
-                            com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(article.getImage());
+                            com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance("C:\\Users\\Ala\\Desktop\\Repo_3A56_Invictus_Symfony-main\\public\\articles\\"+imagePath);
                             // Redimensionner l'image selon vos besoins
                             image.scaleToFit(400, 400);
                             // Encadrer l'image

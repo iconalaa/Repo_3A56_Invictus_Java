@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -27,12 +28,15 @@
     </ImageView>
    <SplitPane dividerPositions="0.6124220837043634" layoutX="1.0" layoutY="86.0" prefHeight="514.0" prefWidth="900.0">
      <items>
-       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="568.0">
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="518.0">
             <children>
-               <VBox alignment="CENTER" spacing="3.0">
+               <VBox alignment="CENTER" spacing="3.0" styleClass="root" stylesheets="@../../style/prescription.css">
                   <children>
-                     <Label alignment="CENTER" styleClass="title-label" text="Create Prescription" />
-                     <TextArea fx:id="prescriptionContent" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="403.0" promptText="Enter medical prescription here..." styleClass="text-area" wrapText="true">
+                     <Label alignment="CENTER" styleClass="title-label" text="Create Prescription">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin></Label>
+                     <TextArea fx:id="prescriptionContent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="390.0" promptText="Enter medical prescription here..." styleClass="text-area" wrapText="true">
                         <VBox.margin>
                            <Insets left="10.0" right="10.0" />
                         </VBox.margin>
@@ -72,6 +76,15 @@
          </AnchorPane>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="0.0" styleClass="root" stylesheets="@../../style/prescription.css">
             <children>
+               <Pane prefHeight="514.0" prefWidth="346.0">
+                  <children>
+                     <ImageView fitHeight="523.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../img/bgpres.jpg" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </Pane>
                <VBox alignment="CENTER" prefHeight="505.0" prefWidth="346.0" spacing="10">
                   <children>
                      <Label prefHeight="90.0" prefWidth="368.0" styleClass="title-label" text="     Disease-to-medication ">
@@ -79,9 +92,9 @@
                            <Font name="System Bold" size="18.0" />
                         </font>
                      </Label>
-                     <TextArea fx:id="diseaseTextArea" prefHeight="100" prefWidth="200" promptText="Enter disease or medical problem" />
+                     <TextArea fx:id="diseaseTextArea" prefHeight="90.0" prefWidth="301.0" promptText="Enter disease or medical problem" />
                      <Button onAction="#searchMedications" text="submit" />
-                     <TextArea fx:id="medicationsTextArea" editable="false" prefHeight="200" prefWidth="200" />
+                     <TextArea fx:id="medicationsTextArea" editable="false" prefHeight="107.0" prefWidth="301.0" />
                   </children>
                   <padding>
                      <Insets left="10.0" right="10.0" />

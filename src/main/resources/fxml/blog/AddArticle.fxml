@@ -62,7 +62,7 @@
                         <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="78.0" textFill="red" />
                         <HBox alignment="CENTER">
                            <children>
-                              <TextArea fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="264.0" />
+                              <TextArea fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="431.0" />
                            </children>
                         </HBox>
                         <Label fx:id="errorLabel1" prefHeight="18.0" prefWidth="128.0" textFill="red" />

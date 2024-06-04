@@ -25,6 +25,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import services.diagnostic.ImageService;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +44,9 @@ public class ImageDashboard {
 
     @FXML
     private Button delete;
+    @FXML
+    private ImageView profileImg;
+
 
     @FXML
     public  BorderPane dash;
@@ -70,12 +74,17 @@ public class ImageDashboard {
     @FXML
     private Label nameLabel;
     private ImageService ps = new ImageService();
-    User loggedInUser = SessionManager.getLoggedInUser();
+    User user = SessionManager.getLoggedInUser();
 
 
     @FXML
     void initialize() {
         try {
+            nameLabel.setText(user.getName() + " " + user.getLastName());
+            profileImg.setImage(new javafx.scene.image.Image(new File("C:/Users/Ala/Desktop/Repo_3A56_Invictus_Symfony-main/public/uploads/pdp/" + user.getBrochure_filename()).toURI().toString()));
+            profileImg.setFitWidth(30);
+            profileImg.setFitHeight(30);
+            profileImg.setPreserveRatio(false);
 
                     if(hasMyImagesGrown==false)
                     {  Scale scale = new Scale(1.05, 1.05, 0, 0); // Scale by 5% around the anchor point (0, 0)
@@ -89,7 +98,7 @@ public class ImageDashboard {
 
 
 
-            nameLabel.setText(loggedInUser.getName() + " " + loggedInUser.getLastName());
+            nameLabel.setText(user.getName() + " " + user.getLastName());
 
             selectedImage=null;
             edit.setVisible(true);
@@ -526,7 +535,7 @@ if(selectedImage != null)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/profile.fxml"));
         Parent root = loader.load();
         ProfileController controller = loader.getController();
-        controller.initialise(loggedInUser);
+        controller.initialise(user);
         Stage stage = new Stage();
         stage.setTitle("Profile | RadioHub");
         stage.setScene(new Scene(root));
